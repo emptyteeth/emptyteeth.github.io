@@ -1,0 +1,21 @@
+site_name: My Notes
+theme:
+  name: material
+  language: zh
+  palette:
+    scheme: slate
+    primary: black
+    accent: green
+  features:
+    - navigation.top
+    - header.autohide
+    - navigation.instant
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.emoji
+  - meta
+  - toc:
+      permalink: true

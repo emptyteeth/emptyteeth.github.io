@@ -1,0 +1,44 @@
+name: pages
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  bbb:
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: checkout main
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: install packages
+        run: |
+            pip install -U pip wheel
+            pip install -r requirements.txt
+
+      - name: build
+        run: mkdocs build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: github-pages
+          publish_dir: ./site
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
