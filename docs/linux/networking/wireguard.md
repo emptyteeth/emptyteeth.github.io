@@ -1,4 +1,4 @@
-# wireguard
+# wireguard route based site2site vpn
 
 ```shell
 wg genkey |tee -a keypair |wg pubkey >>keypair
@@ -29,7 +29,7 @@ PrivateKey =
 SaveConfig =
 ```
 
-## route base site2site
+## route based site2site
 
 ### server(vps)
 

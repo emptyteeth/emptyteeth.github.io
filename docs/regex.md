@@ -1,12 +1,11 @@
-# regex note
+# regex正则表达式基础
 
 ><https://www.runoob.com/regexp>
 
 ## 修饰符
 
 修饰符是一个表达式的全局选项,写在表达式最后
-
-/exp/igms
+>/exp/igms
 
 - i 表示不区分大小写
 - g 表示匹配所有项,反之则表示只匹配第一项

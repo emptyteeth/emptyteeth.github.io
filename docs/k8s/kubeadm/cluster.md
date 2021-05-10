@@ -1,4 +1,6 @@
-# cluster
+# kubeadm k8s集群
+
+使用kubeadm引导和升级k8s集群
 
 ## 安装CRI
 

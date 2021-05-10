@@ -1,6 +1,10 @@
 site_name: My Notes
+site_url: https://emptyteeth.github.io/
+site_description: my notes
+
 theme:
   name: material
+  custom_dir: overrides
   language: zh
   palette:
     scheme: slate
@@ -8,8 +12,8 @@ theme:
     accent: green
   features:
     - navigation.top
-    - header.autohide
-    - navigation.instant
+    # - header.autohide
+    # - navigation.instant
 
 markdown_extensions:
   - pymdownx.highlight
@@ -17,5 +21,10 @@ markdown_extensions:
   - pymdownx.snippets
   - pymdownx.emoji
   - meta
+  - mdx_truly_sane_lists
   - toc:
       permalink: true
+
+plugins:
+  # - search
+  - meta-descriptions

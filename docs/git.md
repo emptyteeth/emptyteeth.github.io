@@ -1,4 +1,4 @@
-# git note
+# git基本原理和操作
 
 ## references
 
@@ -449,8 +449,11 @@ git rm file --cached
 git tag v1 [default:HEAD]
 # add a tag to a ref/hash
 
-git tag -l
+git tag [-l]
 # list tags
+
+git tag -n
+# list tags and anotation
 
 git tag -d v1
 # delete a tag

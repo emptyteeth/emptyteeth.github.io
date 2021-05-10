@@ -1,4 +1,6 @@
-# how it works
+# how kubeadm works
+
+kubeadm简易工作原理
 
 - <https://kubernetes.io/docs/reference/setup-tools/kubeadm/implementation-details/>
 - <https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/>
