@@ -1,0 +1,1524 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="my notes">
+      
+      
+      
+      
+        <link rel="canonical" href="https://emptyteeth.github.io/k8s/workloads/01-containers/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>containers - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#containers" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              containers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Empty
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git/" class="md-nav__link">
+        git基本原理和操作
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../regex/" class="md-nav__link">
+        regex正则表达式基础
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Devices
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Devices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Devices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devices/pi4-alpine-linux-headless-installation/" class="md-nav__link">
+        pi4 alpine-linux headless installation
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        K8s
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="K8s" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          K8s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fluent-bit/" class="md-nav__link">
+        fluent-bit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s-cheaty-way/" class="md-nav__link">
+        k8s cheaty way
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prometheus/" class="md-nav__link">
+        prometheus
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      <label class="md-nav__link" for="__nav_5_4">
+        AAAA
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AAAA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          AAAA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/admissioncontroller/" class="md-nav__link">
+        admission controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/api.list/" class="md-nav__link">
+        api list
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/api/" class="md-nav__link">
+        api
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/arch/" class="md-nav__link">
+        arch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/authentication/" class="md-nav__link">
+        authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/etcd/" class="md-nav__link">
+        etcd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/kubeconfig/" class="md-nav__link">
+        kubeconfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/object/" class="md-nav__link">
+        ojbect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/rbac/" class="md-nav__link">
+        rabc authorization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" >
+      
+      <label class="md-nav__link" for="__nav_5_5">
+        Kubeadm
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubeadm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubeadm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubeadm/cluster/" class="md-nav__link">
+        kubeadm k8s集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubeadm/howitworks/" class="md-nav__link">
+        how kubeadm works
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/ingress/" class="md-nav__link">
+        ingress
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/k8snetwork/" class="md-nav__link">
+        k8s network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/networkpolicy/" class="md-nav__link">
+        network policy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/service/" class="md-nav__link">
+        service
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" checked>
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Workloads
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workloads" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Workloads
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          containers
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        containers
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#image" class="md-nav__link">
+    image
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imagepullpolicy" class="md-nav__link">
+    imagePullPolicy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#env" class="md-nav__link">
+    env
+  </a>
+  
+    <nav class="md-nav" aria-label="env">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#env_1" class="md-nav__link">
+    默认env
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serveice-env" class="md-nav__link">
+    serveice env
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#env_2" class="md-nav__link">
+    直接设置env
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configmapkey" class="md-nav__link">
+    从configMapKey引用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secret" class="md-nav__link">
+    从secret引用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downward-api" class="md-nav__link">
+    downward api
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#envfrom" class="md-nav__link">
+    envFrom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-args" class="md-nav__link">
+    command &amp; args
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#livenessprobe-readinessprobe-startupprobe" class="md-nav__link">
+    livenessProbe &amp; readinessProbe &amp; startupProbe
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    resources
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lifecycle" class="md-nav__link">
+    lifecycle
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ports" class="md-nav__link">
+    ports
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#name" class="md-nav__link">
+    name
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workingdir" class="md-nav__link">
+    workingDir
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volumemounts" class="md-nav__link">
+    volumeMounts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volumedevices" class="md-nav__link">
+    volumeDevices
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stdin-stdinonce-tty" class="md-nav__link">
+    stdin &amp; stdinOnce &amp; tty
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terminationmessagepath" class="md-nav__link">
+    terminationMessagePath
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terminationmessagepolicy" class="md-nav__link">
+    terminationMessagePolicy
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-pod/" class="md-nav__link">
+        pod
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-deploy/" class="md-nav__link">
+        deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-daemonset/" class="md-nav__link">
+        daemonset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-statefulset/" class="md-nav__link">
+        statefulset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gc/" class="md-nav__link">
+        Garbage Collection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../job/" class="md-nav__link">
+        job
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/nf-iprouting/" class="md-nav__link">
+        netfilter&ip-routing基本原理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/wireguard/" class="md-nav__link">
+        wireguard route based site2site vpn
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#image" class="md-nav__link">
+    image
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imagepullpolicy" class="md-nav__link">
+    imagePullPolicy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#env" class="md-nav__link">
+    env
+  </a>
+  
+    <nav class="md-nav" aria-label="env">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#env_1" class="md-nav__link">
+    默认env
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serveice-env" class="md-nav__link">
+    serveice env
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#env_2" class="md-nav__link">
+    直接设置env
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configmapkey" class="md-nav__link">
+    从configMapKey引用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secret" class="md-nav__link">
+    从secret引用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downward-api" class="md-nav__link">
+    downward api
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#envfrom" class="md-nav__link">
+    envFrom
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-args" class="md-nav__link">
+    command &amp; args
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#livenessprobe-readinessprobe-startupprobe" class="md-nav__link">
+    livenessProbe &amp; readinessProbe &amp; startupProbe
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    resources
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lifecycle" class="md-nav__link">
+    lifecycle
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ports" class="md-nav__link">
+    ports
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#name" class="md-nav__link">
+    name
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#workingdir" class="md-nav__link">
+    workingDir
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volumemounts" class="md-nav__link">
+    volumeMounts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volumedevices" class="md-nav__link">
+    volumeDevices
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stdin-stdinonce-tty" class="md-nav__link">
+    stdin &amp; stdinOnce &amp; tty
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terminationmessagepath" class="md-nav__link">
+    terminationMessagePath
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terminationmessagepolicy" class="md-nav__link">
+    terminationMessagePolicy
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="containers">containers<a class="headerlink" href="#containers" title="Permanent link">&para;</a></h1>
+<h2 id="image">image<a class="headerlink" href="#image" title="Permanent link">&para;</a></h2>
+<ul>
+<li>使用的容器镜像,不指定标签默认为latest</li>
+<li>不指定仓库的话就要看cri的搜索次序了</li>
+</ul>
+<h2 id="imagepullpolicy">imagePullPolicy<a class="headerlink" href="#imagepullpolicy" title="Permanent link">&para;</a></h2>
+<ul>
+<li>不设置策略 默认为IfNotPresent</li>
+<li>不设置策略 使用:latest标签 隐含Always</li>
+<li>不设置策略 不设置标签 隐含Always</li>
+</ul>
+<h2 id="env">env<a class="headerlink" href="#env" title="Permanent link">&para;</a></h2>
+<h3 id="env_1">默认env<a class="headerlink" href="#env_1" title="Permanent link">&para;</a></h3>
+<p>kubelet会自动为pod注入集群信息和pod name</p>
+<div class="highlight"><pre><span></span><code>  HOSTNAME=echo-7478dcd959-w7v2q
+  KUBERNETES_PORT=tcp://10.96.0.1:443
+  KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
+  KUBERNETES_PORT_443_TCP_ADDR=10.96.0.1
+  KUBERNETES_PORT_443_TCP_PORT=443
+  KUBERNETES_PORT_443_TCP_PROTO=tcp
+  KUBERNETES_SERVICE_HOST=10.96.0.1
+  KUBERNETES_SERVICE_PORT=443
+  KUBERNETES_SERVICE_PORT_HTTPS=443
+</code></pre></div>
+<h3 id="serveice-env">serveice env<a class="headerlink" href="#serveice-env" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/concepts/services-networking/service/#discovering-services">https://kubernetes.io/docs/concepts/services-networking/service/#discovering-services</a></p>
+</blockquote>
+<p>kubelet会自动为pod注入与之关联的svc信息,前提是svc要在pod之前创建</p>
+<div class="highlight"><pre><span></span><code>  ECHO_PORT=tcp://10.109.53.168:8080
+  ECHO_PORT_8080_TCP=tcp://10.109.53.168:8080
+  ECHO_PORT_8080_TCP_ADDR=10.109.53.168
+  ECHO_PORT_8080_TCP_PORT=8080
+  ECHO_PORT_8080_TCP_PROTO=tcp
+  ECHO_SERVICE_HOST=10.109.53.168
+  ECHO_SERVICE_PORT=8080
+</code></pre></div>
+<h3 id="env_2">直接设置env<a class="headerlink" href="#env_2" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">containers</span><span class="p">:</span>
+    <span class="nt">env</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ENV_A</span>
+      <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">aaa</span>
+</code></pre></div>
+<h3 id="configmapkey">从configMapKey引用<a class="headerlink" href="#configmapkey" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/concepts/configuration/configmap/#configmaps-and-pods">https://kubernetes.io/docs/concepts/configuration/configmap/#configmaps-and-pods</a></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nt">env</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ENV_B</span>
+    <span class="nt">valueFrom</span><span class="p">:</span>
+      <span class="nt">configMapKeyRef</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">game-demo</span>           <span class="c1"># The ConfigMap this value comes from.</span>
+        <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">player_initial_lives</span> <span class="c1">#configmap key name</span>
+</code></pre></div>
+<h3 id="secret">从secret引用<a class="headerlink" href="#secret" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables">https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables</a></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nt">env</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ENV_C</span>
+    <span class="nt">valueFrom</span><span class="p">:</span>
+      <span class="nt">secretKeyRef</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mysecret</span>  <span class="c1">#secret name</span>
+        <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">username</span>   <span class="c1">#secret key name</span>
+</code></pre></div>
+<h3 id="downward-api">downward api<a class="headerlink" href="#downward-api" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api">https://kubernetes.io/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api</a></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>   fieldRef     &lt;Object&gt;
+     Selects a field of the pod: supports metadata.name, metadata.namespace,
+     metadata.labels, metadata.annotations, spec.nodeName,
+     spec.serviceAccountName, status.hostIP, status.podIP, status.podIPs.
+
+   resourceFieldRef     &lt;Object&gt;
+     Selects a resource of the container: only resources limits and requests
+     (limits.cpu, limits.memory, limits.ephemeral-storage, requests.cpu,
+     requests.memory and requests.ephemeral-storage) are currently supported.
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">env</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MY_NODE_NAME</span>
+    <span class="nt">valueFrom</span><span class="p">:</span>
+      <span class="nt">fieldRef</span><span class="p">:</span>
+        <span class="nt">fieldPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">spec.nodeName</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MY_POD_NAME</span>
+    <span class="nt">valueFrom</span><span class="p">:</span>
+      <span class="nt">fieldRef</span><span class="p">:</span>
+        <span class="nt">fieldPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">metadata.name</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MY_POD_NAMESPACE</span>
+    <span class="nt">valueFrom</span><span class="p">:</span>
+      <span class="nt">fieldRef</span><span class="p">:</span>
+        <span class="nt">fieldPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">metadata.namespace</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MY_POD_IP</span>
+    <span class="nt">valueFrom</span><span class="p">:</span>
+      <span class="nt">fieldRef</span><span class="p">:</span>
+        <span class="nt">fieldPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">status.podIP</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MY_POD_SERVICE_ACCOUNT</span>
+    <span class="nt">valueFrom</span><span class="p">:</span>
+      <span class="nt">fieldRef</span><span class="p">:</span>
+        <span class="nt">fieldPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">spec.serviceAccountName</span>
+<span class="nn">---</span>
+<span class="nt">env</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MY_CPU_REQUEST</span>
+    <span class="nt">valueFrom</span><span class="p">:</span>
+      <span class="nt">resourceFieldRef</span><span class="p">:</span>
+        <span class="nt">containerName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-container</span>
+        <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">requests.cpu</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MY_CPU_LIMIT</span>
+    <span class="nt">valueFrom</span><span class="p">:</span>
+      <span class="nt">resourceFieldRef</span><span class="p">:</span>
+        <span class="nt">containerName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-container</span>
+        <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">limits.cpu</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MY_MEM_REQUEST</span>
+    <span class="nt">valueFrom</span><span class="p">:</span>
+      <span class="nt">resourceFieldRef</span><span class="p">:</span>
+        <span class="nt">containerName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-container</span>
+        <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">requests.memory</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">MY_MEM_LIMIT</span>
+    <span class="nt">valueFrom</span><span class="p">:</span>
+      <span class="nt">resourceFieldRef</span><span class="p">:</span>
+        <span class="nt">containerName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-container</span>
+        <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">limits.memory</span>
+</code></pre></div>
+<h2 id="envfrom">envFrom<a class="headerlink" href="#envfrom" title="Permanent link">&para;</a></h2>
+<ul>
+<li>和env类似,支持configMapRef, secretRef</li>
+<li>把key当变量名,value当做变量值,变量名与env冲突时,优先级低于env</li>
+<li>另外可以使用prefix给configmap或secret中的key加上前缀</li>
+<li>如果key名称不符合变量命名规范,那么会被跳过,并记录event</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ConfigMap</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">env-configmap</span>
+<span class="nt">data</span><span class="p">:</span>
+  <span class="nt">APP_NAME</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Mans Not Hot</span>
+  <span class="nt">APP_ENV</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">production</span>
+<span class="nn">---</span>
+<span class="nt">envFrom</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">configMapRef</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">env-configmap</span>
+  <span class="nt">prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">APP</span>
+<span class="p p-Indicator">-</span> <span class="nt">secretRef</span><span class="p">:</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">env-secrets</span>
+  <span class="nt">prefix</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sec</span>
+</code></pre></div>
+<h2 id="command-args">command &amp; args<a class="headerlink" href="#command-args" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/">https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/</a></p>
+</blockquote>
+<ul>
+<li>设置command, args则使用command, args</li>
+<li>不设置command, args则使用ENTRYPOINT, CMD</li>
+<li>设置command则使用command</li>
+<li>设置args则使用ENTRYPOINT, args</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">#使用env $(ENVNAME)</span>
+<span class="nt">command</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;/bin/echo&quot;</span><span class="p p-Indicator">]</span>
+<span class="nt">args</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;$(MESSAGE)&quot;</span><span class="p p-Indicator">]</span>
+<span class="nn">---</span>
+<span class="c1">#运行shell</span>
+<span class="nt">command</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;/bin/sh&quot;</span><span class="p p-Indicator">]</span>
+<span class="nt">args</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;-c&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;while</span><span class="nv"> </span><span class="s">true;</span><span class="nv"> </span><span class="s">do</span><span class="nv"> </span><span class="s">echo</span><span class="nv"> </span><span class="s">hello;</span><span class="nv"> </span><span class="s">sleep</span><span class="nv"> </span><span class="s">10;done&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h2 id="livenessprobe-readinessprobe-startupprobe">livenessProbe &amp; readinessProbe &amp; startupProbe<a class="headerlink" href="#livenessprobe-readinessprobe-startupprobe" title="Permanent link">&para;</a></h2>
+<ul>
+<li>livenessProbe,定义一个存活指标的探测方法和条件,让kubelet来判断容器进程是否运行正常</li>
+<li>如果kubelet判断不正常就会干掉pod,不定义的话默认为Success</li>
+<li>readinessProbe,只有探测成功,与之关联的svc才会把pod加入endpoint,失败就会去掉,不定义的话默认为Success</li>
+<li>startupProbe,只有探测成功,livenessProbe和readinessProbe才会开始工作</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">#startupProbe:</span>
+<span class="c1">#readinessProbe:</span>
+<span class="nt">livenessProbe</span><span class="p">:</span>
+  <span class="c1">#定义连续探测失败次数</span>
+  <span class="nt">failureThreshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+  <span class="c1">#定义连续探测成功数次</span>
+  <span class="nt">successThreshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+  <span class="c1">#定义开始探测前的延时</span>
+  <span class="nt">initialDelaySeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+  <span class="c1">#定义探测周期</span>
+  <span class="nt">periodSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+  <span class="c1">#定义探测超时时间</span>
+  <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+
+  <span class="c1">#httpget探测方法,返回200至399算成功</span>
+  <span class="nt">httpGet</span><span class="p">:</span>
+    <span class="c1">#可选项,默认是podip</span>
+    <span class="nt">host</span><span class="p">:</span>
+    <span class="c1">#可选项,定义headers</span>
+    <span class="nt">httpHeaders</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Host</span>
+        <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">abc.com</span>
+    <span class="c1">#http路径</span>
+    <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/ping</span>
+    <span class="c1">#http端口,可以使用定义的端口名称</span>
+    <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">9000</span>
+    <span class="c1">#可选项,默认是HTTP,可以是HTTPS</span>
+    <span class="nt">scheme</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">HTTP</span>
+
+  <span class="c1">#exec方法,在容器内运行shell命令,返回0算成功</span>
+  <span class="nt">exec</span><span class="p">:</span>
+    <span class="nt">command</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">cat</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">/tmp/healthy</span>
+
+  <span class="c1">#TCPSocket方法,判断tcp端口是否打开</span>
+  <span class="nt">TCPSocket</span><span class="p">:</span>
+    <span class="c1">#默认为podip</span>
+    <span class="nt">host</span><span class="p">:</span>
+    <span class="c1">#指定探测端口,可以使用定义的端口名称</span>
+    <span class="nt">port</span><span class="p">:</span>
+</code></pre></div>
+<h2 id="resources">resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<h2 id="lifecycle">lifecycle<a class="headerlink" href="#lifecycle" title="Permanent link">&para;</a></h2>
+<p>可以定义一个容器运行前和结束后的任务,方法和livenessProbe一样,tcp方法好像还不能用</p>
+<div class="highlight"><pre><span></span><code><span class="nt">containers</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">lifecycle-demo-container</span>
+    <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">nginx</span>
+    <span class="nt">lifecycle</span><span class="p">:</span>
+      <span class="nt">postStart</span><span class="p">:</span>
+        <span class="nt">exec</span><span class="p">:</span>
+          <span class="nt">command</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;/bin/sh&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;-c&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;echo</span><span class="nv"> </span><span class="s">Hello</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">postStart</span><span class="nv"> </span><span class="s">handler</span><span class="nv"> </span><span class="s">&gt;</span><span class="nv"> </span><span class="s">/usr/share/message&quot;</span><span class="p p-Indicator">]</span>
+      <span class="nt">preStop</span><span class="p">:</span>
+        <span class="nt">httpGet</span><span class="p">:</span>
+          <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+          <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">abc.com</span>
+          <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/done</span>
+</code></pre></div>
+<h2 id="ports">ports<a class="headerlink" href="#ports" title="Permanent link">&para;</a></h2>
+<p>可选项,定义容器端口,方便在其它地方使用端口名称引用</p>
+<div class="highlight"><pre><span></span><code><span class="nt">ports</span><span class="p">:</span>
+    <span class="c1">#定义端口名称</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myport</span>
+    <span class="c1">#定义容器端口 -required-</span>
+    <span class="nt">containerPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8080</span>
+    <span class="c1">#定义协议,默认是TCP,可以是UDP, SCTP</span>
+    <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+    <span class="c1">#bind地址,一般用不上吧</span>
+    <span class="nt">hostIp</span><span class="p">:</span>
+    <span class="c1">#如果使用主机网络必须和containerPort一致,一般用不上</span>
+    <span class="nt">hostPort</span><span class="p">:</span>
+</code></pre></div>
+<h2 id="name">name<a class="headerlink" href="#name" title="Permanent link">&para;</a></h2>
+<p>容器名称,对应kubectl -c 选项</p>
+<h2 id="workingdir">workingDir<a class="headerlink" href="#workingdir" title="Permanent link">&para;</a></h2>
+<p>定义工作目录,应该是可以覆盖镜像中的设置,一般用不上</p>
+<h2 id="volumemounts">volumeMounts<a class="headerlink" href="#volumemounts" title="Permanent link">&para;</a></h2>
+<p>挂载pod中定义的volume</p>
+<div class="highlight"><pre><span></span><code><span class="nt">volumeMounts</span><span class="p">:</span>
+    <span class="c1">#对应pod中定义的volume name -required-</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">abc</span>
+    <span class="c1">#挂载到容器内的路径</span>
+    <span class="nt">mountPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/mnt/abc</span>
+    <span class="c1">#是否只读挂载,默认false</span>
+    <span class="nt">readOnly</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="c1">#指定挂载volume中的路径,默认为&quot;&quot;,也就是整个挂载</span>
+    <span class="nt">subPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">subdir1</span>
+    <span class="c1">#和subPath一样,但可以使用环境变量,与subPath互斥</span>
+    <span class="nt">subPathExpr</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">$(VAR_NAME)</span>
+    <span class="c1">#https://kubernetes.io/docs/concepts/storage/volumes/#mount-propagation</span>
+    <span class="nt">mountPropagation</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">None</span>
+</code></pre></div>
+<h2 id="volumedevices">volumeDevices<a class="headerlink" href="#volumedevices" title="Permanent link">&para;</a></h2>
+<p>挂载block device</p>
+<div class="highlight"><pre><span></span><code><span class="nt">volumeDevices</span><span class="p">:</span>
+    <span class="c1">#对应pvc名称</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pvc1</span>
+    <span class="c1">#本地设备路径</span>
+    <span class="nt">devicePath</span><span class="p">:</span>
+</code></pre></div>
+<h2 id="stdin-stdinonce-tty">stdin &amp; stdinOnce &amp; tty<a class="headerlink" href="#stdin-stdinonce-tty" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1">#stdin+tty 相当于kubectl run -it</span>
+<span class="c1">#保持stdin打开</span>
+<span class="nt">stdin</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="c1">#stdin在attach过一次后关闭</span>
+<span class="nt">stdinOnce</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="c1">#为容器分配一个tty</span>
+<span class="nt">tty</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<h2 id="terminationmessagepath">terminationMessagePath<a class="headerlink" href="#terminationmessagepath" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>string
+Optional: Path at which the file to which the container&#39;s termination
+message will be written is mounted into the container&#39;s filesystem. Message
+written is intended to be brief final status, such as an assertion failure
+message. Will be truncated by the node if greater than 4096 bytes. The
+total message length across all containers will be limited to 12kb.
+Defaults to /dev/termination-log. Cannot be updated.
+</code></pre></div>
+<h2 id="terminationmessagepolicy">terminationMessagePolicy<a class="headerlink" href="#terminationmessagepolicy" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>string
+Indicate how the termination message should be populated. File will use the
+contents of terminationMessagePath to populate the container status message
+on both success and failure. FallbackToLogsOnError will use the last chunk
+of container log output if the termination message file is empty and the
+container exited with an error. The log output is limited to 2048 bytes or
+80 lines, whichever is smaller. Defaults to File. Cannot be updated.
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../../networking/service/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              service
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../02-pod/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              pod
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>

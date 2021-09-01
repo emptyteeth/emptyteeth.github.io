@@ -1,0 +1,1144 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="my notes">
+      
+      
+      
+      
+        <link rel="canonical" href="https://emptyteeth.github.io/devices/pi4-alpine-linux-headless-installation/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>pi4 alpine-linux headless installation - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pi4-alpine-linux-headless-installation" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              pi4 alpine-linux headless installation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Empty
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/" class="md-nav__link">
+        git基本原理和操作
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../regex/" class="md-nav__link">
+        regex正则表达式基础
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      <label class="md-nav__link" for="__nav_4">
+        Devices
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Devices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Devices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          pi4 alpine-linux headless installation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        pi4 alpine-linux headless installation
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    准备
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-install" class="md-nav__link">
+    post-install
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backuprestore-rootfs" class="md-nav__link">
+    backup/restore rootfs
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        K8s
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="K8s" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          K8s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/fluent-bit/" class="md-nav__link">
+        fluent-bit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/k8s-cheaty-way/" class="md-nav__link">
+        k8s cheaty way
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/prometheus/" class="md-nav__link">
+        prometheus
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      <label class="md-nav__link" for="__nav_5_4">
+        AAAA
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AAAA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          AAAA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/AAAA/admissioncontroller/" class="md-nav__link">
+        admission controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/AAAA/api.list/" class="md-nav__link">
+        api list
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/AAAA/api/" class="md-nav__link">
+        api
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/AAAA/arch/" class="md-nav__link">
+        arch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/AAAA/authentication/" class="md-nav__link">
+        authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/AAAA/etcd/" class="md-nav__link">
+        etcd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/AAAA/kubeconfig/" class="md-nav__link">
+        kubeconfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/AAAA/object/" class="md-nav__link">
+        ojbect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/AAAA/rbac/" class="md-nav__link">
+        rabc authorization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" >
+      
+      <label class="md-nav__link" for="__nav_5_5">
+        Kubeadm
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubeadm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubeadm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/kubeadm/cluster/" class="md-nav__link">
+        kubeadm k8s集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/kubeadm/howitworks/" class="md-nav__link">
+        how kubeadm works
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/networking/ingress/" class="md-nav__link">
+        ingress
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/networking/k8snetwork/" class="md-nav__link">
+        k8s network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/networking/networkpolicy/" class="md-nav__link">
+        network policy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/networking/service/" class="md-nav__link">
+        service
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Workloads
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workloads" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Workloads
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/workloads/01-containers/" class="md-nav__link">
+        containers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/workloads/02-pod/" class="md-nav__link">
+        pod
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/workloads/03-deploy/" class="md-nav__link">
+        deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/workloads/04-daemonset/" class="md-nav__link">
+        daemonset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/workloads/05-statefulset/" class="md-nav__link">
+        statefulset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/workloads/gc/" class="md-nav__link">
+        Garbage Collection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s/workloads/job/" class="md-nav__link">
+        job
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/networking/nf-iprouting/" class="md-nav__link">
+        netfilter&ip-routing基本原理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/networking/wireguard/" class="md-nav__link">
+        wireguard route based site2site vpn
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    准备
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    安装
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#post-install" class="md-nav__link">
+    post-install
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backuprestore-rootfs" class="md-nav__link">
+    backup/restore rootfs
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="pi4-alpine-linux-headless-installation">pi4 alpine-linux headless installation<a class="headerlink" href="#pi4-alpine-linux-headless-installation" title="Permanent link">&para;</a></h1>
+<h2 id="_1">准备<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>uart adapter</li>
+<li>ethernet connection</li>
+<li>sd card<ul>
+<li>mmcblk0p1 fat32 256M</li>
+<li>mmcblk0p2 ext4/f2fs 200M+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>下载解压到mmcblk0p1<blockquote>
+<p><a href="https://dl-cdn.alpinelinux.org/alpine/v3.14/releases/aarch64/alpine-rpi-3.14.1-aarch64.tar.gz">https://dl-cdn.alpinelinux.org/alpine/v3.14/releases/aarch64/alpine-rpi-3.14.1-aarch64.tar.gz</a></p>
+</blockquote>
+</li>
+<li>
+<p>修改cmdline.txt</p>
+<div class="highlight"><pre><span></span><code><span class="na">modules</span><span class="o">=</span><span class="s">loop,squashfs,sd-mod,usb-storage earlycon=uart8250,mmio32,0xfe215040 loglevel=7 console=ttyS0,115200</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>创建usercfg.txt</p>
+<div class="highlight"><pre><span></span><code><span class="na">enable_uart</span><span class="o">=</span><span class="s">1</span>
+<span class="na">gpu_mem</span><span class="o">=</span><span class="s">32</span>
+</code></pre></div>
+</li>
+</ul>
+<h2 id="_2">安装<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>联网</p>
+<div class="highlight"><pre><span></span><code>setup-interfaces
+setup-ntp
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>挂载mmcblk0p2</p>
+<div class="highlight"><pre><span></span><code>mount /dev/mmcblk0p2 /mnt
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>安装基础包到mmcblk0p2</p>
+<div class="highlight"><pre><span></span><code>apk -X https://mirrors.bfsu.edu.cn/alpine/latest-stable/main/ -p /mnt/ --initdb -U --allow-untrusted <span class="se">\</span>
+add alpine-base linux-rpi4 e2fsprogs f2fs-tools util-linux dosfstools rng-tools
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>重新挂载mmcblk0p1</p>
+<div class="highlight"><pre><span></span><code>mount -o remount,rw /media/mmcblk0p1
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>复制基础包中的kernel和initramfs到mmcblk0p1</p>
+<div class="highlight"><pre><span></span><code>cp /mnt/boot/*-rpi4 /media/mmcblk0p1/
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>修改cmdline.txt</p>
+<div class="highlight"><pre><span></span><code><span class="na">earlycon</span><span class="o">=</span><span class="s">uart8250,mmio32,0xfe215040 loglevel=7 console=ttyS0,115200 root=/dev/mmcblk0p2 rootwait fsck.repair=yes</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>修改usercfg.txt</p>
+<div class="highlight"><pre><span></span><code><span class="na">enable_uart</span><span class="o">=</span><span class="s">1</span>
+<span class="na">gpu_mem</span><span class="o">=</span><span class="s">32</span>
+<span class="k">[pi4]</span>
+<span class="na">enable_gic</span><span class="o">=</span><span class="s">1</span>
+<span class="na">kernel</span><span class="o">=</span><span class="s">vmlinuz-rpi4</span>
+<span class="na">initramfs initramfs-rpi4</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>chroot</p>
+<div class="highlight"><pre><span></span><code>chroot /mnt /bin/sh
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>基础服务</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> s <span class="k">in</span> devfs procfs sysfs dmesg mdev hwdrivers<span class="p">;</span> <span class="k">do</span> rc-update add <span class="nv">$s</span> sysinit<span class="p">;</span><span class="k">done</span>
+
+<span class="k">for</span> s <span class="k">in</span> swclock hostname modules sysctl bootmisc syslog rfkill rngd networking<span class="p">;</span><span class="k">do</span> rc-update add <span class="nv">$s</span> boot<span class="p">;</span><span class="k">done</span>
+
+<span class="k">for</span> s <span class="k">in</span> savecache killprocs mount-ro<span class="p">;</span><span class="k">do</span> rc-update add <span class="nv">$s</span> shutdown<span class="p">;</span><span class="k">done</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>修改密码</p>
+<div class="highlight"><pre><span></span><code>passwd
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>启用ttyS0</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#/etc/inittab</span>
+ttyS0::respawn:/sbin/getty -L ttyS0 <span class="m">115200</span> vt100
+
+OR
+
+<span class="c1">#https://github.com/OpenRC/openrc/blob/master/agetty-guide.md</span>
+<span class="nb">cd</span> /etc/init.d <span class="o">&amp;&amp;</span> ln -s agetty agetty.ttyS0
+rc-update add agetty.ttyS0 boot
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>退出chroot并重启</p>
+<div class="highlight"><pre><span></span><code><span class="nb">exit</span>
+reboot
+</code></pre></div>
+</li>
+</ul>
+<h2 id="post-install">post-install<a class="headerlink" href="#post-install" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>/boot</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 清空mmcblk0p1只保留txt文件</span>
+<span class="c1"># 移动/boot内文件到mmcblk0p1</span>
+<span class="c1"># 之后将mmcblk0p1挂载为/boot</span>
+mkdir -p /media/mmcblk0p1
+mount /dev/mmcblk0p1 /media/mmcblk0p1
+cp /media/mmcblk0p1/*.txt /boot/
+rm -rf /media/mmcblk0p1/*
+rm /boot/boot
+mv /boot/* /media/mmcblk0p1/
+<span class="nb">echo</span> -e <span class="s1">&#39;/dev/mmcblk0p1 /boot vfat defaults 0 0\n&#39;</span> &gt;/etc/fstab
+reboot
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>开局</p>
+<div class="highlight"><pre><span></span><code>setup-interfaces
+setup-ntp
+setup-apkrepos
+setup-timezone
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>疑似headless用不上的模块</p>
+<div class="highlight"><pre><span></span><code><span class="na">blacklist videodev</span>
+<span class="na">blacklist videobuf2_common</span>
+<span class="na">blacklist videobuf2_v4l2</span>
+<span class="na">blacklist v4l2_mem2mem</span>
+<span class="na">blacklist bcm2835_v4l2</span>
+<span class="na">blacklist bcm2835_isp</span>
+<span class="na">blacklist bcm2835_codec</span>
+<span class="na">blacklist videobuf2_vmalloc</span>
+<span class="na">blacklist videobuf2_dma_contig</span>
+<span class="na">blacklist videobuf2_memops</span>
+<span class="na">blacklist rpivid_mem</span>
+<span class="na">blacklist bcm2835_mmal_vchiq</span>
+<span class="na">blacklist mc</span>
+<span class="na">blacklist vc_sm_cma</span>
+</code></pre></div>
+</li>
+</ul>
+<h2 id="backuprestore-rootfs">backup/restore rootfs<a class="headerlink" href="#backuprestore-rootfs" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>sudo tar --acls --xattrs --xattrs-include<span class="o">=</span><span class="s1">&#39;*&#39;</span> -cpf root.tar -C /mntpoint . <span class="c1">#&lt;--there&#39;s a dot</span>
+sudo tar --acls --xattrs --xattrs-include<span class="o">=</span><span class="s1">&#39;*&#39;</span> -xpf root.tar -C /mntpoint/
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../../regex/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              regex正则表达式基础
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../../k8s/fluent-bit/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              fluent-bit
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1127 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="典型的svc实现">
+      
+      
+      
+      
+        <link rel="canonical" href="https://emptyteeth.github.io/k8s/networking/service/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>service - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#service" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              service
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Empty
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git/" class="md-nav__link">
+        git基本原理和操作
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../regex/" class="md-nav__link">
+        regex正则表达式基础
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Devices
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Devices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Devices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devices/pi4-alpine-linux-headless-installation/" class="md-nav__link">
+        pi4 alpine-linux headless installation
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        K8s
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="K8s" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          K8s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fluent-bit/" class="md-nav__link">
+        fluent-bit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s-cheaty-way/" class="md-nav__link">
+        k8s cheaty way
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prometheus/" class="md-nav__link">
+        prometheus
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      <label class="md-nav__link" for="__nav_5_4">
+        AAAA
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AAAA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          AAAA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/admissioncontroller/" class="md-nav__link">
+        admission controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/api.list/" class="md-nav__link">
+        api list
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/api/" class="md-nav__link">
+        api
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/arch/" class="md-nav__link">
+        arch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/authentication/" class="md-nav__link">
+        authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/etcd/" class="md-nav__link">
+        etcd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/kubeconfig/" class="md-nav__link">
+        kubeconfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/object/" class="md-nav__link">
+        ojbect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/rbac/" class="md-nav__link">
+        rabc authorization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" >
+      
+      <label class="md-nav__link" for="__nav_5_5">
+        Kubeadm
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubeadm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubeadm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubeadm/cluster/" class="md-nav__link">
+        kubeadm k8s集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubeadm/howitworks/" class="md-nav__link">
+        how kubeadm works
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" checked>
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ingress/" class="md-nav__link">
+        ingress
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8snetwork/" class="md-nav__link">
+        k8s network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networkpolicy/" class="md-nav__link">
+        network policy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          service
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        service
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#headless" class="md-nav__link">
+    headless
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services-without-selectors" class="md-nav__link">
+    Services without selectors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-port-services" class="md-nav__link">
+    Multi-Port Services
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Workloads
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workloads" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Workloads
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/01-containers/" class="md-nav__link">
+        containers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/02-pod/" class="md-nav__link">
+        pod
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/03-deploy/" class="md-nav__link">
+        deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/04-daemonset/" class="md-nav__link">
+        daemonset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/05-statefulset/" class="md-nav__link">
+        statefulset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/gc/" class="md-nav__link">
+        Garbage Collection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/job/" class="md-nav__link">
+        job
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/nf-iprouting/" class="md-nav__link">
+        netfilter&ip-routing基本原理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/wireguard/" class="md-nav__link">
+        wireguard route based site2site vpn
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#headless" class="md-nav__link">
+    headless
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services-without-selectors" class="md-nav__link">
+    Services without selectors
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-port-services" class="md-nav__link">
+    Multi-Port Services
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="service">service<a class="headerlink" href="#service" title="Permanent link">&para;</a></h1>
+<p>典型的svc实现</p>
+<ul>
+<li>service api object<blockquote>
+<p>定义spec</p>
+</blockquote>
+</li>
+<li>service-controller<blockquote>
+<p>监听svc对象,负责loadbalancer类型的svc与外部cloud lb之间的配置同步</p>
+</blockquote>
+</li>
+<li>endpoint api object<blockquote>
+<p>定义svc后端入口</p>
+</blockquote>
+</li>
+<li>endpoint-controller<blockquote>
+<p>监听svc对象,维护相应的endpoint
+当svc被创建时,自动创建与svc同名的endpoint对象,根据svc的selector将相应的pod加入到endpoint中
+当svc被删除时,自动删除同名的endpoint,即使是手动创建的也会被删除
+如果svc没有使用selector,则不会自动创建endpoint
+根据svc的selector动态维护endpoint中的目标pod
+根据目标pod的ready状态,将目标pod放入addresses或notReadyAddresses池中
+dns与kube-proxy引用addresses池中的信息
+endpoint中的ip地址只能是单播地址.不能是loopback地址.不能是其它svc的clusterip,kube-proxy不支持把虚拟ip做为目标</p>
+</blockquote>
+</li>
+<li>dns<ul>
+<li>监听svc和endpoint,为每个svc建立A/AAAA记录,指向clusterip,对于headless则是指向endpoint中的pod</li>
+<li>为每个定义了name的port建立srv记录,headless也有<blockquote>
+<p>_portname._protoname.svcname.nsname.svc.cluster.local</p>
+</blockquote>
+</li>
+<li>对于ExternalName类型的svc,建立相应的cname记录</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>kube-proxy<ul>
+<li>运行在每个node上,通过apiserver监测所有svc和endpoint</li>
+<li>在node上为svc建立clusterip nodeip与endpoint的转发规则</li>
+<li>建立转发规则的模式有3种<ol>
+<li>user space模式下kube-proxy本身充当一个代理服务器,通过iptable将相应的流量重定向给自己,这样所有流量都需要经过kube-proxy进程转发,如果kube-proxy进程出现问题,那么所有svc在node范围内不可用,这个模式是比较早期的实现方式,现在已经不用了</li>
+<li>iptable模式下kube-proxy通过iptable为svc和endpoint维护相应的重定向规则,这样所有流量都只在内核空间内流转,这种模式比user space模式性能和安全性更高,但是在svc数量庞大的集群中,由于node上创建了数量过多的iptable规则,会造成性能瓶颈.默认模式</li>
+<li>ipvs模式下kube-proxy通过ipvs为svc和endpoint维护相应的重定向规则,这种模式比iptable模式性能更高,支持更多种均衡模式.如果node内核不支持ipvs,kube-proxy会fallback到iptable模式</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="type">type<a class="headerlink" href="#type" title="Permanent link">&para;</a></h2>
+<ul>
+<li>clusterip<ul>
+<li>只能在集群内被访问,默认类型</li>
+</ul>
+</li>
+<li>
+<p>nodeport</p>
+<ul>
+<li>在clusterip的基础上,kube-proxy会在所有node上设置额外的规则将外部流量转发到clusterip上</li>
+<li>service-node-port-range<blockquote>
+<p>可使用的nodeport范围,以下是默认值
+kube-apiserver --service-node-port-range=30000-32767</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>nodeport-addresses<blockquote>
+<p>指定nodeport的地址范围,相当于一个过滤器,kube-proxy只会在这范围内的地址上开启nodeport,默认为空,表示在所有地址开启
+kube-proxy --nodeport-addresses=10.0.0.0/8,192.0.2.0/25</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>loadbalancer<ul>
+<li>在nodeport的基础上,通过cloud-controller自动配置外部的lb服务</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>ExternalName<ul>
+<li>将svc指向一个域名,dns返回一个cname</li>
+<li>不需要selector</li>
+</ul>
+</li>
+</ul>
+<h2 id="headless">headless<a class="headerlink" href="#headless" title="Permanent link">&para;</a></h2>
+<ul>
+<li>将clusterip设置为None,svc不会被分配clusterip</li>
+<li>dns会把记录解析到所有的pod ip</li>
+<li>kube-proxy不参与</li>
+</ul>
+<h2 id="services-without-selectors">Services without selectors<a class="headerlink" href="#services-without-selectors" title="Permanent link">&para;</a></h2>
+<ul>
+<li>在不使用seletcor时,endpoint不会被自动创建</li>
+<li>需要手动创建同名endpoint来自定义svc</li>
+<li>同样适用于headless,相当于使用ip地址的ExternalName类型</li>
+</ul>
+<h2 id="multi-port-services">Multi-Port Services<a class="headerlink" href="#multi-port-services" title="Permanent link">&para;</a></h2>
+<p>对于有多个端口svc,每个端口必须设置name属性</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Service</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">svc1</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">selector</span><span class="p">:</span>
+    <span class="nt">k8s-app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">abc</span>
+  <span class="c1">#指定clusterip地址,一般不需要设置自动分配即可</span>
+  <span class="c1">#不能被update,除非svc被删除,否则不会改变</span>
+  <span class="c1">#如果是headless则设置为None</span>
+  <span class="c1">#type为ExternalName时被忽略</span>
+  <span class="nt">clusterIP</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1.1.1.1</span>
+  <span class="c1">#默认类型为ClusterIP</span>
+  <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterIP</span>
+  <span class="c1">#type为ExternalName时,通过该字段设置相应的cname</span>
+  <span class="nt">externalName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">g.cn</span>
+  <span class="c1">#影响kube-proxy在流量由外部进入集群时的转发行为</span>
+  <span class="c1">#默认为Cluster,该模式下kube-proxy使用集群范围内的目标pod进行转发</span>
+  <span class="c1">#此时收到数据的node对数据包进行snat和dnat,源地址转换为自己的nodeip,目标地址转换为某个目标pod</span>
+  <span class="c1">#之后数据被路由到目标pod所在的node上,然后目标pod的响应数据又被路由回之前的node上,最后该node将响应数据被发送到外部</span>
+  <span class="c1">#这种情况下由于进行了snat,对于目标pod来说真正的源地址彻底丢失,对于http应用可以使用proxyprotocol来避免丢失源地址信息</span>
+  <span class="c1">#另一个模式为Local,该模式下kube-proxy只使用node本地的目标pod进行转发,这种情况下因为不需要进行snat,所以真实的源地址信息被保留</span>
+  <span class="nt">externalTrafficPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Cluster</span>
+  <span class="c1">#只适用于type为loadbalancer同时externalTrafficPolicy为Local的情况</span>
+  <span class="c1">#默认为nodeport的值,用来设置外部lb进行healthcheck时所使用的端口</span>
+  <span class="nt">healthCheckNodePort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">34344</span>
+  <span class="c1">#设置是否将notReadyAddresses池中的目标pod发布到dns记录中,默认为false</span>
+  <span class="nt">publishNotReadyAddresses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="c1">#设置会话粘性,默认为None,表示不关心</span>
+  <span class="c1">#可以设置为ClientIP,这样同一个会话总是会被转发到相同的目标pod上</span>
+  <span class="nt">sessionAffinity</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">None</span>
+  <span class="c1">#设置会话粘性时效,默认为3小时</span>
+  <span class="nt">sessionAffinityConfig</span><span class="p">:</span>
+    <span class="nt">clientIP</span><span class="p">:</span>
+      <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10800</span>
+  <span class="c1">#这个没搞懂 !review</span>
+  <span class="nt">externalIPs</span><span class="p">:</span>
+  <span class="nt">ports</span><span class="p">:</span>
+    <span class="c1">#多个port必须设置name</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">web</span>
+    <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+    <span class="c1">#如果不设置则默认与port相同,可以使用container port name</span>
+    <span class="c1">#headless因为不需要转发,所以该字段会被忽略</span>
+    <span class="nt">targetPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">80</span>
+    <span class="c1">#type为NodePort时可使用该字段手动指定node端口,默认为自动分配</span>
+    <span class="nt">nodePort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">32080</span>
+    <span class="c1">#可使用的协议为TCP UDP SCTP,默认TCP</span>
+    <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">websecure</span>
+    <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">443</span>
+    <span class="nt">targetPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">443</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">Kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Endpoints</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">svc1</span>
+<span class="nt">subsets</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">addresses</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">ip</span><span class="p">:</span>
+  <span class="nt">ports</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">port</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">notReadyAddresses</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">ip</span><span class="p">:</span>
+</code></pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../networkpolicy/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              network policy
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../../workloads/01-containers/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              containers
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>

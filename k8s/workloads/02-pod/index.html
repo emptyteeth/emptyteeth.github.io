@@ -1,0 +1,2308 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="my notes">
+      
+      
+      
+      
+        <link rel="canonical" href="https://emptyteeth.github.io/k8s/workloads/02-pod/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>pod - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pod" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              pod
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Empty
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git/" class="md-nav__link">
+        git基本原理和操作
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../regex/" class="md-nav__link">
+        regex正则表达式基础
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Devices
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Devices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Devices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devices/pi4-alpine-linux-headless-installation/" class="md-nav__link">
+        pi4 alpine-linux headless installation
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        K8s
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="K8s" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          K8s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fluent-bit/" class="md-nav__link">
+        fluent-bit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s-cheaty-way/" class="md-nav__link">
+        k8s cheaty way
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prometheus/" class="md-nav__link">
+        prometheus
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      <label class="md-nav__link" for="__nav_5_4">
+        AAAA
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AAAA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          AAAA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/admissioncontroller/" class="md-nav__link">
+        admission controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/api.list/" class="md-nav__link">
+        api list
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/api/" class="md-nav__link">
+        api
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/arch/" class="md-nav__link">
+        arch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/authentication/" class="md-nav__link">
+        authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/etcd/" class="md-nav__link">
+        etcd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/kubeconfig/" class="md-nav__link">
+        kubeconfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/object/" class="md-nav__link">
+        ojbect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/rbac/" class="md-nav__link">
+        rabc authorization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" >
+      
+      <label class="md-nav__link" for="__nav_5_5">
+        Kubeadm
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubeadm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubeadm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubeadm/cluster/" class="md-nav__link">
+        kubeadm k8s集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubeadm/howitworks/" class="md-nav__link">
+        how kubeadm works
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/ingress/" class="md-nav__link">
+        ingress
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/k8snetwork/" class="md-nav__link">
+        k8s network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/networkpolicy/" class="md-nav__link">
+        network policy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/service/" class="md-nav__link">
+        service
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" checked>
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Workloads
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workloads" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Workloads
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-containers/" class="md-nav__link">
+        containers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          pod
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        pod
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#activedeadlineseconds" class="md-nav__link">
+    activeDeadlineSeconds
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#affinity" class="md-nav__link">
+    affinity
+  </a>
+  
+    <nav class="md-nav" aria-label="affinity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nodeaffinity" class="md-nav__link">
+    nodeAffinity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#podaffinity" class="md-nav__link">
+    podAffinity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#podantiaffinity" class="md-nav__link">
+    podAntiAffinity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automountserviceaccounttoken" class="md-nav__link">
+    automountServiceAccountToken
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers" class="md-nav__link">
+    containers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dnspolicy" class="md-nav__link">
+    dnsPolicy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dnsconfig" class="md-nav__link">
+    dnsConfig
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enableservicelinks" class="md-nav__link">
+    enableServiceLinks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ephemeralcontainers" class="md-nav__link">
+    ephemeralContainers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostaliases-object" class="md-nav__link">
+    hostAliases &lt;[]Object&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostipc" class="md-nav__link">
+    hostIPC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostnetwork" class="md-nav__link">
+    hostNetwork
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostpid" class="md-nav__link">
+    hostPID
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostname" class="md-nav__link">
+    hostname
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subdomain-string" class="md-nav__link">
+    subdomain &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imagepullsecrets" class="md-nav__link">
+    imagePullSecrets
+  </a>
+  
+    <nav class="md-nav" aria-label="imagePullSecrets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secret" class="md-nav__link">
+    手工设置secret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serviceaccount" class="md-nav__link">
+    使用serviceaccount
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nodecri" class="md-nav__link">
+    在node上配置cri
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initcontainers-object" class="md-nav__link">
+    initContainers &lt;[]Object&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nodename" class="md-nav__link">
+    nodeName
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nodeselector-mapstringstring" class="md-nav__link">
+    nodeSelector &lt;map[string]string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preemptionpolicy-string-alpha" class="md-nav__link">
+    preemptionPolicy &lt;string&gt; alpha
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#priority-integer" class="md-nav__link">
+    priority &lt;integer&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#priorityclassname-string" class="md-nav__link">
+    priorityClassName &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#readinessgates-object" class="md-nav__link">
+    readinessGates &lt;[]Object&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restartpolicy-string" class="md-nav__link">
+    restartPolicy &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schedulername-string" class="md-nav__link">
+    schedulerName &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#securitycontext-object" class="md-nav__link">
+    securityContext &lt;Object&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serviceaccount-string" class="md-nav__link">
+    serviceAccount &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serviceaccountname-string" class="md-nav__link">
+    serviceAccountName &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shareprocessnamespace-boolean" class="md-nav__link">
+    shareProcessNamespace &lt;boolean&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terminationgraceperiodseconds-integer" class="md-nav__link">
+    terminationGracePeriodSeconds &lt;integer&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#topologyspreadconstraints-object" class="md-nav__link">
+    topologySpreadConstraints &lt;[]Object&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tolerations-object" class="md-nav__link">
+    tolerations &lt;[]Object&gt;
+  </a>
+  
+    <nav class="md-nav" aria-label="tolerations &lt;[]Object&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#taint-node" class="md-nav__link">
+    taint node
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pod-tolerations" class="md-nav__link">
+    pod tolerations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volumes-object" class="md-nav__link">
+    volumes &lt;[]Object&gt;
+  </a>
+  
+    <nav class="md-nav" aria-label="volumes &lt;[]Object&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configmap" class="md-nav__link">
+    configmap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secret_1" class="md-nav__link">
+    secret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downwardapi" class="md-nav__link">
+    downwardAPI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emptydir" class="md-nav__link">
+    emptyDir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hostpath" class="md-nav__link">
+    hostPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persistentvolumeclaim" class="md-nav__link">
+    persistentVolumeClaim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projected" class="md-nav__link">
+    projected
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tbd" class="md-nav__link">
+    tbd
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-deploy/" class="md-nav__link">
+        deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-daemonset/" class="md-nav__link">
+        daemonset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-statefulset/" class="md-nav__link">
+        statefulset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gc/" class="md-nav__link">
+        Garbage Collection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../job/" class="md-nav__link">
+        job
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/nf-iprouting/" class="md-nav__link">
+        netfilter&ip-routing基本原理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/wireguard/" class="md-nav__link">
+        wireguard route based site2site vpn
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#activedeadlineseconds" class="md-nav__link">
+    activeDeadlineSeconds
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#affinity" class="md-nav__link">
+    affinity
+  </a>
+  
+    <nav class="md-nav" aria-label="affinity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nodeaffinity" class="md-nav__link">
+    nodeAffinity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#podaffinity" class="md-nav__link">
+    podAffinity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#podantiaffinity" class="md-nav__link">
+    podAntiAffinity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automountserviceaccounttoken" class="md-nav__link">
+    automountServiceAccountToken
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers" class="md-nav__link">
+    containers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dnspolicy" class="md-nav__link">
+    dnsPolicy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dnsconfig" class="md-nav__link">
+    dnsConfig
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enableservicelinks" class="md-nav__link">
+    enableServiceLinks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ephemeralcontainers" class="md-nav__link">
+    ephemeralContainers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostaliases-object" class="md-nav__link">
+    hostAliases &lt;[]Object&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostipc" class="md-nav__link">
+    hostIPC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostnetwork" class="md-nav__link">
+    hostNetwork
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostpid" class="md-nav__link">
+    hostPID
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostname" class="md-nav__link">
+    hostname
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subdomain-string" class="md-nav__link">
+    subdomain &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imagepullsecrets" class="md-nav__link">
+    imagePullSecrets
+  </a>
+  
+    <nav class="md-nav" aria-label="imagePullSecrets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#secret" class="md-nav__link">
+    手工设置secret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serviceaccount" class="md-nav__link">
+    使用serviceaccount
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nodecri" class="md-nav__link">
+    在node上配置cri
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#initcontainers-object" class="md-nav__link">
+    initContainers &lt;[]Object&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nodename" class="md-nav__link">
+    nodeName
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nodeselector-mapstringstring" class="md-nav__link">
+    nodeSelector &lt;map[string]string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preemptionpolicy-string-alpha" class="md-nav__link">
+    preemptionPolicy &lt;string&gt; alpha
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#priority-integer" class="md-nav__link">
+    priority &lt;integer&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#priorityclassname-string" class="md-nav__link">
+    priorityClassName &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#readinessgates-object" class="md-nav__link">
+    readinessGates &lt;[]Object&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restartpolicy-string" class="md-nav__link">
+    restartPolicy &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schedulername-string" class="md-nav__link">
+    schedulerName &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#securitycontext-object" class="md-nav__link">
+    securityContext &lt;Object&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serviceaccount-string" class="md-nav__link">
+    serviceAccount &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serviceaccountname-string" class="md-nav__link">
+    serviceAccountName &lt;string&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shareprocessnamespace-boolean" class="md-nav__link">
+    shareProcessNamespace &lt;boolean&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terminationgraceperiodseconds-integer" class="md-nav__link">
+    terminationGracePeriodSeconds &lt;integer&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#topologyspreadconstraints-object" class="md-nav__link">
+    topologySpreadConstraints &lt;[]Object&gt;
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tolerations-object" class="md-nav__link">
+    tolerations &lt;[]Object&gt;
+  </a>
+  
+    <nav class="md-nav" aria-label="tolerations &lt;[]Object&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#taint-node" class="md-nav__link">
+    taint node
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pod-tolerations" class="md-nav__link">
+    pod tolerations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volumes-object" class="md-nav__link">
+    volumes &lt;[]Object&gt;
+  </a>
+  
+    <nav class="md-nav" aria-label="volumes &lt;[]Object&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configmap" class="md-nav__link">
+    configmap
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#secret_1" class="md-nav__link">
+    secret
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downwardapi" class="md-nav__link">
+    downwardAPI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#emptydir" class="md-nav__link">
+    emptyDir
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hostpath" class="md-nav__link">
+    hostPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persistentvolumeclaim" class="md-nav__link">
+    persistentVolumeClaim
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projected" class="md-nav__link">
+    projected
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tbd" class="md-nav__link">
+    tbd
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="pod">pod<a class="headerlink" href="#pod" title="Permanent link">&para;</a></h1>
+<h2 id="activedeadlineseconds">activeDeadlineSeconds<a class="headerlink" href="#activedeadlineseconds" title="Permanent link">&para;</a></h2>
+<p>可选项,设置pod的活动时间,时间到了会被kill</p>
+<div class="highlight"><pre><span></span><code>Status:       Failed
+Reason:       DeadlineExceeded
+Message:      Pod was active on the node longer than the specified deadline
+</code></pre></div>
+<h2 id="affinity">affinity<a class="headerlink" href="#affinity" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity">https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity</a>
+<a href="https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/">https://kubernetes.io/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/</a>
+<a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/</a>
+<a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors/">https://kubernetes.io/docs/concepts/overview/working-with-objects/field-selectors/</a></p>
+</blockquote>
+<p>比nodeSelector更灵活,有required和preferred两种策略,匹配条件可以是node,或者是运行在node上的pod</p>
+<h3 id="nodeaffinity">nodeAffinity<a class="headerlink" href="#nodeaffinity" title="Permanent link">&para;</a></h3>
+<p>如果与nodeSelector同时使用,则需要同时满足条件</p>
+<ul>
+<li>requiredDuringSchedulingIgnoredDuringExecution<blockquote>
+<p>必须满足条件pod才会被调度
+只影响调度时的选择,运行中的pod不会因条件变化被影响
+可使用多个nodeSelectorTerms,有一个满足即可</p>
+</blockquote>
+<ul>
+<li>nodeSelectorTerms  <code>&lt;[]Object&gt; -required-</code><blockquote>
+<p>可使用多个match,必须同时满足</p>
+</blockquote>
+<ul>
+<li>matchExpressions <code>&lt;[]Object&gt;</code><blockquote>
+<p>匹配label</p>
+</blockquote>
+</li>
+<li>matchFields <code>&lt;[]Object&gt;</code><blockquote>
+<p>匹配field</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>preferredDuringSchedulingIgnoredDuringExecution<blockquote>
+<p>与required一样,只是非强制性的
+scheduler会以node与preference的匹配度打分
+匹配的条件越多分数越高,再加上weight得出最终分数</p>
+</blockquote>
+<ul>
+<li>preference <code>&lt;Object&gt; -required-</code><blockquote>
+<p>可定义多个match,每一个都会以是否匹配来打分</p>
+</blockquote>
+<ul>
+<li>matchExpressions <code>&lt;[]Object&gt;</code><blockquote>
+<p>匹配label</p>
+</blockquote>
+</li>
+<li>matchFields <code>&lt;[]Object&gt;</code><blockquote>
+<p>匹配field</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>weight <code>&lt;integer&gt; -required-</code><blockquote>
+<p>1-100整数</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="podaffinity">podAffinity<a class="headerlink" href="#podaffinity" title="Permanent link">&para;</a></h3>
+<ol>
+<li>使用labelSelector匹配目标pod</li>
+<li>获得目标pod所在node的topologyKey值</li>
+<li>把新pod调度到具有相同topologyKey值的node上</li>
+</ol>
+<ul>
+<li>
+<p>podAffinity</p>
+<ul>
+<li>requiredDuringSchedulingIgnoredDuringExecution<blockquote>
+<p>必须满足条件pod才会被调度
+只影响调度时的选择,运行中的pod不会因条件变化被影响</p>
+</blockquote>
+<ul>
+<li>labelSelector <code>&lt;Object&gt;</code><blockquote>
+<p>与逻辑,多个match必须同时满足</p>
+</blockquote>
+<ul>
+<li>matchExpressions <code>&lt;[]Object&gt;</code></li>
+<li>matchLabels <code>&lt;map[string]string&gt;</code></li>
+</ul>
+</li>
+<li>namespeces <code>&lt;[]string&gt;</code><blockquote>
+<p>可选指定的命名空间</p>
+</blockquote>
+</li>
+<li>topologyKey <code>&lt;string&gt; -required-</code><blockquote>
+<p>这里填的是node标签,作为判断亲和性的范围标准
+scheduler会选择具有相同标签值的node进行调度
+比如想要调度到同一个node,使用<code>kubernetes.io/hostname</code>
+比如想要调度到同一个zone,使用<code>failure-domain.beta.kubernetes.io/zone</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>preferredDuringSchedulingIgnoredDuringExecution<blockquote>
+<p>尽量满足调度条件</p>
+</blockquote>
+<ul>
+<li>podAffinityTerm <code>&lt;Object&gt; -required-</code><ul>
+<li>labelSelector <code>&lt;Object&gt;</code><ul>
+<li>matchExpressions</li>
+<li>matchLabels</li>
+</ul>
+</li>
+<li>namespeces <code>&lt;[]string&gt;</code></li>
+<li>topologyKey <code>&lt;string&gt; -required-</code></li>
+</ul>
+</li>
+<li>weight <code>&lt;integer&gt; 1-100 -required-</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="podantiaffinity">podAntiAffinity<a class="headerlink" href="#podantiaffinity" title="Permanent link">&para;</a></h3>
+<ol>
+<li>使用labelSelector匹配目标pod</li>
+<li>获得目标pod所在node的topologyKey值</li>
+<li>避免把新pod调度到具有相同topologyKey值的node上</li>
+</ol>
+<ul>
+<li>
+<p>podAntiAffinity</p>
+<ul>
+<li>requiredDuringSchedulingIgnoredDuringExecution<blockquote>
+<p>坚决避免</p>
+</blockquote>
+<ul>
+<li>labelSelector <code>&lt;Object&gt;</code><ul>
+<li>matchExpressions <code>&lt;[]Object&gt;</code></li>
+<li>matchLabels <code>&lt;map[string]string&gt;</code></li>
+</ul>
+</li>
+<li>namespeces <code>&lt;[]string&gt;</code></li>
+<li>topologyKey <code>&lt;string&gt; -required-</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>preferredDuringSchedulingIgnoredDuringExecution<blockquote>
+<p>尽量避免</p>
+</blockquote>
+<ul>
+<li>podAffinityTerm <code>&lt;Object&gt; -required-</code><ul>
+<li>labelSelector <code>&lt;Object&gt;</code><ul>
+<li>matchExpressions <code>&lt;[]Object&gt;</code></li>
+<li>matchLabels <code>&lt;map[string]string&gt;</code></li>
+</ul>
+</li>
+<li>namespeces <code>&lt;[]string&gt;</code></li>
+<li>topologyKey <code>&lt;string&gt; -required-</code></li>
+</ul>
+</li>
+<li>weight <code>&lt;integer&gt; 1-100 -required-</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="automountserviceaccounttoken">automountServiceAccountToken<a class="headerlink" href="#automountserviceaccounttoken" title="Permanent link">&para;</a></h2>
+<p>是否自动挂载sa token到容器
+优先于svc中的automountServiceAccountToken设置</p>
+<h2 id="containers">containers<a class="headerlink" href="#containers" title="Permanent link">&para;</a></h2>
+<h2 id="dnspolicy">dnsPolicy<a class="headerlink" href="#dnspolicy" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Default<blockquote>
+<p>直接拿node的resolv.conf来用
+虽然叫Default,但不是默认选项</p>
+</blockquote>
+</li>
+<li>
+<p>ClusterFirst</p>
+<blockquote>
+<p>使用集群dns搜索域,集群范围外的域名被转发到node的dns上游服务器
+老子才是默认值,没想到吧hhhhhh</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>cat /etc/resolv.conf
+search default.svc.cluster.local svc.cluster.local cluster.local
+nameserver <span class="m">10</span>.96.0.10
+options ndots:5
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>ClusterFirstWithHostNet<blockquote>
+<p>对于使用hostNetwork的Pod,默认是直接用node的resolv.conf
+使用这个选项来达到ClusterFirst的效果</p>
+</blockquote>
+</li>
+<li>None<blockquote>
+<p>使用自定义设置,必须配合dnsConfig使用</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="dnsconfig">dnsConfig<a class="headerlink" href="#dnsconfig" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>  <span class="nt">dnsConfig</span><span class="p">:</span>
+    <span class="nt">nameservers</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">1.2.3.4</span>
+    <span class="nt">searches</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ns1.svc.cluster-domain.example</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">my.dns.search.suffix</span>
+    <span class="nt">options</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ndots</span>
+        <span class="nt">value</span><span class="p">:</span> <span class="s">&quot;2&quot;</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">edns0</span>
+</code></pre></div>
+<h2 id="enableservicelinks">enableServiceLinks<a class="headerlink" href="#enableservicelinks" title="Permanent link">&para;</a></h2>
+<p>是否自动把svc信息注入pod ENV,默认true</p>
+<h2 id="ephemeralcontainers">ephemeralContainers<a class="headerlink" href="#ephemeralcontainers" title="Permanent link">&para;</a></h2>
+<p>使用临时容器,alpha</p>
+<h2 id="hostaliases-object">hostAliases <code>&lt;[]Object&gt;</code><a class="headerlink" href="#hostaliases-object" title="Permanent link">&para;</a></h2>
+<p>添加额外的条目到/etc/hosts,不适用于hostNetwork</p>
+<h2 id="hostipc">hostIPC<a class="headerlink" href="#hostipc" title="Permanent link">&para;</a></h2>
+<p>使用node ipc命名空间,默认false</p>
+<h2 id="hostnetwork">hostNetwork<a class="headerlink" href="#hostnetwork" title="Permanent link">&para;</a></h2>
+<p>使用node network命名空间,默认false</p>
+<h2 id="hostpid">hostPID<a class="headerlink" href="#hostpid" title="Permanent link">&para;</a></h2>
+<p>使用node pid命名空间,默认false</p>
+<h2 id="hostname">hostname<a class="headerlink" href="#hostname" title="Permanent link">&para;</a></h2>
+<ul>
+<li>pod中container的hostname默认是podname,就是说每一个pod副本的hostname是不同的</li>
+<li>可以用这个指定hostname,这样所有pod副本的hostname都一样</li>
+<li>默认情况下系统是不会为pod分配dns记录的</li>
+<li>有一种方法可以为pod分配dns记录</li>
+<li>需要pod的hostname和subdomain都有设置</li>
+<li>并且需要一个与设置的subdomain同名且能match到pod的svc</li>
+<li>此时pod的dns记录为hostname.subdomain.ns.svc.cluster.local</li>
+<li>此dns记录返回的是拥有此hostname的pod所有副本的IP地址,与headless svc效果一样</li>
+<li>与headless svc不同的是,headless svc返回所有匹配到的pod的IP</li>
+<li>如果headless svc匹配多种hostname的pod,那么可以用这个记录加以区分
+what's the point???</li>
+</ul>
+<h2 id="subdomain-string">subdomain <code>&lt;string&gt;</code><a class="headerlink" href="#subdomain-string" title="Permanent link">&para;</a></h2>
+<p>在hostname后添加一个子域名</p>
+<h2 id="imagepullsecrets">imagePullSecrets<a class="headerlink" href="#imagepullsecrets" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/concepts/containers/images/">https://kubernetes.io/docs/concepts/containers/images/</a></p>
+</blockquote>
+<p>使用hosted集群不同厂商有相应的方法,参考上面链接,自建集群有3种方法</p>
+<h3 id="secret">手工设置secret<a class="headerlink" href="#secret" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#创建secret</span>
+kubectl create secret docker-registry &lt;name&gt; --docker-server<span class="o">=</span>DOCKER_REGISTRY_SERVER --docker-username<span class="o">=</span>DOCKER_USER --docker-password<span class="o">=</span>DOCKER_PASSWORD --docker-email<span class="o">=</span>DOCKER_EMAIL
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">#引用secret</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">imagePullSecrets</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myregistrykey</span>
+  <span class="nt">containers</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">foo</span>
+      <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">janedoe/awesomeapp:v1</span>
+</code></pre></div>
+<h3 id="serviceaccount">使用serviceaccount<a class="headerlink" href="#serviceaccount" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account">https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account</a></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="c1">#创建secret</span>
+kubectl create secret docker-registry &lt;name&gt; --docker-server<span class="o">=</span>DOCKER_REGISTRY_SERVER --docker-username<span class="o">=</span>DOCKER_USER --docker-password<span class="o">=</span>DOCKER_PASSWORD --docker-email<span class="o">=</span>DOCKER_EMAIL
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">#添加到sa中</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
+<span class="nt">imagePullSecrets</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myregistrykey</span>
+</code></pre></div>
+<p>使用该sa的pod将被自动注入imagePullSecrets</p>
+<h3 id="nodecri">在node上配置cri<a class="headerlink" href="#nodecri" title="Permanent link">&para;</a></h3>
+<p>https://github.com/containerd/cri/blob/master/docs/registry.md</p>
+<h2 id="initcontainers-object">initContainers &lt;[]Object&gt;<a class="headerlink" href="#initcontainers-object" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">https://kubernetes.io/docs/concepts/workloads/pods/init-containers/</a></p>
+</blockquote>
+<ul>
+<li>每个initContainer必须成功才会运行下一个initContainer</li>
+<li>多个initContainer的运行顺序与它他在spec中的出场顺序相对应</li>
+<li>所有initContainer必须成功才会运行container</li>
+<li>任何失败都导致pod被kill</li>
+<li>不支持lifecycle和各种probe</li>
+</ul>
+<h2 id="nodename">nodeName<a class="headerlink" href="#nodename" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename">https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodename</a>
+指定某个node运行,相当于自助调度,kubelet直接读取这个信息来运行pod不需要scheduler参与
+优先级高于nodeselector和nodeaffinity</p>
+</blockquote>
+<h2 id="nodeselector-mapstringstring">nodeSelector <code>&lt;map[string]string&gt;</code><a class="headerlink" href="#nodeselector-mapstringstring" title="Permanent link">&para;</a></h2>
+<p>按标签选择node,和matchLabel用法一样
+多个标签需同时满足</p>
+<div class="highlight"><pre><span></span><code>  <span class="nt">nodeSelector</span><span class="p">:</span>
+    <span class="nt">disktype</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ssd</span>
+</code></pre></div>
+<h2 id="preemptionpolicy-string-alpha">preemptionPolicy <code>&lt;string&gt;</code> <code>alpha</code><a class="headerlink" href="#preemptionpolicy-string-alpha" title="Permanent link">&para;</a></h2>
+<p>This field is alpha-level and is only honored by servers that enable the NonPreemptingPriority feature.
+设置此pod的抢占策略
+默认为PreemptLowerPriority,就是资源可以被高优先级的pod抢占
+可以设置为Never,拥有此优先级的pod不会被更高优先级的pod抢占资源</p>
+<h2 id="priority-integer">priority <code>&lt;integer&gt;</code><a class="headerlink" href="#priority-integer" title="Permanent link">&para;</a></h2>
+<p>pod优先级,默认启用的priority Admission Controller会根据<code>priorityClassName</code>来设置这个值,并阻止用户设置或修改它.</p>
+<h2 id="priorityclassname-string">priorityClassName <code>&lt;string&gt;</code><a class="headerlink" href="#priorityclassname-string" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/">https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/</a>
+<a href="https://kubernetes.io/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default">https://kubernetes.io/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default</a></p>
+</blockquote>
+<p>指定使用的优先级名称</p>
+<p>有一种叫priorityclass的非ns资源
+系统默认有两个</p>
+<div class="highlight"><pre><span></span><code>system-cluster-critical        2000000000
+system-node-critical           2000001000
+</code></pre></div>
+<p>自定义priorityclass
+!review</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#如果被删除,具有此优先级的pod的priorityClassName保持不变</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">some info</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PriorityClass</span>
+<span class="c1">#设置为全局默认优先级,应用到新建的未指定优先级的pod,不影响已有的pod</span>
+<span class="c1">#如果有多个全局默认优先级,value小的生效</span>
+<span class="nt">globalDefault</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="c1">#设置此优先级的抢占策略 alpha</span>
+<span class="c1">#默认为PreemptLowerPriority,就是资源可以被高优先级的pod抢占</span>
+<span class="c1">#可以设置为Never,拥有此优先级的pod不会被更高优先级的pod抢占资源</span>
+<span class="nt">preemptionPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PreemptLowerPriority</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="c1">#不能以系统保留的`system-`开头</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">classA</span>
+<span class="c1">#数值越大优先级越高</span>
+<span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10000</span>
+</code></pre></div>
+<h2 id="readinessgates-object">readinessGates <code>&lt;[]Object&gt;</code><a class="headerlink" href="#readinessgates-object" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready++.md">https://github.com/kubernetes/enhancements/blob/master/keps/sig-network/0007-pod-ready++.md</a></p>
+</blockquote>
+<ul>
+<li>为pod添加readiness,和container的readiness不同</li>
+<li>container的readiness是从内部确定readiness状态,所有container的readiness都成功时,ContainersReady为true</li>
+<li>pod的readiness是由外部注入到podstatus里的,通过PATCH操作注入到pod conditions中</li>
+<li>比如在readinessGates的conditionType中设置了ab.cd/ef</li>
+<li>kubelet就会根据conditions中的ab.cd/ef的状态来判断pod是否ready</li>
+<li>只有ContainersReady为true,加上ab.cd/ef为true,Ready才会true</li>
+<li>如果ContainersReady为true,ab.cd/ef为false,这时Ready为false</li>
+<li>这种情况下不会被加入到endpoints,rollingupdate也不计入成功数量,就这么一直运行</li>
+</ul>
+<h2 id="restartpolicy-string">restartPolicy <code>&lt;string&gt;</code><a class="headerlink" href="#restartpolicy-string" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>应到到所有container
+当container停止,kubectl会重启它,默认是Always
+back-off delay为10s 20s 40s ... 300s,成功运行10分钟后重置</p>
+</blockquote>
+<ul>
+<li>Always<blockquote>
+<p>总是重启</p>
+</blockquote>
+</li>
+<li>OnFailure<blockquote>
+<p>只有非0退出才重启</p>
+</blockquote>
+</li>
+<li>Never<blockquote>
+<p>不重启</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="schedulername-string">schedulerName <code>&lt;string&gt;</code><a class="headerlink" href="#schedulername-string" title="Permanent link">&para;</a></h2>
+<p>指定scheduler,不指定就使用默认的</p>
+<h2 id="securitycontext-object">securityContext <code>&lt;Object&gt;</code><a class="headerlink" href="#securitycontext-object" title="Permanent link">&para;</a></h2>
+<h2 id="serviceaccount-string">serviceAccount <code>&lt;string&gt;</code><a class="headerlink" href="#serviceaccount-string" title="Permanent link">&para;</a></h2>
+<p>Deprecated: Use serviceAccountName instead.</p>
+<h2 id="serviceaccountname-string">serviceAccountName <code>&lt;string&gt;</code><a class="headerlink" href="#serviceaccountname-string" title="Permanent link">&para;</a></h2>
+<p>为pod设置sa</p>
+<h2 id="shareprocessnamespace-boolean">shareProcessNamespace <code>&lt;boolean&gt;</code><a class="headerlink" href="#shareprocessnamespace-boolean" title="Permanent link">&para;</a></h2>
+<p>设置pod内container共享pid namespace
+不能和hostpid一起使用,默认为false</p>
+<h2 id="terminationgraceperiodseconds-integer">terminationGracePeriodSeconds <code>&lt;integer&gt;</code><a class="headerlink" href="#terminationgraceperiodseconds-integer" title="Permanent link">&para;</a></h2>
+<p>对container进程发送SIGTERM后多久发送SIGKILL,默认30秒</p>
+<h2 id="topologyspreadconstraints-object">topologySpreadConstraints <code>&lt;[]Object&gt;</code><a class="headerlink" href="#topologyspreadconstraints-object" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints">https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints</a></p>
+</blockquote>
+<ul>
+<li>通过labelselector选择目标pod</li>
+<li>获得目标pod所在node的topologykey值</li>
+<li>以不同的topologykey值划分出不同的目标域</li>
+<li>确保新pod被均匀分散调度到这些不同的目标域中</li>
+<li>maxskew用来设置不同目标域中最大pod数量差</li>
+<li>whenUnsatisfiable用来设置以上条件不能满足时如果调度新pod</li>
+<li>比如topologykey设置为kubernetes.io/hostname,那么每一个node就是一个目标域</li>
+<li>可以定义多组规则,它们需要被同时满足</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># &lt;[]Object&gt;</span>
+<span class="nt">topologySpreadConstraints</span><span class="p">:</span>
+    <span class="c1">#&lt;Object&gt;</span>
+  <span class="p p-Indicator">-</span> <span class="nt">labelSelector</span><span class="p">:</span>
+      <span class="nt">matchLabels</span><span class="p">:</span>
+        <span class="nt">foo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bar</span>
+        <span class="nt">bar</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">foo</span>
+    <span class="c1">#&lt;integer&gt; -required-</span>
+    <span class="nt">maxSkew</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+    <span class="c1">#&lt;string&gt; -required-</span>
+    <span class="nt">topologyKey</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ab.cd/ef</span>
+    <span class="c1">#&lt;string&gt; -required-</span>
+    <span class="c1">#默认为DoNotSchedule,可以使用ScheduleAnyway,相当于尽量满足这个条件</span>
+    <span class="nt">whenUnsatisfiable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DoNotSchedule</span>
+</code></pre></div>
+<h2 id="tolerations-object">tolerations <code>&lt;[]Object&gt;</code><a class="headerlink" href="#tolerations-object" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/">https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/</a>
+!review</p>
+</blockquote>
+<h3 id="taint-node">taint node<a class="headerlink" href="#taint-node" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># k=v:effect</span>
+<span class="c1">#指定key value effect</span>
+kubectl taint nodes node1 <span class="nv">key</span><span class="o">=</span>value:NoSchedule
+<span class="c1">#忽略value</span>
+kubectl taint nodes node1 key:NoSchedule
+<span class="c1">#去除taint</span>
+kubectl taint nodes node1 key:NoSchedule-
+</code></pre></div>
+<ul>
+<li>NoSchedule<blockquote>
+<p>禁止调度</p>
+</blockquote>
+</li>
+<li>PreferNoSchedule<blockquote>
+<p>尽量不要调度</p>
+</blockquote>
+</li>
+<li>NoExecute<blockquote>
+<p>这个会影响正在运行的pod,不能容忍的pod被立即驱逐</p>
+</blockquote>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>  <span class="nt">taints</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">effect</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">NoSchedule</span>
+    <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">key</span>
+    <span class="nt">value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">value</span>
+</code></pre></div>
+<h3 id="pod-tolerations">pod tolerations<a class="headerlink" href="#pod-tolerations" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">tolerations</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;key&quot;</span>
+  <span class="c1">#默认值是Equal,判断value</span>
+  <span class="nt">operator</span><span class="p">:</span> <span class="s">&quot;Equal&quot;</span>
+  <span class="nt">value</span><span class="p">:</span> <span class="s">&quot;value&quot;</span>
+  <span class="nt">effect</span><span class="p">:</span> <span class="s">&quot;NoSchedule&quot;</span>
+
+<span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;key&quot;</span>
+  <span class="c1">#使用Exists只判断key存在,忽略value</span>
+  <span class="nt">operator</span><span class="p">:</span> <span class="s">&quot;Exists&quot;</span>
+  <span class="nt">effect</span><span class="p">:</span> <span class="s">&quot;NoSchedule&quot;</span>
+
+  <span class="c1">#空key+Exists+空effect容忍任何taint</span>
+<span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">operator</span><span class="p">:</span> <span class="s">&quot;Exists&quot;</span>
+  <span class="nt">effect</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+  <span class="c1">#可选项,定义容忍有效时间,过期后容忍失效</span>
+  <span class="nt">tolerationSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3600</span>
+</code></pre></div>
+<h2 id="volumes-object">volumes <code>&lt;[]Object&gt;</code><a class="headerlink" href="#volumes-object" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/concepts/storage/volumes">https://kubernetes.io/docs/concepts/storage/volumes</a></p>
+</blockquote>
+<p>!reveiw</p>
+<h3 id="configmap">configmap<a class="headerlink" href="#configmap" title="Permanent link">&para;</a></h3>
+<ul>
+<li>挂载configmap是会自动更新的,kubelet默认有一分钟的缓存,和一分钟的轮询间隔,理论上最多有两分钟延迟</li>
+<li>如果不希望自动更新,可以改用env,或者是使用subpath挂载</li>
+<li>或者开启ImmutableEmphemeralVolumes feature gate 然后在cm中加入immutable: true</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cm1</span>
+    <span class="nt">configMap</span><span class="p">:</span>
+      <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cm1</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cm2</span>
+    <span class="nt">configMap</span><span class="p">:</span>
+      <span class="c1">#挂载文件的权限,默认为0644</span>
+      <span class="nt">defaultMode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0644</span>
+      <span class="c1">#默认如果cm或指定的key不存在就会报错,设置为true为忽略</span>
+      <span class="nt">optional</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cm2</span>
+      <span class="c1">#挂载cm中指定的kv</span>
+      <span class="nt">items</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">key1</span>
+        <span class="c1">#可以指定挂载后的相对路径</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my/key1</span>
+      <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">key2</span>
+        <span class="c1">#可以指定挂载后的文件名</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">keytwo</span>
+</code></pre></div>
+<h3 id="secret_1">secret<a class="headerlink" href="#secret_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>和configmap一样</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sec1</span>
+    <span class="nt">secret</span><span class="p">:</span>
+      <span class="nt">secretName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sec1</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sec2</span>
+    <span class="nt">secret</span><span class="p">:</span>
+      <span class="c1">#挂载文件的权限,默认为0644</span>
+      <span class="nt">defaultMode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0644</span>
+      <span class="c1">#默认如果secret或指定的key不存在就会报错,设置为true为忽略</span>
+      <span class="nt">optional</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">secretName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sec2</span>
+      <span class="c1">#挂载secret中指定的kv</span>
+      <span class="nt">items</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">key1</span>
+        <span class="c1">#可以指定挂载后的相对路径</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my/key1</span>
+      <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">key2</span>
+        <span class="c1">#可以指定挂载后的文件名</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">keytwo</span>
+</code></pre></div>
+<h3 id="downwardapi">downwardAPI<a class="headerlink" href="#downwardapi" title="Permanent link">&para;</a></h3>
+<ul>
+<li>支持的字段<ul>
+<li>fieldRef<ul>
+<li>metadata.name</li>
+<li>metadata.namespace</li>
+<li>metadata.uid</li>
+<li>metadata.labels</li>
+<li>metadata.annotations</li>
+<li>metadata.labels['mylabel']</li>
+<li>metadata.annotations['myannotation']</li>
+</ul>
+</li>
+<li>resourceFieldRef<ul>
+<li>limits.cpu</li>
+<li>requests.cpu</li>
+<li>limits.memory</li>
+<li>requests.memory</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">podinfo</span>
+    <span class="nt">downwardAPI</span><span class="p">:</span>
+      <span class="nt">items</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;labels&quot;</span>
+          <span class="nt">fieldRef</span><span class="p">:</span>
+            <span class="nt">fieldPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">metadata.labels</span>
+        <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;annotations&quot;</span>
+          <span class="nt">fieldRef</span><span class="p">:</span>
+            <span class="nt">fieldPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">metadata.annotations</span>
+        <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;cpu_limit&quot;</span>
+          <span class="nt">resourceFieldRef</span><span class="p">:</span>
+            <span class="nt">containerName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-container</span>
+            <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">limits.cpu</span>
+            <span class="nt">divisor</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1m</span>
+        <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;cpu_request&quot;</span>
+          <span class="nt">resourceFieldRef</span><span class="p">:</span>
+            <span class="nt">containerName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-container</span>
+            <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">requests.cpu</span>
+            <span class="nt">divisor</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1m</span>
+        <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;mem_limit&quot;</span>
+          <span class="nt">resourceFieldRef</span><span class="p">:</span>
+            <span class="nt">containerName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-container</span>
+            <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">limits.memory</span>
+            <span class="nt">divisor</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Mi</span>
+        <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;mem_request&quot;</span>
+          <span class="nt">resourceFieldRef</span><span class="p">:</span>
+            <span class="nt">containerName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">client-container</span>
+            <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">requests.memory</span>
+            <span class="nt">divisor</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1Mi</span>
+</code></pre></div>
+<h3 id="emptydir">emptyDir<a class="headerlink" href="#emptydir" title="Permanent link">&para;</a></h3>
+<ul>
+<li>emptydir就是pod运行的node上的一个临时目录</li>
+<li>当pod被从node删除,emptydir会被清空,如果是crash不会被清空</li>
+<li>可以设置emptyDir.medium字段为Memory,相当于使用node上的一个tmpfs,会被计入内存使用</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cache-volume</span>
+  <span class="nt">emptyDir</span><span class="p">:</span>
+    <span class="c1">#默认为空,代表使用普通磁盘</span>
+    <span class="nt">medium</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Memory</span>
+    <span class="c1">#默认为不限制,对普通磁盘或Memory都有效</span>
+    <span class="nt">sizeLimit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">32Mi</span>
+</code></pre></div>
+<h3 id="hostpath">hostPath<a class="headerlink" href="#hostpath" title="Permanent link">&para;</a></h3>
+<ul>
+<li>hostpath就是挂载node主机上的目录或文件</li>
+<li>系统不会把hostpath计入资源占用</li>
+<li>如果挂载的文件或目录不存在,那么kubelet会先创建它们,uid:gid对应kubelet的运行身份,权限为0644</li>
+<li>type<ul>
+<li>默认为空,挂载目录,如果目标目录不存在,kubelet会先创建再挂载</li>
+<li>Directory 目标目录必须存在</li>
+<li>DirectoryOrCreate 和默认空值一样</li>
+<li>File 挂载文件,文件必须存在</li>
+<li>FileOrCreate 挂载文件,如果不存在则先touch一个</li>
+<li>Socket 挂载unix socket,必须存在</li>
+<li>CharDevice 挂载character device,必须存在</li>
+<li>BlockDevice 挂载block device,必须存在</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test-volume</span>
+  <span class="nt">hostPath</span><span class="p">:</span>
+    <span class="c1"># directory location on host</span>
+    <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/data</span>
+    <span class="c1"># this field is optional</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Directory</span>
+</code></pre></div>
+<h3 id="persistentvolumeclaim">persistentVolumeClaim<a class="headerlink" href="#persistentvolumeclaim" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mypd</span>
+    <span class="nt">persistentVolumeClaim</span><span class="p">:</span>
+      <span class="nt">claimName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myclaim</span>
+      <span class="nt">readOnly</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<h3 id="projected">projected<a class="headerlink" href="#projected" title="Permanent link">&para;</a></h3>
+<ul>
+<li>projected可以把4种类型的对象聚合挂载到同一个volume</li>
+<li>包括 secret configMap downwardAPI serviceAccountToken</li>
+<li>只能引用和pod相同ns的对象</li>
+<li>感觉真tm好用</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">volumes</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">all-in-one</span>
+  <span class="nt">projected</span><span class="p">:</span>
+    <span class="nt">sources</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">secret</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mysecret</span>
+        <span class="nt">items</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">username</span>
+            <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my-group/my-username</span>
+    <span class="p p-Indicator">-</span> <span class="nt">downwardAPI</span><span class="p">:</span>
+        <span class="nt">items</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;labels&quot;</span>
+            <span class="nt">fieldRef</span><span class="p">:</span>
+              <span class="nt">fieldPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">metadata.labels</span>
+          <span class="p p-Indicator">-</span> <span class="nt">path</span><span class="p">:</span> <span class="s">&quot;cpu_limit&quot;</span>
+            <span class="nt">resourceFieldRef</span><span class="p">:</span>
+              <span class="nt">containerName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">container-test</span>
+              <span class="nt">resource</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">limits.cpu</span>
+    <span class="p p-Indicator">-</span> <span class="nt">configMap</span><span class="p">:</span>
+        <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">myconfigmap</span>
+        <span class="nt">items</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">config</span>
+            <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">my-group/my-config</span>
+    <span class="p p-Indicator">-</span> <span class="nt">serviceAccountToken</span><span class="p">:</span>
+        <span class="nt">audience</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">api</span>
+        <span class="nt">expirationSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3600</span>
+        <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">token</span>
+</code></pre></div>
+<h2 id="tbd">tbd<a class="headerlink" href="#tbd" title="Permanent link">&para;</a></h2>
+<p>!review</p>
+<div class="highlight"><pre><span></span><code>   overhead &lt;map[string]string&gt;
+     Overhead represents the resource overhead associated with running a pod for
+     a given RuntimeClass. This field will be autopopulated at admission time by
+     the RuntimeClass admission controller. If the RuntimeClass admission
+     controller is enabled, overhead must not be set in Pod create requests. The
+     RuntimeClass admission controller will reject Pod create requests which
+     have the overhead already set. If RuntimeClass is configured and selected
+     in the PodSpec, Overhead will be set to the value defined in the
+     corresponding RuntimeClass, otherwise it will remain unset and treated as
+     zero. More info:
+     https://git.k8s.io/enhancements/keps/sig-node/20190226-pod-overhead.md This
+     field is alpha-level as of Kubernetes v1.16, and is only honored by servers
+     that enable the PodOverhead feature.
+
+
+
+
+   runtimeClassName &lt;string&gt;
+     RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group,
+     which should be used to run this pod. If no RuntimeClass resource matches
+     the named class, the pod will not be run. If unset or empty, the &quot;legacy&quot;
+     RuntimeClass will be used, which is an implicit class with an empty
+     definition that uses the default runtime handler. More info:
+     https://git.k8s.io/enhancements/keps/sig-node/runtime-class.md This is a
+     beta feature as of Kubernetes v1.14.
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../01-containers/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              containers
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../03-deploy/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              deployment
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>

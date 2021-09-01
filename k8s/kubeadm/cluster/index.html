@@ -1,0 +1,1504 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="使用kubeadm引导和升级k8s集群">
+      
+      
+      
+      
+        <link rel="canonical" href="https://emptyteeth.github.io/k8s/kubeadm/cluster/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>kubeadm k8s集群 - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kubeadm-k8s" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              kubeadm k8s集群
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Empty
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git/" class="md-nav__link">
+        git基本原理和操作
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../regex/" class="md-nav__link">
+        regex正则表达式基础
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Devices
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Devices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Devices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devices/pi4-alpine-linux-headless-installation/" class="md-nav__link">
+        pi4 alpine-linux headless installation
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        K8s
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="K8s" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          K8s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fluent-bit/" class="md-nav__link">
+        fluent-bit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s-cheaty-way/" class="md-nav__link">
+        k8s cheaty way
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prometheus/" class="md-nav__link">
+        prometheus
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      <label class="md-nav__link" for="__nav_5_4">
+        AAAA
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AAAA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          AAAA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/admissioncontroller/" class="md-nav__link">
+        admission controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/api.list/" class="md-nav__link">
+        api list
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/api/" class="md-nav__link">
+        api
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/arch/" class="md-nav__link">
+        arch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/authentication/" class="md-nav__link">
+        authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/etcd/" class="md-nav__link">
+        etcd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/kubeconfig/" class="md-nav__link">
+        kubeconfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/object/" class="md-nav__link">
+        ojbect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AAAA/rbac/" class="md-nav__link">
+        rabc authorization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5_5">
+        Kubeadm
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubeadm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubeadm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          kubeadm k8s集群
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        kubeadm k8s集群
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cri" class="md-nav__link">
+    安装CRI
+  </a>
+  
+    <nav class="md-nav" aria-label="安装CRI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containerd" class="md-nav__link">
+    containerd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cri-o" class="md-nav__link">
+    cri-o
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubeadm-kubelet-kubectl" class="md-nav__link">
+    kubeadm kubelet kubectl
+  </a>
+  
+    <nav class="md-nav" aria-label="kubeadm kubelet kubectl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    包安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    二进制安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#haproxy" class="md-nav__link">
+    haproxy配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    集群引导
+  </a>
+  
+    <nav class="md-nav" aria-label="集群引导">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    命令行方式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    配置文件方式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    可选镜像参数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cni" class="md-nav__link">
+    安装CNI
+  </a>
+  
+    <nav class="md-nav" aria-label="安装CNI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flannel" class="md-nav__link">
+    flannel
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nodetoken" class="md-nav__link">
+    生成node加入集群token
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mastertoken" class="md-nav__link">
+    生成master加入集群token
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    输出结果
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    重置集群
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-cluster" class="md-nav__link">
+    upgrade cluster
+  </a>
+  
+    <nav class="md-nav" aria-label="upgrade cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#master-node" class="md-nav__link">
+    第一个master node
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#master-node_1" class="md-nav__link">
+    其它master node
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worker-node" class="md-nav__link">
+    worker node
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../howitworks/" class="md-nav__link">
+        how kubeadm works
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/ingress/" class="md-nav__link">
+        ingress
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/k8snetwork/" class="md-nav__link">
+        k8s network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/networkpolicy/" class="md-nav__link">
+        network policy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/service/" class="md-nav__link">
+        service
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Workloads
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workloads" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Workloads
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/01-containers/" class="md-nav__link">
+        containers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/02-pod/" class="md-nav__link">
+        pod
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/03-deploy/" class="md-nav__link">
+        deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/04-daemonset/" class="md-nav__link">
+        daemonset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/05-statefulset/" class="md-nav__link">
+        statefulset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/gc/" class="md-nav__link">
+        Garbage Collection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/job/" class="md-nav__link">
+        job
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/nf-iprouting/" class="md-nav__link">
+        netfilter&ip-routing基本原理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/wireguard/" class="md-nav__link">
+        wireguard route based site2site vpn
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cri" class="md-nav__link">
+    安装CRI
+  </a>
+  
+    <nav class="md-nav" aria-label="安装CRI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    docker
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containerd" class="md-nav__link">
+    containerd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cri-o" class="md-nav__link">
+    cri-o
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubeadm-kubelet-kubectl" class="md-nav__link">
+    kubeadm kubelet kubectl
+  </a>
+  
+    <nav class="md-nav" aria-label="kubeadm kubelet kubectl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    包安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    二进制安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#haproxy" class="md-nav__link">
+    haproxy配置
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    集群引导
+  </a>
+  
+    <nav class="md-nav" aria-label="集群引导">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    命令行方式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    配置文件方式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    可选镜像参数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cni" class="md-nav__link">
+    安装CNI
+  </a>
+  
+    <nav class="md-nav" aria-label="安装CNI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flannel" class="md-nav__link">
+    flannel
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nodetoken" class="md-nav__link">
+    生成node加入集群token
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mastertoken" class="md-nav__link">
+    生成master加入集群token
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    输出结果
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    重置集群
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upgrade-cluster" class="md-nav__link">
+    upgrade cluster
+  </a>
+  
+    <nav class="md-nav" aria-label="upgrade cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#master-node" class="md-nav__link">
+    第一个master node
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#master-node_1" class="md-nav__link">
+    其它master node
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#worker-node" class="md-nav__link">
+    worker node
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="kubeadm-k8s">kubeadm k8s集群<a class="headerlink" href="#kubeadm-k8s" title="Permanent link">&para;</a></h1>
+<p>使用kubeadm引导和升级k8s集群</p>
+<h2 id="cri">安装CRI<a class="headerlink" href="#cri" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/zh/docs/setup/production-environment/container-runtimes/">https://kubernetes.io/zh/docs/setup/production-environment/container-runtimes/</a></p>
+</blockquote>
+<h3 id="docker">docker<a class="headerlink" href="#docker" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>mkdir /etc/docker
+
+cat &gt; /etc/docker/daemon.json <span class="s">&lt;&lt;EOF</span>
+<span class="s">{</span>
+<span class="s">&quot;registry-mirrors&quot;: [&quot;https://docker.mirrors.ustc.edu.cn&quot;],</span>
+<span class="s">&quot;exec-opts&quot;: [&quot;native.cgroupdriver=systemd&quot;]</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+
+apt install docker.io
+</code></pre></div>
+<h3 id="containerd">containerd<a class="headerlink" href="#containerd" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>apt install containerd.io
+
+cat &gt; /etc/modules-load.d/containerd.conf <span class="s">&lt;&lt;EOF</span>
+<span class="s">overlay</span>
+<span class="s">br_netfilter</span>
+<span class="s">EOF</span>
+
+modprobe overlay
+modprobe br_netfilter
+
+<span class="c1"># 设置必需的sysctl参数，这些参数在重新启动后仍然存在。</span>
+cat &gt; /etc/sysctl.d/99-kubernetes-cri.conf <span class="s">&lt;&lt;EOF</span>
+<span class="s">net.bridge.bridge-nf-call-iptables  = 1</span>
+<span class="s">net.ipv4.ip_forward                 = 1</span>
+<span class="s">net.bridge.bridge-nf-call-ip6tables = 1</span>
+<span class="s">EOF</span>
+
+sysctl --system
+
+mkdir -p /etc/containerd
+containerd config default &gt; /etc/containerd/config.toml
+
+<span class="c1"># systemd cgroup</span>
+<span class="o">[</span>plugins.<span class="s2">&quot;io.containerd.grpc.v1.cri&quot;</span>.containerd.runtimes.runc<span class="o">]</span>
+    <span class="nv">runtime_type</span> <span class="o">=</span> <span class="s2">&quot;io.containerd.runc.v2&quot;</span>
+    <span class="o">[</span>plugins.<span class="s2">&quot;io.containerd.grpc.v1.cri&quot;</span>.containerd.runtimes.runc.options<span class="o">]</span>
+        <span class="nv">SystemdCgroup</span> <span class="o">=</span> <span class="nb">true</span>
+
+systemctl restart containerd
+
+cat &gt; /etc/crictl.yaml <span class="s">&lt;&lt;EOF</span>
+<span class="s">runtime-endpoint: unix:///run/containerd/containerd.sock</span>
+<span class="s">image-endpoint: unix:///run/containerd/containerd.sock</span>
+<span class="s">EOF</span>
+</code></pre></div>
+<h3 id="cri-o">cri-o<a class="headerlink" href="#cri-o" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>目前1.17版本arm64架构使用会有问题,在拉取镜像时会匹配主机的 OS architecture variant,但gcr的镜像没有variant标记,然后就报错了</p>
+<blockquote>
+<p>no image found in manifest list for architecture arm64, variant v8, OS linux</p>
+</blockquote>
+</blockquote>
+<div class="highlight"><pre><span></span><code>modprobe overlay
+modprobe br_netfilter
+
+<span class="c1"># Set up required sysctl params, these persist across reboots.</span>
+cat &gt; /etc/sysctl.d/99-kubernetes-cri.conf <span class="s">&lt;&lt;EOF</span>
+<span class="s">net.bridge.bridge-nf-call-iptables  = 1</span>
+<span class="s">net.ipv4.ip_forward                 = 1</span>
+<span class="s">net.bridge.bridge-nf-call-ip6tables = 1</span>
+<span class="s">EOF</span>
+
+sysctl --system
+
+<span class="c1"># Configure package repository</span>
+. /etc/os-release
+sudo sh -c <span class="s2">&quot;echo &#39;deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/x</span><span class="si">${</span><span class="nv">NAME</span><span class="si">}</span><span class="s2">_</span><span class="si">${</span><span class="nv">VERSION_ID</span><span class="si">}</span><span class="s2">/ /&#39; &gt; /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list&quot;</span>
+wget -nv https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/x<span class="si">${</span><span class="nv">NAME</span><span class="si">}</span>_<span class="si">${</span><span class="nv">VERSION_ID</span><span class="si">}</span>/Release.key -O- <span class="p">|</span> sudo apt-key add -
+sudo apt-get update
+
+sudo apt-get install cri-o-1.17
+</code></pre></div>
+<h2 id="kubeadm-kubelet-kubectl">kubeadm kubelet kubectl<a class="headerlink" href="#kubeadm-kubelet-kubectl" title="Permanent link">&para;</a></h2>
+<h3 id="_1">包安装<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/">https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/</a>
+<a href="https://developer.aliyun.com/mirror/kubernetes">https://developer.aliyun.com/mirror/kubernetes</a></p>
+</blockquote>
+<h3 id="_2">二进制安装<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/setup/release/notes/">https://kubernetes.io/docs/setup/release/notes/</a>
+<a href="https://github.com/kubernetes-sigs/cri-tools/releases">https://github.com/kubernetes-sigs/cri-tools/releases</a>
+<a href="https://github.com/containernetworking/plugins/releases">https://github.com/containernetworking/plugins/releases</a>
+<a href="https://mirrors.aliyun.com/kubernetes/apt/pool/">https://mirrors.aliyun.com/kubernetes/apt/pool/</a></p>
+</blockquote>
+<ul>
+<li>需要用到kubeadm包中的kubelet.service.d和kubelet包中的kubelet.service</li>
+<li>cri-tools路径/usr/bin</li>
+<li>kubenetes-cni路径/opt/cni/bin</li>
+<li>kubelet deps: iptables (&gt;= 1.4.21), kubernetes-cni (&gt;= 0.7.5), iproute2, socat, util-linux, mount, ebtables, ethtool, conntrack</li>
+<li>kubeadm deps: kubelet (&gt;= 1.13.0), kubectl (&gt;= 1.13.0), kubernetes-cni (&gt;= 0.7.5), cri-tools (&gt;= 1.13.0)</li>
+</ul>
+<h2 id="haproxy">haproxy配置<a class="headerlink" href="#haproxy" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>listen k8s
+    bind *:6444
+    mode tcp
+    timeout client  4h
+    timeout server  4h
+    server master01 10.11.1.21:6443
+</code></pre></div>
+<h2 id="_3">集群引导<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="_4">命令行方式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>kubeadm init --upload-certs --node-name master01 --control-plane-endpoint <span class="s2">&quot;k8s.xxx.fun:6444&quot;</span> --pod-network-cidr<span class="o">=</span><span class="m">10</span>.244.0.0/16
+</code></pre></div>
+<h3 id="_5">配置文件方式<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><a href="https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2">https://godoc.org/k8s.io/kubernetes/cmd/kubeadm/app/apis/kubeadm/v1beta2</a></p>
+</blockquote>
+<ul>
+<li>生成默认配置</li>
+</ul>
+<div class="highlight"><pre><span></span><code>kubeadm config print init-defaults --component-configs KubeletConfiguration,KubeProxyConfiguration &gt;kubeadm.yaml
+</code></pre></div>
+<ul>
+<li>定制配置文件</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">#InitConfiguration</span>
+<span class="nt">advertiseAddress</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10.11.1.22</span>
+
+<span class="c1">#ClusterConfiguration</span>
+<span class="nt">controlPlaneEndpoint</span><span class="p">:</span> <span class="s">&quot;k8s.xxx.fun:6444&quot;</span>
+<span class="nt">networking</span><span class="p">:</span>
+    <span class="nt">podSubnet</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10.244.0.0/16</span>
+
+<span class="c1">#KubeProxyConfiguration</span>
+<span class="nt">mode</span><span class="p">:</span> <span class="s">&quot;ipvs&quot;</span>
+
+<span class="c1">#KubeletConfiguration</span>
+<span class="nt">cgroupDriver</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">systemd</span>
+</code></pre></div>
+<ul>
+<li>引导集群</li>
+</ul>
+<div class="highlight"><pre><span></span><code>kubeadm init --config kubeadm.yaml --upload-certs
+</code></pre></div>
+<h3 id="_6">可选镜像参数<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>--image-repository gcr.azk8s.cn
+--image-repository registry.aliyuncs.com/google_containers
+</code></pre></div>
+<h2 id="cni">安装CNI<a class="headerlink" href="#cni" title="Permanent link">&para;</a></h2>
+<h3 id="flannel">flannel<a class="headerlink" href="#flannel" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>需要在kubeadm init时设置了<code>pod-network-cidr</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+</code></pre></div>
+<h2 id="nodetoken">生成node加入集群token<a class="headerlink" href="#nodetoken" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>kubeadm token create --print-join-command
+</code></pre></div>
+<h2 id="mastertoken">生成master加入集群token<a class="headerlink" href="#mastertoken" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/high-availability/">https://kubernetes.io/zh/docs/setup/production-environment/tools/kubeadm/high-availability/</a></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>kubeadm init phase upload-certs --upload-certs
+</code></pre></div>
+<h2 id="_7">输出结果<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>You can now join any number of the control-plane node running the following command on each as root:
+
+  kubeadm join k8s.xxx.fun:6444 --token abcdef.0123456789abcdef \
+    --discovery-token-ca-cert-hash sha256:a6b93a5ff4633e1fb97a86c1f1bde42dfee969c2771e483d7427e56af2bc6c91 \
+    --control-plane --certificate-key c4e45baa07697764320711faeab1eeea3a860878714e10afdc9a1f723e985a9d
+
+Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use
+&quot;kubeadm init phase upload-certs --upload-certs&quot; to reload certs afterward.
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join k8s.xxx.fun:6444 --token abcdef.0123456789abcdef \
+    --discovery-token-ca-cert-hash sha256:a6b93a5ff4633e1fb97a86c1f1bde42dfee969c2771e483d7427e56af2bc6c91
+</code></pre></div>
+<h2 id="_8">重置集群<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>kubeadm reset
+rm /etc/cni/net.d/*
+ipvsadm --clear
+ip l del dev <span class="o">{</span>cni0,flannel.1,kube-ipvs0<span class="o">}</span>
+</code></pre></div>
+<h2 id="upgrade-cluster">upgrade cluster<a class="headerlink" href="#upgrade-cluster" title="Permanent link">&para;</a></h2>
+<h3 id="master-node">第一个master node<a class="headerlink" href="#master-node" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>kubectl drain --ignore-daemonsets node-name
+<span class="c1">#hold住kubelet,先升级kubeadm kubectl</span>
+apt-mark hold kubelet
+apt upgrade
+
+kubeadm upgrade plan
+kubeadm upgrade apply v1.xx.x
+
+kubectl uncordon node-name
+
+<span class="c1">#升级kubelet</span>
+apt-mark unhold kubelet
+apt upgrade
+apt-mark hold kubelet
+</code></pre></div>
+<h3 id="master-node_1">其它master node<a class="headerlink" href="#master-node_1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>kubectl drain node-name --ignore-daemonsets
+
+apt-mark hold kubelet
+apt upgrade
+
+kubeadm upgrade node
+
+kubectl uncordon node-name
+
+apt-mark unhold kubelet
+apt upgrade
+</code></pre></div>
+<h2 id="worker-node">worker node<a class="headerlink" href="#worker-node" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>kubectl drain --ignore-daemonsets node-name
+
+apt-mark hold kubelet
+apt upgrade
+
+kubeadm upgrade node
+
+apt-mark unhold kubelet
+apt upgrade
+apt-mark hold kubelet
+
+kubectl uncordon node-name
+</code></pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../../AAAA/rbac/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              rabc authorization
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../howitworks/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              how kubeadm works
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>

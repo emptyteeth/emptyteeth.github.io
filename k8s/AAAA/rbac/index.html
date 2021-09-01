@@ -1,0 +1,1561 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="my notes">
+      
+      
+      
+      
+        <link rel="canonical" href="https://emptyteeth.github.io/k8s/AAAA/rbac/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>rabc authorization - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rabc-authorization" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              rabc authorization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Empty
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git/" class="md-nav__link">
+        git基本原理和操作
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../regex/" class="md-nav__link">
+        regex正则表达式基础
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Devices
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Devices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Devices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devices/pi4-alpine-linux-headless-installation/" class="md-nav__link">
+        pi4 alpine-linux headless installation
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        K8s
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="K8s" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          K8s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fluent-bit/" class="md-nav__link">
+        fluent-bit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s-cheaty-way/" class="md-nav__link">
+        k8s cheaty way
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prometheus/" class="md-nav__link">
+        prometheus
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" checked>
+      
+      <label class="md-nav__link" for="__nav_5_4">
+        AAAA
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AAAA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          AAAA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../admissioncontroller/" class="md-nav__link">
+        admission controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api.list/" class="md-nav__link">
+        api list
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        api
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arch/" class="md-nav__link">
+        arch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authentication/" class="md-nav__link">
+        authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../etcd/" class="md-nav__link">
+        etcd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubeconfig/" class="md-nav__link">
+        kubeconfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object/" class="md-nav__link">
+        ojbect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          rabc authorization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        rabc authorization
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#role" class="md-nav__link">
+    role
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clusterrole" class="md-nav__link">
+    clusterrole
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rolebinding" class="md-nav__link">
+    rolebinding
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clusterrolebinding" class="md-nav__link">
+    clusterrolebinding
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clusterrole_1" class="md-nav__link">
+    clusterrole权限聚合
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    集群默认的权限聚合
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    用户和组
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clusterrole-clusterrolebinding" class="md-nav__link">
+    默认clusterrole, clusterrolebinding
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-discovery-roles" class="md-nav__link">
+    API discovery roles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role_1" class="md-nav__link">
+    预设用户role
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role_2" class="md-nav__link">
+    预设核心组件role
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role_3" class="md-nav__link">
+    其它预设组件role
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-for-built-in-controllers" class="md-nav__link">
+    Roles for built-in controllers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    安全
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubectl-auth-reconcile" class="md-nav__link">
+    kubectl auth reconcile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verbs" class="md-nav__link">
+    verbs
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" >
+      
+      <label class="md-nav__link" for="__nav_5_5">
+        Kubeadm
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubeadm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubeadm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubeadm/cluster/" class="md-nav__link">
+        kubeadm k8s集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubeadm/howitworks/" class="md-nav__link">
+        how kubeadm works
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/ingress/" class="md-nav__link">
+        ingress
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/k8snetwork/" class="md-nav__link">
+        k8s network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/networkpolicy/" class="md-nav__link">
+        network policy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/service/" class="md-nav__link">
+        service
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Workloads
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workloads" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Workloads
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/01-containers/" class="md-nav__link">
+        containers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/02-pod/" class="md-nav__link">
+        pod
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/03-deploy/" class="md-nav__link">
+        deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/04-daemonset/" class="md-nav__link">
+        daemonset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/05-statefulset/" class="md-nav__link">
+        statefulset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/gc/" class="md-nav__link">
+        Garbage Collection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/job/" class="md-nav__link">
+        job
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/nf-iprouting/" class="md-nav__link">
+        netfilter&ip-routing基本原理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/wireguard/" class="md-nav__link">
+        wireguard route based site2site vpn
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#role" class="md-nav__link">
+    role
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clusterrole" class="md-nav__link">
+    clusterrole
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rolebinding" class="md-nav__link">
+    rolebinding
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clusterrolebinding" class="md-nav__link">
+    clusterrolebinding
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clusterrole_1" class="md-nav__link">
+    clusterrole权限聚合
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    集群默认的权限聚合
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    用户和组
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clusterrole-clusterrolebinding" class="md-nav__link">
+    默认clusterrole, clusterrolebinding
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-discovery-roles" class="md-nav__link">
+    API discovery roles
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role_1" class="md-nav__link">
+    预设用户role
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role_2" class="md-nav__link">
+    预设核心组件role
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role_3" class="md-nav__link">
+    其它预设组件role
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-for-built-in-controllers" class="md-nav__link">
+    Roles for built-in controllers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    安全
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kubectl-auth-reconcile" class="md-nav__link">
+    kubectl auth reconcile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verbs" class="md-nav__link">
+    verbs
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="rabc-authorization">rabc authorization<a class="headerlink" href="#rabc-authorization" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/">https://kubernetes.io/docs/reference/access-authn-authz/rbac/</a></li>
+<li><a href="https://kubernetes.io/docs/reference/access-authn-authz/controlling-access/">https://kubernetes.io/docs/reference/access-authn-authz/controlling-access/</a></li>
+<li><a href="https://kubernetes.io/docs/reference/access-authn-authz/authorization/">https://kubernetes.io/docs/reference/access-authn-authz/authorization/</a></li>
+<li>api组 <code>rbac.authorization.k8s.io</code></li>
+<li>启用参数 <code>--authorization-mode=RBAC</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code>curl http://127.0.0.1:8001/apis/rbac.authorization.k8s.io/v1
+</code></pre></div>
+<h2 id="role">role<a class="headerlink" href="#role" title="Permanent link">&para;</a></h2>
+<ul>
+<li>role是对单一命名空间内api权限集合的定义</li>
+<li>不存在拒绝的逻辑</li>
+<li>role的做用范围仅限命名空间内</li>
+<li>可以定义多组rule</li>
+<li>rule明确定义了对于何种api组的何种资源进行何种操作</li>
+</ul>
+<ul>
+<li>apiGroups<ul>
+<li>列表,指定api组</li>
+<li>["", "apps", "events.k8s.io"]</li>
+<li>*代表所有</li>
+<li>""代表核心组</li>
+</ul>
+</li>
+<li>nonResourceURLs<ul>
+<li>列表,指定非资源类url</li>
+<li>
+<p>非命名空间资源,只能用于clusterrole</p>
+<div class="highlight"><pre><span></span><code><span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">nonResourceURLs</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;/healthz&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;/healthz/*&quot;</span><span class="p p-Indicator">]</span> <span class="c1"># &#39;*&#39; in a nonResourceURL is a suffix glob match</span>
+  <span class="nt">verbs</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;post&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>resourceNames<ul>
+<li>列表,可选项,指定资源名称</li>
+<li>指定资源名称进行过滤,不定义则相当于*</li>
+<li>不适用于create操作</li>
+</ul>
+</li>
+<li>resources<ul>
+<li>列表,指定资源类型</li>
+<li>与api中的object name对应</li>
+<li>*代表所有</li>
+</ul>
+</li>
+<li>verbs<ul>
+<li>列表,定义操作类型</li>
+<li>["get", "list", "watch", "create", "update", "replace", "patch", "delete"]</li>
+<li>*代表全部</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">#使用kubectl create时只能定义一组rule</span>
+<span class="c1">#resource可以用.指定api组,默认是核心组</span>
+kubectl create role dev01 -n dev01
+--verb<span class="o">=</span><span class="s2">&quot;*&quot;</span>
+--resource<span class="o">=</span><span class="s2">&quot;*&quot;</span>
+
+kubectl create role dev01 -n dev01
+--verb<span class="o">=</span>get,list
+--verb<span class="o">=</span>watch
+--verb<span class="o">=</span>create
+--resource<span class="o">=</span>pods,services
+--resource-name<span class="o">=</span><span class="nb">test</span>
+
+kubectl create role dev01 -n dev01
+--verb<span class="o">=</span><span class="s1">&#39;*&#39;</span>
+--resource<span class="o">=</span>deployments.apps
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Role</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pod-reader</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">apiGroups</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">app</span>
+  <span class="nt">resourceNames</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">abc</span>
+  <span class="nt">resources</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">deployments</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">statefulsets/status</span>
+  <span class="nt">verbs</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="s">&#39;*&#39;</span>
+<span class="p p-Indicator">-</span> <span class="nt">apiGroups</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span> <span class="c1"># &quot;&quot;指核心 API 组</span>
+  <span class="nt">resources</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;pods&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">verbs</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h2 id="clusterrole">clusterrole<a class="headerlink" href="#clusterrole" title="Permanent link">&para;</a></h2>
+<ul>
+<li>clusterrole是对集群内api权限集合的定义</li>
+<li>clusterrole的做用范围是整个集群</li>
+<li>可以设置nonResourceURLs</li>
+<li>可以设置非命名空间的资源</li>
+<li>其它和role一样</li>
+<li>
+<p>另外可以当做通用role模版用,在不同命名空间使用rolebinding引用,这样权限可以统一设置,但还是会被限制在相应的命名空间内</p>
+<div class="highlight"><pre><span></span><code>kubectl create clusterrole <span class="s2">&quot;foo&quot;</span> --verb<span class="o">=</span>get --non-resource-url<span class="o">=</span>/logs/*
+
+kubectl create clusterrole monitoring --aggregation-rule<span class="o">=</span><span class="s2">&quot;rbac.example.com/aggregate-to-monitoring=true&quot;</span>
+</code></pre></div>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="c1"># &quot;namespace&quot; omitted since ClusterRoles are not namespaced</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">secret-reader</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">apiGroups</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+  <span class="c1">#</span>
+  <span class="c1"># at the HTTP level, the name of the resource for accessing Secret</span>
+  <span class="c1"># objects is &quot;secrets&quot;</span>
+  <span class="nt">resources</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;secrets&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">verbs</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h2 id="rolebinding">rolebinding<a class="headerlink" href="#rolebinding" title="Permanent link">&para;</a></h2>
+<ul>
+<li>rolebinding是把role的权限授权给subjects</li>
+<li>命名空间资源,定义的内容只在命名空间内有效</li>
+<li>创建后不能更改roleRef</li>
+</ul>
+<ul>
+<li>subjects<ul>
+<li>对授权对象的引用,可以定义多个</li>
+<li>kind: User, Group, ServiceAccount</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>roleRef<ul>
+<li>对role的引用,只能定义1个</li>
+<li>kind: Role, ClusterRole</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>kubectl create rolebinding bob-admin-binding --clusterrole<span class="o">=</span>admin --user<span class="o">=</span>bob --namespace<span class="o">=</span>acme
+
+kubectl create rolebinding myapp-view-binding --clusterrole<span class="o">=</span>view --serviceaccount<span class="o">=</span>acme:myapp --namespace<span class="o">=</span>acme
+
+kubectl create rolebinding myappnamespace-myapp-view-binding --clusterrole<span class="o">=</span>view --serviceaccount<span class="o">=</span>myappnamespace:myapp --namespace<span class="o">=</span>acme
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="c1"># This role binding allows &quot;jane&quot; to read pods in the &quot;default&quot; namespace.</span>
+<span class="c1"># You need to already have a Role named &quot;pod-reader&quot; in that namespace.</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">read-pods</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="nt">subjects</span><span class="p">:</span>
+<span class="c1"># You can specify more than one &quot;subject&quot;</span>
+<span class="p p-Indicator">-</span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">User</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">jane</span> <span class="c1"># &quot;name&quot; is case sensitive</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+  <span class="c1">#对于kind为sa,该值默认为&quot;&quot;,也就是核心组,对于user和group,默认为rbac.authorization.k8s.io</span>
+  <span class="c1">#意思就是说这个是全自动的,不需要设置</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+  <span class="c1"># &quot;roleRef&quot; specifies the binding to a Role / ClusterRole</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Role</span> <span class="c1">#this must be Role or ClusterRole</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pod-reader</span> <span class="c1"># this must match the name of the Role or ClusterRole you wish to bind to</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="c1"># This role binding allows &quot;dave&quot; to read secrets in the &quot;development&quot; namespace.</span>
+<span class="c1"># You need to already have a ClusterRole named &quot;secret-reader&quot;.</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">RoleBinding</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">read-secrets</span>
+  <span class="c1">#</span>
+  <span class="c1"># The namespace of the RoleBinding determines where the permissions are granted.</span>
+  <span class="c1"># This only grants permissions within the &quot;development&quot; namespace.</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">development</span>
+<span class="nt">subjects</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">User</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dave</span> <span class="c1"># Name is case sensitive</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">secret-reader</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+</code></pre></div>
+<h2 id="clusterrolebinding">clusterrolebinding<a class="headerlink" href="#clusterrolebinding" title="Permanent link">&para;</a></h2>
+<ul>
+<li>clusterrolebinding是把clusterrole的权限授权给subjects</li>
+<li>集群资源,在整个集群内有效</li>
+<li>创建后不能更改roleRef</li>
+<li>roleRef只能引用ClusterRole</li>
+<li>其它和rolebindding一样</li>
+</ul>
+<div class="highlight"><pre><span></span><code>kubectl create clusterrolebinding root-cluster-admin-binding --clusterrole<span class="o">=</span>cluster-admin --user<span class="o">=</span>root
+
+kubectl create clusterrolebinding kube-proxy-binding --clusterrole<span class="o">=</span>system:node-proxier --user<span class="o">=</span>system:kube-proxy
+
+kubectl create clusterrolebinding myapp-view-binding --clusterrole<span class="o">=</span>view --serviceaccount<span class="o">=</span>acme:myapp
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="c1"># This cluster role binding allows anyone in the &quot;manager&quot; group to read secrets in any namespace.</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">read-secrets-global</span>
+<span class="nt">subjects</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Group</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">manager</span> <span class="c1"># Name is case sensitive</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">secret-reader</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+</code></pre></div>
+<h2 id="clusterrole_1">clusterrole权限聚合<a class="headerlink" href="#clusterrole_1" title="Permanent link">&para;</a></h2>
+<p>可以为clusterrole设置权限自动聚合其它clusterrole的权限</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#使用aggregationRule设置要聚合的ClusterRole匹配规则</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">monitoring</span>
+<span class="nt">aggregationRule</span><span class="p">:</span>
+  <span class="nt">clusterRoleSelectors</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">matchLabels</span><span class="p">:</span>
+      <span class="nt">rbac.example.com/aggregate-to-monitoring</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
+<span class="nt">rules</span><span class="p">:</span> <span class="p p-Indicator">[]</span> <span class="c1"># The control plane automatically fills in the rules</span>
+<span class="nn">---</span>
+<span class="c1">#在要聚合的ClusterRole设置相应的label</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">monitoring-endpoints</span>
+  <span class="nt">labels</span><span class="p">:</span>
+    <span class="nt">rbac.example.com/aggregate-to-monitoring</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
+<span class="c1"># When you create the &quot;monitoring-endpoints&quot; ClusterRole,</span>
+<span class="c1"># the rules below will be added to the &quot;monitoring&quot; ClusterRole.</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">apiGroups</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">resources</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;services&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;endpoints&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;pods&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">verbs</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;watch&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<h2 id="_1">集群默认的权限聚合<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p>admin, edit, view</p>
+<div class="highlight"><pre><span></span><code>kubectl get clusterrole -o json <span class="p">|</span>jq <span class="s1">&#39;.items[].aggregationRule&#39;</span> <span class="p">|</span>grep -v null
+</code></pre></div>
+<h2 id="_2">用户和组<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>自定义用户和组应避免使用system:开头</li>
+</ul>
+<ul>
+<li>sa用户<ul>
+<li>system:serviceaccount:dev:view 代表dev命名空间内名为view的sa</li>
+</ul>
+</li>
+<li>系统组<ul>
+<li>system:serviceaccounts组 包括集群内所有的sa</li>
+<li>system:serviceaccounts:dev组 包括dev命名空间内的所有sa</li>
+<li>system:authenticated组 包括所有通过认证的用户</li>
+<li>system:unauthenticated组 包括所有未认证的用户</li>
+</ul>
+</li>
+</ul>
+<h2 id="clusterrole-clusterrolebinding">默认clusterrole, clusterrolebinding<a class="headerlink" href="#clusterrole-clusterrolebinding" title="Permanent link">&para;</a></h2>
+<ul>
+<li>系统会默认创建基本的clusterrole, clusterrolebinding</li>
+<li>它们大部分都以<code>system:</code>开头</li>
+<li>它们都有<code>kubernetes.io/bootstrapping=rbac-defaults</code>标签</li>
+<li>它们都有<code>rbac.authorization.kubernetes.io/autoupdate=true</code>标签<ul>
+<li>apiserver在每次启动时都会检查和修复它们缺少的设置,除非把相应的这个标签设为false</li>
+</ul>
+</li>
+</ul>
+<h2 id="api-discovery-roles">API discovery roles<a class="headerlink" href="#api-discovery-roles" title="Permanent link">&para;</a></h2>
+<h2 id="role_1">预设用户role<a class="headerlink" href="#role_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>cluster-admin<ul>
+<li>超级管理员角色,预设绑定system:master组,full access</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>admin<ul>
+<li>管理员角色,不能修改ns和quota,适合使用rolebinding做为ns管理员</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>edit<ul>
+<li>比admin少了role和rolebinding读写权限,但可以读secret,privilege escalation</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>view<ul>
+<li>比edit少了写权限,但可以读secret,privilege escalation</li>
+</ul>
+</li>
+</ul>
+<h2 id="role_2">预设核心组件role<a class="headerlink" href="#role_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>system:kube-scheduler<ul>
+<li>绑定<code>system:kube-scheduler</code>用户</li>
+</ul>
+</li>
+<li>system:volume-scheduler<ul>
+<li>绑定<code>system:kube-scheduler</code>用户</li>
+</ul>
+</li>
+<li>system:kube-controller-manager<ul>
+<li>绑定<code>system:kube-controller-manager</code>用户</li>
+</ul>
+</li>
+<li>system:node<ul>
+<li>绑定为<code>空</code>,只是为了兼容</li>
+<li>这个功能是可以修改所有node相关设置</li>
+<li>被Node authorizer和NodeRestriction admission取代</li>
+</ul>
+</li>
+<li>system:node-proxier<ul>
+<li>绑定<code>system:kube-proxy</code>用户</li>
+</ul>
+</li>
+</ul>
+<h2 id="role_3">其它预设组件role<a class="headerlink" href="#role_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>system:auth-delegator<ul>
+<li>绑定为<code>空</code>,用于使用外部认证授权</li>
+</ul>
+</li>
+<li>system:heapster<ul>
+<li>绑定为<code>空</code>,deprecated</li>
+</ul>
+</li>
+<li>system:kube-aggregator<ul>
+<li>绑定为<code>空</code>,用于kube-aggregator</li>
+</ul>
+</li>
+<li>system:kube-dns<ul>
+<li>绑定为<code>空</code>,用于kube-dns,用coredns的话这个就为空</li>
+</ul>
+</li>
+<li>system:kubelet-api-admin<ul>
+<li>绑定为<code>空</code>,允许full access kubelet api</li>
+</ul>
+</li>
+<li>system:node-bootstrapper<ul>
+<li>用于node bootstrap时申请证书</li>
+<li>使用kubeadm的话会绑定给<code>system:bootstrappers:kubeadm:default-node-token</code>组</li>
+<li>也就是kubeadm生成的join token所属的组</li>
+</ul>
+</li>
+<li>system:node-problem-detector<ul>
+<li>绑定为<code>空</code>,node-problem-detector</li>
+</ul>
+</li>
+<li>system:persistent-volume-provisioner<ul>
+<li>绑定为<code>空</code>,用于dynamic volume provisioners</li>
+</ul>
+</li>
+</ul>
+<h2 id="roles-for-built-in-controllers">Roles for built-in controllers<a class="headerlink" href="#roles-for-built-in-controllers" title="Permanent link">&para;</a></h2>
+<ul>
+<li>controller-manager启动时如果使用<code>--use-service-account-credentials</code>参数</li>
+<li>那么每个controller都会使用单独的sa,对应不同的role和binding,这些role都以<code>system:controller:</code>开头</li>
+</ul>
+<ul>
+<li>system:controller:attachdetach-controller</li>
+<li>system:controller:certificate-controller</li>
+<li>system:controller:clusterrole-aggregation-controller</li>
+<li>system:controller:cronjob-controller</li>
+<li>system:controller:daemon-set-controller</li>
+<li>system:controller:deployment-controller</li>
+<li>system:controller:disruption-controller</li>
+<li>system:controller:endpoint-controller</li>
+<li>system:controller:expand-controller</li>
+<li>system:controller:generic-garbage-collector</li>
+<li>system:controller:horizontal-pod-autoscaler</li>
+<li>system:controller:job-controller</li>
+<li>system:controller:namespace-controller</li>
+<li>system:controller:node-controller</li>
+<li>system:controller:persistent-volume-binder</li>
+<li>system:controller:pod-garbage-collector</li>
+<li>system:controller:pv-protection-controller</li>
+<li>system:controller:pvc-protection-controller</li>
+<li>system:controller:replicaset-controller</li>
+<li>system:controller:replication-controller</li>
+<li>system:controller:resourcequota-controller</li>
+<li>system:controller:root-ca-cert-publisher</li>
+<li>system:controller:route-controller</li>
+<li>system:controller:service-account-controller</li>
+<li>system:controller:service-controller</li>
+<li>system:controller:statefulset-controller</li>
+<li>system:controller:ttl-controller</li>
+</ul>
+<h2 id="_3">安全<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>用户不能创建权限超出自身拥有权限的role或clusterrole</p>
+<ul>
+<li>除非用户本身拥有对roles或clusterroles的escalate操作权限</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span> <span class="nt">apiGroups</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;rbac.authorization.k8s.io&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">resources</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;clusterroles&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">verbs</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;escalate&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>用户不能创建权限引用超出自身拥有权限的rolebinding或clusterrolebinding</p>
+<ul>
+<li>除非用户本身拥有对roles或clusterroles的bind操作权限</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span> <span class="nt">apiGroups</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;rbac.authorization.k8s.io&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">resources</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;roles&quot;</span><span class="p p-Indicator">]</span>
+  <span class="nt">verbs</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&quot;bind&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+</li>
+</ul>
+<h2 id="kubectl-auth-reconcile">kubectl auth reconcile<a class="headerlink" href="#kubectl-auth-reconcile" title="Permanent link">&para;</a></h2>
+<h2 id="verbs">verbs<a class="headerlink" href="#verbs" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>get</code> 是对某个对象的读取权限</li>
+<li><code>list</code> 是对某一类对象的读取权限,在没有get权限的情况下,相当于取整个列表,列表中元素信息还是完整的,只是不能单独取列表中的元素</li>
+<li><code>watch</code> 是动态获取对象更新状态的权限</li>
+<li><code>create</code> 创建</li>
+<li><code>update</code> 更新</li>
+<li><code>delete</code> 删除</li>
+<li><code>use</code> verb on podsecuritypolicies resources in the policy API group</li>
+<li><code>bind</code> and <code>escalate</code> verbs on roles and clusterroles resources in the rbac.authorization.k8s.io API group.</li>
+<li><code>impersonate</code> verb on users, groups, and serviceaccounts in the core API group, and the userextras in the authentication.k8s.io API group</li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../object/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              ojbect
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../../kubeadm/cluster/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              kubeadm k8s集群
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>

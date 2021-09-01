@@ -1,0 +1,1469 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/">
+      
+      
+      
+      
+        <link rel="canonical" href="https://emptyteeth.github.io/k8s/AAAA/admissioncontroller/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>admission controller - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#admission-controller" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              admission controller
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Empty
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git/" class="md-nav__link">
+        git基本原理和操作
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../regex/" class="md-nav__link">
+        regex正则表达式基础
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Devices
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Devices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Devices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devices/pi4-alpine-linux-headless-installation/" class="md-nav__link">
+        pi4 alpine-linux headless installation
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        K8s
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="K8s" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          K8s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fluent-bit/" class="md-nav__link">
+        fluent-bit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../k8s-cheaty-way/" class="md-nav__link">
+        k8s cheaty way
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../prometheus/" class="md-nav__link">
+        prometheus
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" checked>
+      
+      <label class="md-nav__link" for="__nav_5_4">
+        AAAA
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AAAA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          AAAA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          admission controller
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        admission controller
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#controller" class="md-nav__link">
+    默认启用的controller
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alwayspullimages" class="md-nav__link">
+    AlwaysPullImages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificateapproval" class="md-nav__link">
+    CertificateApproval
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificatesigning" class="md-nav__link">
+    CertificateSigning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificatesubjectrestrictions" class="md-nav__link">
+    CertificateSubjectRestrictions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defaultstorageclass" class="md-nav__link">
+    DefaultStorageClass
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defaulttolerationseconds" class="md-nav__link">
+    DefaultTolerationSeconds
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventratelimit" class="md-nav__link">
+    EventRateLimit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extendedresourcetoleration" class="md-nav__link">
+    ExtendedResourceToleration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imagepolicywebhook" class="md-nav__link">
+    ImagePolicyWebhook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitpodhardantiaffinitytopology" class="md-nav__link">
+    LimitPodHardAntiAffinityTopology
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitranger" class="md-nav__link">
+    LimitRanger
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#namespaceautoprovision" class="md-nav__link">
+    NamespaceAutoProvision
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#namespaceexists" class="md-nav__link">
+    NamespaceExists
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#namespacelifecycle" class="md-nav__link">
+    NamespaceLifecycle
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#noderestriction" class="md-nav__link">
+    NodeRestriction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ownerreferencespermissionenforcement" class="md-nav__link">
+    OwnerReferencesPermissionEnforcement
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podnodeselector" class="md-nav__link">
+    PodNodeSelector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podpreset" class="md-nav__link">
+    PodPreset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podsecuritypolicy" class="md-nav__link">
+    PodSecurityPolicy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podtolerationrestriction" class="md-nav__link">
+    PodTolerationRestriction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#priority" class="md-nav__link">
+    Priority
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resourcequota" class="md-nav__link">
+    ResourceQuota
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtimeclass" class="md-nav__link">
+    RuntimeClass
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#securitycontextdeny" class="md-nav__link">
+    SecurityContextDeny
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serviceaccount" class="md-nav__link">
+    ServiceAccount
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storageobjectinuseprotection" class="md-nav__link">
+    StorageObjectInUseProtection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taintnodesbycondition" class="md-nav__link">
+    TaintNodesByCondition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validatingadmissionwebhook" class="md-nav__link">
+    ValidatingAdmissionWebhook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutatingadmissionwebhook" class="md-nav__link">
+    MutatingAdmissionWebhook
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api.list/" class="md-nav__link">
+        api list
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        api
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arch/" class="md-nav__link">
+        arch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authentication/" class="md-nav__link">
+        authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../etcd/" class="md-nav__link">
+        etcd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubeconfig/" class="md-nav__link">
+        kubeconfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../object/" class="md-nav__link">
+        ojbect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rbac/" class="md-nav__link">
+        rabc authorization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" >
+      
+      <label class="md-nav__link" for="__nav_5_5">
+        Kubeadm
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubeadm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubeadm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubeadm/cluster/" class="md-nav__link">
+        kubeadm k8s集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../kubeadm/howitworks/" class="md-nav__link">
+        how kubeadm works
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/ingress/" class="md-nav__link">
+        ingress
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/k8snetwork/" class="md-nav__link">
+        k8s network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/networkpolicy/" class="md-nav__link">
+        network policy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/service/" class="md-nav__link">
+        service
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Workloads
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workloads" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Workloads
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/01-containers/" class="md-nav__link">
+        containers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/02-pod/" class="md-nav__link">
+        pod
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/03-deploy/" class="md-nav__link">
+        deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/04-daemonset/" class="md-nav__link">
+        daemonset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/05-statefulset/" class="md-nav__link">
+        statefulset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/gc/" class="md-nav__link">
+        Garbage Collection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../workloads/job/" class="md-nav__link">
+        job
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/nf-iprouting/" class="md-nav__link">
+        netfilter&ip-routing基本原理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../linux/networking/wireguard/" class="md-nav__link">
+        wireguard route based site2site vpn
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#controller" class="md-nav__link">
+    默认启用的controller
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alwayspullimages" class="md-nav__link">
+    AlwaysPullImages
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificateapproval" class="md-nav__link">
+    CertificateApproval
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificatesigning" class="md-nav__link">
+    CertificateSigning
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#certificatesubjectrestrictions" class="md-nav__link">
+    CertificateSubjectRestrictions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defaultstorageclass" class="md-nav__link">
+    DefaultStorageClass
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#defaulttolerationseconds" class="md-nav__link">
+    DefaultTolerationSeconds
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#eventratelimit" class="md-nav__link">
+    EventRateLimit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extendedresourcetoleration" class="md-nav__link">
+    ExtendedResourceToleration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imagepolicywebhook" class="md-nav__link">
+    ImagePolicyWebhook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitpodhardantiaffinitytopology" class="md-nav__link">
+    LimitPodHardAntiAffinityTopology
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limitranger" class="md-nav__link">
+    LimitRanger
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#namespaceautoprovision" class="md-nav__link">
+    NamespaceAutoProvision
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#namespaceexists" class="md-nav__link">
+    NamespaceExists
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#namespacelifecycle" class="md-nav__link">
+    NamespaceLifecycle
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#noderestriction" class="md-nav__link">
+    NodeRestriction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ownerreferencespermissionenforcement" class="md-nav__link">
+    OwnerReferencesPermissionEnforcement
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podnodeselector" class="md-nav__link">
+    PodNodeSelector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podpreset" class="md-nav__link">
+    PodPreset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podsecuritypolicy" class="md-nav__link">
+    PodSecurityPolicy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#podtolerationrestriction" class="md-nav__link">
+    PodTolerationRestriction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#priority" class="md-nav__link">
+    Priority
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resourcequota" class="md-nav__link">
+    ResourceQuota
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#runtimeclass" class="md-nav__link">
+    RuntimeClass
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#securitycontextdeny" class="md-nav__link">
+    SecurityContextDeny
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#serviceaccount" class="md-nav__link">
+    ServiceAccount
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storageobjectinuseprotection" class="md-nav__link">
+    StorageObjectInUseProtection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#taintnodesbycondition" class="md-nav__link">
+    TaintNodesByCondition
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validatingadmissionwebhook" class="md-nav__link">
+    ValidatingAdmissionWebhook
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mutatingadmissionwebhook" class="md-nav__link">
+    MutatingAdmissionWebhook
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="admission-controller">admission controller<a class="headerlink" href="#admission-controller" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/">https://kubernetes.io/docs/reference/access-authn-authz/admission-controllers/</a></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code>kube-apiserver --enable-admission-plugins<span class="o">=</span>
+kube-apiserver --disable-admission-plugins<span class="o">=</span>
+</code></pre></div>
+<ul>
+<li>是编译进apiserver的</li>
+<li>分为两种操作类型 验证和修改</li>
+<li>一个controller至少有一种,可以有两种</li>
+<li>修改操作总在验证操作之前执行</li>
+<li>未通过任一操作的请求立即被拒绝</li>
+</ul>
+<h2 id="controller">默认启用的controller<a class="headerlink" href="#controller" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>kube-apiserver -h <span class="p">|</span> grep enable-admission-plugins
+</code></pre></div>
+<p>1.18默认</p>
+<ul>
+<li>NamespaceLifecycle</li>
+<li>LimitRanger</li>
+<li>ServiceAccount</li>
+<li>TaintNodesByCondition</li>
+<li>Priority</li>
+<li>DefaultTolerationSeconds</li>
+<li>DefaultStorageClass</li>
+<li>StorageObjectInUseProtection</li>
+<li>PersistentVolumeClaimResize</li>
+<li>RuntimeClass</li>
+<li>CertificateApproval</li>
+<li>CertificateSigning</li>
+<li>CertificateSubjectRestriction</li>
+<li>DefaultIngressClass</li>
+<li>MutatingAdmissionWebhook</li>
+<li>ValidatingAdmissionWebhook</li>
+<li>ResourceQuota</li>
+</ul>
+<h2 id="alwayspullimages">AlwaysPullImages<a class="headerlink" href="#alwayspullimages" title="Permanent link">&para;</a></h2>
+<ul>
+<li>强制修改所有的pod imagePullPolicy为Always</li>
+<li>在多租户,使用私有镜像的场景,防止在知道镜像名称的前提下使用不应被授权使用的镜像</li>
+</ul>
+<h2 id="certificateapproval">CertificateApproval<a class="headerlink" href="#certificateapproval" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><a href="https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/">https://kubernetes.io/docs/reference/access-authn-authz/certificate-signing-requests/</a></p>
+</blockquote>
+<p>用于在证书签名请求被批准时,验证批准者的权限</p>
+<h2 id="certificatesigning">CertificateSigning<a class="headerlink" href="#certificatesigning" title="Permanent link">&para;</a></h2>
+<p>用于在证书签名请求被签发时,验证签发者的权限</p>
+<h2 id="certificatesubjectrestrictions">CertificateSubjectRestrictions<a class="headerlink" href="#certificatesubjectrestrictions" title="Permanent link">&para;</a></h2>
+<p>在请求CSR时,拒绝所有organization为system:masters的请求</p>
+<h2 id="defaultstorageclass">DefaultStorageClass<a class="headerlink" href="#defaultstorageclass" title="Permanent link">&para;</a></h2>
+<ul>
+<li>在pvc被创建时,自动为未指定sc的pvc设置默认的sc</li>
+<li>如果没有默认sc,那它什么都不干</li>
+<li>如果默认sc多于一个,那它就拒绝</li>
+<li>只管create不管update</li>
+</ul>
+<h2 id="defaulttolerationseconds">DefaultTolerationSeconds<a class="headerlink" href="#defaulttolerationseconds" title="Permanent link">&para;</a></h2>
+<p>为pod对notready:NoExecute, unreachable:NoExecute 设置默认的容忍时间5分钟</p>
+<h2 id="eventratelimit">EventRateLimit<a class="headerlink" href="#eventratelimit" title="Permanent link">&para;</a></h2>
+<p>alpha, 设置event rate</p>
+<h2 id="extendedresourcetoleration">ExtendedResourceToleration<a class="headerlink" href="#extendedresourcetoleration" title="Permanent link">&para;</a></h2>
+<p>当有拥有扩展资源(gpu等)的专用node时,自动为请求这些扩散资源的pod添加相应的Toleration</p>
+<h2 id="imagepolicywebhook">ImagePolicyWebhook<a class="headerlink" href="#imagepolicywebhook" title="Permanent link">&para;</a></h2>
+<p>使用外包的image policy服务
+将pod所要使用的image发给外部服务review</p>
+<h2 id="limitpodhardantiaffinitytopology">LimitPodHardAntiAffinityTopology<a class="headerlink" href="#limitpodhardantiaffinitytopology" title="Permanent link">&para;</a></h2>
+<p>This admission controller denies any pod that defines AntiAffinity topology key other than kubernetes.io/hostname in requiredDuringSchedulingRequiredDuringExecution</p>
+<h2 id="limitranger">LimitRanger<a class="headerlink" href="#limitranger" title="Permanent link">&para;</a></h2>
+<h2 id="namespaceautoprovision">NamespaceAutoProvision<a class="headerlink" href="#namespaceautoprovision" title="Permanent link">&para;</a></h2>
+<p>在请求的ns不存在时自动创建</p>
+<h2 id="namespaceexists">NamespaceExists<a class="headerlink" href="#namespaceexists" title="Permanent link">&para;</a></h2>
+<p>如果请求的ns不存在就拒绝</p>
+<h2 id="namespacelifecycle">NamespaceLifecycle<a class="headerlink" href="#namespacelifecycle" title="Permanent link">&para;</a></h2>
+<ul>
+<li>确保default, kube-system, kube-public不能被删除</li>
+<li>确保请求的ns不存在就拒绝</li>
+<li>确保ns在被删除过程中,不能在其中创建新对象</li>
+</ul>
+<h2 id="noderestriction">NodeRestriction<a class="headerlink" href="#noderestriction" title="Permanent link">&para;</a></h2>
+<ul>
+<li>限制kubelet的权限</li>
+</ul>
+<ul>
+<li>前提是kubelet运行身份为</li>
+<li>group: <code>system:nodes</code></li>
+<li>user: <code>system:node:&lt;nodeName&gt;</code></li>
+</ul>
+<ul>
+<li>限制只能修改自己运行的pod对象</li>
+<li>限制只能修改自己的node对象</li>
+<li>不能修改或删除node对象的taints</li>
+<li>不能删除node对象</li>
+<li>不能添加删除修改<code>node-restriction.kubernetes.io/</code>开头的node label</li>
+<li>
+<p>除了以下之外禁止使用其它的<code>kubernetes.io</code>或<code>k8s.io</code>开头的node label</p>
+<ul>
+<li>kubernetes.io/hostname</li>
+<li>kubernetes.io/arch</li>
+<li>kubernetes.io/os</li>
+<li>beta.kubernetes.io/instance-type</li>
+<li>node.kubernetes.io/instance-type</li>
+<li>failure-domain.beta.kubernetes.io/region</li>
+<li>failure-domain.beta.kubernetes.io/zone</li>
+<li>topology.kubernetes.io/region</li>
+<li>topology.kubernetes.io/zone</li>
+<li>kubelet.kubernetes.io/-prefixed labels</li>
+<li>node.kubernetes.io/-prefixed labels</li>
+</ul>
+</li>
+</ul>
+<h2 id="ownerreferencespermissionenforcement">OwnerReferencesPermissionEnforcement<a class="headerlink" href="#ownerreferencespermissionenforcement" title="Permanent link">&para;</a></h2>
+<h2 id="podnodeselector">PodNodeSelector<a class="headerlink" href="#podnodeselector" title="Permanent link">&para;</a></h2>
+<ul>
+<li>为ns设置annotation限制pod可以使用的NodeSelector</li>
+<li>另外设置全局默认可用的NodeSelector</li>
+</ul>
+<h2 id="podpreset">PodPreset<a class="headerlink" href="#podpreset" title="Permanent link">&para;</a></h2>
+<h2 id="podsecuritypolicy">PodSecurityPolicy<a class="headerlink" href="#podsecuritypolicy" title="Permanent link">&para;</a></h2>
+<h2 id="podtolerationrestriction">PodTolerationRestriction<a class="headerlink" href="#podtolerationrestriction" title="Permanent link">&para;</a></h2>
+<ul>
+<li>为ns设置annotation限制pod可以使用的Toleration白名单</li>
+<li>为ns设置annotation设置pod默认Toleration</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Namespace</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apps-that-need-nodes-exclusively</span>
+  <span class="nt">annotations</span><span class="p">:</span>
+    <span class="nt">scheduler.alpha.kubernetes.io/defaultTolerations</span><span class="p">:</span> <span class="s">&#39;{&quot;operator&quot;:</span><span class="nv"> </span><span class="s">&quot;Exists&quot;,</span><span class="nv"> </span><span class="s">&quot;effect&quot;:</span><span class="nv"> </span><span class="s">&quot;NoSchedule&quot;,</span><span class="nv"> </span><span class="s">&quot;key&quot;:</span><span class="nv"> </span><span class="s">&quot;dedicated-node&quot;}&#39;</span>
+    <span class="nt">scheduler.alpha.kubernetes.io/tolerationsWhitelist</span><span class="p">:</span> <span class="s">&#39;{&quot;operator&quot;:</span><span class="nv"> </span><span class="s">&quot;Exists&quot;,</span><span class="nv"> </span><span class="s">&quot;effect&quot;:</span><span class="nv"> </span><span class="s">&quot;NoSchedule&quot;,</span><span class="nv"> </span><span class="s">&quot;key&quot;:</span><span class="nv"> </span><span class="s">&quot;dedicated-node&quot;}&#39;</span>
+</code></pre></div>
+<h2 id="priority">Priority<a class="headerlink" href="#priority" title="Permanent link">&para;</a></h2>
+<h2 id="resourcequota">ResourceQuota<a class="headerlink" href="#resourcequota" title="Permanent link">&para;</a></h2>
+<h2 id="runtimeclass">RuntimeClass<a class="headerlink" href="#runtimeclass" title="Permanent link">&para;</a></h2>
+<h2 id="securitycontextdeny">SecurityContextDeny<a class="headerlink" href="#securitycontextdeny" title="Permanent link">&para;</a></h2>
+<h2 id="serviceaccount">ServiceAccount<a class="headerlink" href="#serviceaccount" title="Permanent link">&para;</a></h2>
+<h2 id="storageobjectinuseprotection">StorageObjectInUseProtection<a class="headerlink" href="#storageobjectinuseprotection" title="Permanent link">&para;</a></h2>
+<h2 id="taintnodesbycondition">TaintNodesByCondition<a class="headerlink" href="#taintnodesbycondition" title="Permanent link">&para;</a></h2>
+<p>自动为新node添加NotReady, NoSchedule taint</p>
+<h2 id="validatingadmissionwebhook">ValidatingAdmissionWebhook<a class="headerlink" href="#validatingadmissionwebhook" title="Permanent link">&para;</a></h2>
+<h2 id="mutatingadmissionwebhook">MutatingAdmissionWebhook<a class="headerlink" href="#mutatingadmissionwebhook" title="Permanent link">&para;</a></h2>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../../prometheus/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              prometheus
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../api.list/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              api list
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1618 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="my notes">
+      
+      
+      
+      
+        <link rel="canonical" href="https://emptyteeth.github.io/linux/networking/nf-iprouting/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>netfilter&ip-routing基本原理 - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#netfilterip-routing" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              netfilter&ip-routing基本原理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        Empty
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git/" class="md-nav__link">
+        git基本原理和操作
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../regex/" class="md-nav__link">
+        regex正则表达式基础
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Devices
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Devices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Devices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../devices/pi4-alpine-linux-headless-installation/" class="md-nav__link">
+        pi4 alpine-linux headless installation
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        K8s
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="K8s" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          K8s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/fluent-bit/" class="md-nav__link">
+        fluent-bit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/k8s-cheaty-way/" class="md-nav__link">
+        k8s cheaty way
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/prometheus/" class="md-nav__link">
+        prometheus
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      <label class="md-nav__link" for="__nav_5_4">
+        AAAA
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AAAA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          AAAA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/AAAA/admissioncontroller/" class="md-nav__link">
+        admission controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/AAAA/api.list/" class="md-nav__link">
+        api list
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/AAAA/api/" class="md-nav__link">
+        api
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/AAAA/arch/" class="md-nav__link">
+        arch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/AAAA/authentication/" class="md-nav__link">
+        authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/AAAA/etcd/" class="md-nav__link">
+        etcd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/AAAA/kubeconfig/" class="md-nav__link">
+        kubeconfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/AAAA/object/" class="md-nav__link">
+        ojbect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/AAAA/rbac/" class="md-nav__link">
+        rabc authorization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" >
+      
+      <label class="md-nav__link" for="__nav_5_5">
+        Kubeadm
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubeadm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubeadm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/kubeadm/cluster/" class="md-nav__link">
+        kubeadm k8s集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/kubeadm/howitworks/" class="md-nav__link">
+        how kubeadm works
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/networking/ingress/" class="md-nav__link">
+        ingress
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/networking/k8snetwork/" class="md-nav__link">
+        k8s network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/networking/networkpolicy/" class="md-nav__link">
+        network policy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/networking/service/" class="md-nav__link">
+        service
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Workloads
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workloads" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Workloads
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/workloads/01-containers/" class="md-nav__link">
+        containers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/workloads/02-pod/" class="md-nav__link">
+        pod
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/workloads/03-deploy/" class="md-nav__link">
+        deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/workloads/04-daemonset/" class="md-nav__link">
+        daemonset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/workloads/05-statefulset/" class="md-nav__link">
+        statefulset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/workloads/gc/" class="md-nav__link">
+        Garbage Collection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../k8s/workloads/job/" class="md-nav__link">
+        job
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      <label class="md-nav__link" for="__nav_6">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" checked>
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          netfilter&ip-routing基本原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        netfilter&ip-routing基本原理
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#netfilter" class="md-nav__link">
+    netfilter
+  </a>
+  
+    <nav class="md-nav" aria-label="netfilter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hooks" class="md-nav__link">
+    hooks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    表和链
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conntrack" class="md-nav__link">
+    conntrack
+  </a>
+  
+    <nav class="md-nav" aria-label="conntrack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hooking" class="md-nav__link">
+    hooking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    支持跟踪的协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    跟踪表的二元结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    跟踪表条目内容
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packet" class="md-nav__link">
+    packet与跟踪表的匹配过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    内核参数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nat" class="md-nav__link">
+    nat的现实
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iptables-syntax" class="md-nav__link">
+    iptables syntax
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-policy" class="md-nav__link">
+    routing policy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-table" class="md-nav__link">
+    routing table
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer2" class="md-nav__link">
+    layer2
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wireguard/" class="md-nav__link">
+        wireguard route based site2site vpn
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#netfilter" class="md-nav__link">
+    netfilter
+  </a>
+  
+    <nav class="md-nav" aria-label="netfilter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hooks" class="md-nav__link">
+    hooks
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    表和链
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conntrack" class="md-nav__link">
+    conntrack
+  </a>
+  
+    <nav class="md-nav" aria-label="conntrack">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hooking" class="md-nav__link">
+    hooking
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    支持跟踪的协议
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    跟踪表的二元结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    跟踪表条目内容
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packet" class="md-nav__link">
+    packet与跟踪表的匹配过程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    内核参数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nat" class="md-nav__link">
+    nat的现实
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iptables-syntax" class="md-nav__link">
+    iptables syntax
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-policy" class="md-nav__link">
+    routing policy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-table" class="md-nav__link">
+    routing table
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layer2" class="md-nav__link">
+    layer2
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="netfilterip-routing">netfilter&amp;ip-routing基本原理<a class="headerlink" href="#netfilterip-routing" title="Permanent link">&para;</a></h1>
+<ul>
+<li><a href="https://baturin.org/docs/iproute2/">https://baturin.org/docs/iproute2/</a></li>
+<li><a href="http://linux-ip.net/linux-ip/">http://linux-ip.net/linux-ip/</a></li>
+<li><a href="https://github.com/tLDP/LDP/tree/master/LDP/guide/docbook/linux-ip">https://github.com/tLDP/LDP/tree/master/LDP/guide/docbook/linux-ip</a></li>
+<li><a href="http://www.embeddedlinux.org.cn/linux_net/0596002556/understandlni-chp-31-sect-2.html">http://www.embeddedlinux.org.cn/linux_net/0596002556/understandlni-chp-31-sect-2.html</a></li>
+<li><a href="http://www.policyrouting.org/iproute2.doc.html">http://www.policyrouting.org/iproute2.doc.html</a></li>
+<li><a href="https://opengers.github.io/openstack/openstack-base-netfilter-framework-overview/">https://opengers.github.io/openstack/openstack-base-netfilter-framework-overview/</a></li>
+<li><a href="https://opengers.github.io/openstack/openstack-base-virtual-network-devices-tuntap-veth/">https://opengers.github.io/openstack/openstack-base-virtual-network-devices-tuntap-veth/</a></li>
+<li><a href="https://opengers.github.io/openstack/openstack-base-virtual-network-devices-bridge-and-vlan/">https://opengers.github.io/openstack/openstack-base-virtual-network-devices-bridge-and-vlan/</a></li>
+</ul>
+<ul>
+<li>netfilter<ul>
+<li>通过hooks在网络栈中特定位置对数据进行过滤,标记,修改,追踪</li>
+</ul>
+</li>
+<li>routing policy database<ul>
+<li>根据路由规则决定所要使用的routing table</li>
+</ul>
+</li>
+<li>routing tables<ul>
+<li>根据路由表条目做出路由决定</li>
+</ul>
+</li>
+</ul>
+<h2 id="netfilter">netfilter<a class="headerlink" href="#netfilter" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture">https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture</a></li>
+</ul>
+<h3 id="hooks">hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h3>
+<ul>
+<li>NF_IP_PRE_ROUTING<ul>
+<li>在数据进入网络栈时触发,在做出路由决定之前</li>
+</ul>
+</li>
+<li>NF_IP_LOCAL_IN<ul>
+<li>数据在路由决定要发往本地时触发</li>
+</ul>
+</li>
+<li>NF_IP_FORWARD<ul>
+<li>数据在路由决定要转发到非本地时触发</li>
+</ul>
+</li>
+<li>NF_IP_LOCAL_OUT<ul>
+<li>在由本地发出的数据刚进入网络栈时触发,在做出路由决定之前</li>
+</ul>
+</li>
+<li>NF_IP_POST_ROUTING<ul>
+<li>所有经过路由决定后需要向外发出或转发的数据,在将要出网络栈时触发</li>
+</ul>
+</li>
+</ul>
+<h3 id="_1">表和链<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<p>表和链都只是逻辑上的分类,实际对应的是在不同hooks上执行的各种操作
+同一hook不同操作的执行次序 raw-&gt;mangle-&gt;nat-&gt;filter</p>
+<ul>
+<li>filter表 对数据进行过滤,决定是否丢弃数据<ul>
+<li>INPUT链 对应 NF_IP_LOCAL_IN</li>
+<li>OUTPUT链 对应 NF_IP_LOCAL_OUT</li>
+<li>FORWARD链 对应 NF_IP_FORWARD</li>
+</ul>
+</li>
+<li>nat表 对数据src,dst地址进行修改和追踪<ul>
+<li>PREROUTING链 对应 NF_IP_PRE_ROUTING 例如修改dst地址dnat操作</li>
+<li>POSTROUTING链 对应 NF_IP_POST_ROUTING 例如修改src地址snat操作</li>
+<li>OUTPUT链 对应 NF_IP_LOCAL_OUT</li>
+</ul>
+</li>
+<li>mangle表 修改数据的ip header,还可以mark数据(mark是内存中的操作,不修改原数据)<ul>
+<li>PRERONTING</li>
+<li>OUTPUT</li>
+<li>FORWARD</li>
+<li>INPUT</li>
+<li>POSTOUTING</li>
+</ul>
+</li>
+<li>raw表 可以为数据包设置NOTRACK<ul>
+<li>PREROUTING</li>
+<li>OUTPUT</li>
+</ul>
+</li>
+<li>security表 SECMARK CONNSECMARK SELinux<ul>
+<li>INPUT</li>
+<li>OUTPUT</li>
+<li>FORWARD</li>
+</ul>
+</li>
+</ul>
+<h3 id="conntrack">conntrack<a class="headerlink" href="#conntrack" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://blog.cloudflare.com/conntrack-tales-one-thousand-and-one-flows/">https://blog.cloudflare.com/conntrack-tales-one-thousand-and-one-flows/</a></li>
+<li><a href="https://opengers.github.io/openstack/openstack-base-netfilter-framework-overview/">https://opengers.github.io/openstack/openstack-base-netfilter-framework-overview/</a></li>
+<li><a href="http://arthurchiao.art/blog/conntrack-design-and-implementation-zh/">http://arthurchiao.art/blog/conntrack-design-and-implementation-zh/</a></li>
+<li><a href="https://voipmagazine.wordpress.com/2015/02/27/tuning-the-linux-connection-tracking-system/">https://voipmagazine.wordpress.com/2015/02/27/tuning-the-linux-connection-tracking-system/</a></li>
+</ul>
+<h4 id="_2">表<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>conntrack 存放已跟踪连接</li>
+<li>expect 存放related连接</li>
+<li>dying 存放过期连接</li>
+<li>unconfirmed 存放首个packet已入栈还未出栈的连接</li>
+</ul>
+<h4 id="hooking">hooking<a class="headerlink" href="#hooking" title="Permanent link">&para;</a></h4>
+<ul>
+<li>NF_IP_PRE_ROUTING, NF_IP_LOCAL_OUT<ul>
+<li>在这两个hook上的执行顺序是在raw和mangle之间</li>
+<li>首先跳过有NOTRACK标记的packet</li>
+<li>然后从跟踪表查找入栈packet的连接条目</li>
+<li>如果不存在<ul>
+<li>添加新的条目到unconfirmed表</li>
+</ul>
+</li>
+<li>如果存在<ul>
+<li>重置连接条目的ttl</li>
+<li>更新连接条目的packet,byte计数</li>
+<li>如果是[UNREPLIED]条目的反向packet,那么将连接跟踪状态更新为[ASSURED]<ul>
+<li>也就是iptable中的 --state ESTABLISHED</li>
+<li>就是说看到了一个连接的双向数据</li>
+<li>对于tcp要看到完整的3次握手才进入这个状态吗?</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>NF_IP_POST_ROUTING, NF_IP_LOCAL_OUT<ul>
+<li>在这两个hook上最后执行</li>
+<li>从unconfirmed表查找出栈packet的连接条目</li>
+<li>如果匹配<ul>
+<li>说明这条新连接的packet没有被丢弃,正要被送往目的地</li>
+<li>那么可以开始跟踪了,将相应的连接条目转到conntrack表</li>
+<li>此时连接条目的跟踪状态被设置为[UNREPLIED]</li>
+<li>也就是iptable中的 --state NEW</li>
+<li>就是说目前只看到连接的单向packet</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_3">支持跟踪的协议<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>TCP、UDP、ICMP、DCCP、SCTP、GRE
+对于不同协议,使用的元数据hash方法,确认[ASSURED]的标准也不同</p>
+<h4 id="_4">跟踪表的二元结构<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<ul>
+<li>索引 根据packet的tuple(元数据)算出的hash值,遍历效率高<ul>
+<li>这个是非唯一可重复的,当对应的bucket满了就会新建一个</li>
+</ul>
+</li>
+<li>bucket 存储跟踪连接的链表,遍历效率相对低<ul>
+<li>包含若干个连接条目,数量与bucket size有关</li>
+</ul>
+</li>
+</ul>
+<h4 id="_5">跟踪表条目内容<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>cat /proc/net/nf_conntrack
+ipv4 2 tcp 6 6626 ESTABLISHED src=10.99.99.99 dst=123.123.123.123 sport=43906 dport=443 packets=11 bytes=1297 src=123.123.123.123 dst=234.234.234.234 sport=443 dport=43906 packets=9 bytes=1033 [ASSURED] mark=0 zone=0 use=1
+</code></pre></div>
+<ul>
+<li>ipv4/v6协议号</li>
+<li>4层协议号</li>
+<li>连接跟踪ttl,到期条目被GC,可以通过内核参数为不同的协议单独设置默认值</li>
+<li>协议状态,对于有连接协议会有协议状态</li>
+<li>tuple,从packet提取的元数据,对于tcp,udp为src,dst,sport,dport</li>
+<li>tuple方向的packet,byte计数</li>
+<li>反向tuple,自动生成,便于匹配反向packet</li>
+<li>反向tuple的packet,byte计数</li>
+<li>跟踪状态,udp这种无连接协议,只有单向packet时是noreplied,有双向时会去掉noreplied,不会有assured</li>
+<li>mark</li>
+<li>zone</li>
+<li>use</li>
+</ul>
+<h4 id="packet">packet与跟踪表的匹配过程<a class="headerlink" href="#packet" title="Permanent link">&para;</a></h4>
+<ul>
+<li>首先提取tuple,算出hash值</li>
+<li>遍历表中索引值,得到所有匹配的bucket</li>
+<li>遍历这些bucket中的连接条目进行匹配</li>
+</ul>
+<h4 id="_6">内核参数<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<ul>
+<li><a href="https://www.kernel.org/doc/Documentation/networking/nf_conntrack-sysctl.txt">https://www.kernel.org/doc/Documentation/networking/nf_conntrack-sysctl.txt</a></li>
+</ul>
+<p>net.netfilter.nf_conntrack_max #最大连接条目数
+net.netfilter.nf_conntrack_buckets #bucket数
+nf_conntrack_max / nf_conntrack_buckets = bucket size</p>
+<h4 id="nat">nat的现实<a class="headerlink" href="#nat" title="Permanent link">&para;</a></h4>
+<p><a href="https://www.weave.works/blog/racy-conntrack-and-dns-lookup-timeouts">https://www.weave.works/blog/racy-conntrack-and-dns-lookup-timeouts</a>
+<a href="https://manpages.debian.org/testing/conntrack/conntrack.8.en.html">https://manpages.debian.org/testing/conntrack/conntrack.8.en.html</a>
+<a href="https://wiki.aalto.fi/download/attachments/69901948/netfilter-paper.pdf">https://wiki.aalto.fi/download/attachments/69901948/netfilter-paper.pdf</a>
+<a href="https://blog.csdn.net/dog250/article/details/12275041">https://blog.csdn.net/dog250/article/details/12275041</a></p>
+<p>netfilter实现有状态的nat完全依赖conntrack</p>
+<ul>
+<li>第一个nat packet<ul>
+<li>当packet入栈时触发conntrack,写入unconfirmed表,设置snat/dnat标志??有这个吗??</li>
+<li>nat操作被触发,寻找对应的nat规则(没找到就跳出)</li>
+<li>确认tuple没有在已经confirmed的conntrack表中(否则丢弃packet)</li>
+<li>然后根据nat规则修改unconfirmed表中的连接的反向tuple</li>
+<li>packet本身根据nat则规被修改</li>
+<li>packet到达prerouting hook,连接被确认,转入conntrack表,跟踪状态被设置为[UNREPLIED]</li>
+</ul>
+</li>
+<li>第一个返回的nat packet<ul>
+<li>当packet入栈时触发conntrack,连接跟踪状态被设置为[REPLIED]</li>
+<li>触发nat,根据nat规则和conntrack表中原始tuple信息修改packet</li>
+<li>没找到看得懂的文档,所以是我猜的,这个返回包的nat操作应该是nat的隐含行为,自动完成反向操作</li>
+</ul>
+</li>
+<li>后续的packet<ul>
+<li>看到有几个文档说是不再触发nat了,需要的操作也都会自动完成,至于是怎么搞的也是没搞懂</li>
+<li>应该是有谁看到snat/dnat标志然后就看packet给改了吧???</li>
+</ul>
+</li>
+</ul>
+<h3 id="iptables-syntax">iptables syntax<a class="headerlink" href="#iptables-syntax" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>iptables -t &lt;TABLE&gt; -&lt;A<span class="p">|</span>I<span class="p">|</span>R<span class="p">|</span>D&gt; &lt;CHAIN&gt; &lt;MATCH&gt; -j &lt;TARGET&gt;
+man iptables
+man iptables-extensions
+
+-t <span class="c1">#选择表,省略时默认为filter表</span>
+-A chain <span class="c1">#向链中添加规则</span>
+-I chain <span class="c1">#向链中插入规则</span>
+-R chain rulenum <span class="c1">#更新指定编号的规则</span>
+-D chain rule/rulenum <span class="c1">#删除指定规则</span>
+-C chain rule/rulenum <span class="c1">#检查规则是否存在</span>
+-L <span class="o">[</span>chain<span class="o">]</span> <span class="c1">#列出所有或指定链中的规则,-v显示计数,-n不反向解析dns</span>
+-S <span class="o">[</span>chain<span class="o">]</span> <span class="c1">#列出所有或指定链中的规则,以iptables命令的方式</span>
+-F <span class="o">[</span>chain<span class="o">]</span> <span class="c1">#清空所有或指定链中的规则</span>
+-Z <span class="o">[</span>chain<span class="o">[</span>rulenum<span class="o">]]</span> <span class="c1">#重置packet和byte计数器</span>
+-N chain <span class="c1">#新建自定义链</span>
+-X chain <span class="c1">#删除自定义链</span>
+-E chain newname <span class="c1">#重命名自定义链</span>
+-P chain target <span class="c1">#设置链默认行为,只能是ACCEPT或DROP</span>
+-j TARGET
+-g chain
+</code></pre></div>
+<ul>
+<li>MATCH<ul>
+<li>! 配合其它MATCH取反</li>
+<li>-i -o 匹配出入接口</li>
+<li>-s -d 匹配源地址和目标地址</li>
+<li>-p 匹配协议 tcp udp icmp all</li>
+<li>-p tcp --sport 匹配tcp源端口</li>
+<li>-p tcp --dport 匹配tcp目标端口</li>
+<li>-p tcp --tcp-flags 匹配tcp标记</li>
+<li>-p tcp -syn 匹配tcp init连接请求</li>
+<li>-p tcp --tcp-option 匹配发送方接受的最大packet size</li>
+<li>-p udp --sport 匹配udp源端口</li>
+<li>-p udp --dport 匹配udp目标端口</li>
+<li>-p icmp --icmp-type 匹配icmp类型</li>
+<li>-m 使用指定的extension</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>MATCH extensions<ul>
+<li>set --match-set 匹配ipset</li>
+<li>cgroup 匹配cgroup</li>
+<li>comment --comment "drama" 为规则添加注释</li>
+<li>multiport --sports/dports/ports 11,22,33:44 匹配来源/目标/来源和目标端口范围</li>
+<li>iprange --src-range/dst-range from 1.1.1.1 -to 2.2.2.2 匹配来源/目标地址</li>
+<li>string algo bm/kmp --string/hex-string 匹配字符串或十六进制字符串</li>
+<li>time 匹配packet到达时间</li>
+<li>tos 匹配ipv4 header tos字段</li>
+<li>owner 匹配从本地发出的packet所属uid gid</li>
+<li>mark --mark 匹配packet标记,配合MARK TARGET使用</li>
+<li>connmark --mark 匹配连接标记,配合CONNMARK TARGET使用</li>
+<li>conntrack<ul>
+<li>--ctstate 匹配connection tracking状态<ul>
+<li>NEW 发起新连接的packet</li>
+<li>ESTABLISHED 属于已建立的连接的packet</li>
+<li>RELATED 与已建立的连接相关的packet</li>
+<li>UNTRACKED 明确标记了不追踪的packet,也就是在raw中使用了-j CT --notrack</li>
+<li>INVALID 与现有连接无关的packet,packet校验失败,数据错误</li>
+<li>SNAT A virtual state, matching if the original source address differs from the reply destination</li>
+<li>DNAT A virtual state, matching if the original destination differs from the reply source</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>state --state 是conntrack --ctstate的子集,不包括SNAT和DNAT</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>TAGET<ul>
+<li>ACCEPT 接受 filter表</li>
+<li>DROP 丢弃 filter表</li>
+<li>RETURN 跳出当前链</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>TAGET extensions<ul>
+<li>REJECT --reject-with 丢弃并回应<ul>
+<li>icmp-port-unreachable 默认</li>
+<li>icmp-net-unreachable</li>
+<li>icmp-host-unreachable</li>
+<li>icmp-proto-unreachable</li>
+<li>icmp-net-prohibited</li>
+<li>icmp-host-prohibited</li>
+<li>icmp-admin-prohibited</li>
+<li>tcp-reset 仅应用于tcp协议</li>
+</ul>
+</li>
+<li>MARK --set-mark 为packet打标记,可以用于mark匹配和ip rule fwmark匹配</li>
+<li>CONNMARK --set-mark 为连接打标记,可以用于connmark匹配<ul>
+<li>--save-mark 将packet标记应用到连接标记</li>
+<li>--restore-mark 将连接标记应用到packet标记 仅用于mangle表</li>
+</ul>
+</li>
+<li>DNAT --to-destination 修改packet的目标地址和端口,并应用到连接后续packet<ul>
+<li>1.1.1.1 只修改目标地址</li>
+<li>:80 只修改目标端口</li>
+<li>1.1.1.1:80 修改目标地址和端口</li>
+<li>1.1.1.1-1.1.1.10 修改目标地址范围</li>
+<li>:80-90 修改目标端口范围</li>
+<li>--random 随机端口映射</li>
+<li>persistent 为连接固定地址 连接黏性的意思</li>
+</ul>
+</li>
+<li>SNAT --to-source 修改packet的源地址和端口,并应用到同一连接后续packet<ul>
+<li>1.1.1.1 只修改目标地址</li>
+<li>:80 只修改目标端口</li>
+<li>1.1.1.1:80 修改目标地址和端口</li>
+<li>1.1.1.1-1.1.1.10 修改目标地址范围</li>
+<li>:80-90 修改目标端口范围</li>
+<li>--random 随机端口映射 hash算法</li>
+<li>--random-fully 随机端口映射 PRNG算法</li>
+<li>persistent 为连接固定地址 连接黏性的意思</li>
+</ul>
+</li>
+<li>MASQUERADE 和SNAT一样,会自动将流出接口的地址设置为源地址<ul>
+<li>to-ports</li>
+<li>random</li>
+<li>random-full</li>
+</ul>
+</li>
+<li>AUDIT 为packets生成审计记录</li>
+<li>LOG 为packets生成日志 使用dmesg或syslog读取</li>
+<li>LED 触发led设备</li>
+<li>REDIRECT --to-ports 8080[-8088] 将packet dnat到本地<ul>
+<li>目标地址被修改为流入接口的primary address,和MASQUERADE的手法类似</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="routing-policy">routing policy<a class="headerlink" href="#routing-policy" title="Permanent link">&para;</a></h2>
+<ul>
+<li>系统按照路由规则和优级来查找路由表</li>
+<li>首先匹配路由规则,然后按照优先级逐个查找相应的路由表</li>
+<li>直到在路由表中找到对应的路由条目,找不到则数据被丢弃</li>
+<li>优先级0最高,自定义的规则优先级默认从32765开始</li>
+</ul>
+<ul>
+<li>默认的路由规则<ul>
+<li>from all lookup local<blockquote>
+<p>优先级0,匹配local表,看是不是到本机地址的</p>
+</blockquote>
+</li>
+<li>from all lookup main<blockquote>
+<p>优先级32766,匹配main表</p>
+</blockquote>
+</li>
+<li>from all lookup default<blockquote>
+<p>优先级32767,匹配default表</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>ip rule add <span class="o">[</span>selector<span class="o">]</span> <span class="o">[</span>action<span class="o">]</span>
+<span class="c1">#默认action是lookup table,可以省略,默认是main表</span>
+
+<span class="c1">#selector:</span>
+<span class="c1">#not 取反,结合其它selector使用</span>
+<span class="c1">#from 匹配source ip</span>
+<span class="c1">#to 匹配dst ip</span>
+<span class="c1">#fwark 匹配标记</span>
+<span class="c1">#iif 匹配入接口</span>
+<span class="c1">#oif 匹配出接口,只对从local发出的包有效,对转发的无效</span>
+<span class="c1">#ipproto 匹配ip协议</span>
+<span class="c1">#sport 匹配source port</span>
+<span class="c1">#dport 匹配dst port</span>
+<span class="c1">#uidrange 匹配uid范围</span>
+<span class="c1">#tun_id 匹配tunnel id</span>
+
+<span class="c1">#action:</span>
+<span class="c1">#pref 设置优先级,结合其它action使用</span>
+<span class="c1">#lookup 使用指定的路由表</span>
+<span class="c1">#protocol</span>
+<span class="c1">#nat</span>
+<span class="c1">#goto</span>
+<span class="c1">#blackhole 默默丢掉</span>
+<span class="c1">#unreachable 返回icmp host unreachable</span>
+<span class="c1">#prohibit 返回icmp adminitratively prohibited</span>
+<span class="c1">#throw 返回net unreachable,如果一张表没有默认路由那么就隐含throw default</span>
+
+ip rule add to <span class="m">1</span>.1.1.0/24 lookup table <span class="m">200</span>
+ip rule add from <span class="m">2</span>.2.2.0/24 <span class="m">200</span>
+ip rule add iif eth1 <span class="m">200</span>
+ip rule add ofi eth0 <span class="m">200</span>
+ip rule add fwmark <span class="m">1</span> <span class="m">200</span>
+ip rule add not fwmark <span class="m">1</span> <span class="m">200</span>
+</code></pre></div>
+<h2 id="routing-table">routing table<a class="headerlink" href="#routing-table" title="Permanent link">&para;</a></h2>
+<ul>
+<li>内置的路由表<ul>
+<li>local表中包含所有到达本机地址的路由和直连网络的广播路由</li>
+<li>main表包含所有到达非本机地址的路由</li>
+</ul>
+</li>
+<li>路由最长匹配原则<ul>
+<li>就是以二进制ip地址去匹配,选择匹配长度最长的路由</li>
+<li>说白了就是在匹配的路由中选择范围最小的一个</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code>ip route add [TYPE] [PREFIX] ... [table TABLE_ID]
+TYPE:
+unicast 默认值,可省略
+local 本地路由
+broadcast 广播路由
+multicast 组播路由
+anycast
+blackhole 默默丢掉
+unreachable 返回icmp host unreachable
+prohibit 返回icmp adminitratively prohibited
+throw 返回net unreachable,如果一张表没有默认路由那么就隐含throw default
+
+PREFIX:
+目标网络,地址加掩码,如果省略掩码则默认32
+default相当于0.0.0.0/0
+在查询时可以在前面加match,exact来匹配
+
+table:
+指定要操作的路由表,省略时默认为main表,type为local,broadcast的路由默认为local表
+
+preference 路由优先级,数字
+
+dev 用于设置直连路由,就是声明这个接口直连的网段,为一个接口设置ip之后,kernel中会自动生成这种路由
+
+src 接口有多个地址时,使用src指定这条路由对应的ip地址
+
+via 对于非直连路由则要使用via方式
+ip route add 1.1.1.0/24 via 1.1.2.1
+
+nexthop 同一条路由有多个路径时使用nexthop,相当于lb,可以设置weight
+ip route add default nexthop via 1.1.2.1 weight 1 nexthop dev eth1 weight 1
+
+protocol 路由协议类型
+
+onlink 强制添加直连路由,就算本地接口没有相应的地址
+
+scope 默认为global,local,broadcast和直连路由使用link
+
+metric 就是metric
+
+tos Type Of Service
+</code></pre></div>
+<h2 id="layer2">layer2<a class="headerlink" href="#layer2" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://opengers.github.io/openstack/openstack-base-virtual-network-devices-bridge-and-vlan/">https://opengers.github.io/openstack/openstack-base-virtual-network-devices-bridge-and-vlan/</a></li>
+<li><a href="http://ebtables.netfilter.org/br_fw_ia/br_fw_ia.html">http://ebtables.netfilter.org/br_fw_ia/br_fw_ia.html</a></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../../../k8s/workloads/job/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              job
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../wireguard/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              wireguard route based site2site vpn
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>

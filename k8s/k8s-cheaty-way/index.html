@@ -1,0 +1,1770 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="my notes">
+      
+      
+      
+      
+        <link rel="canonical" href="https://emptyteeth.github.io/k8s/k8s-cheaty-way/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>k8s cheaty way - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#k8s-cheaty-way" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              k8s cheaty way
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Empty
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/" class="md-nav__link">
+        git基本原理和操作
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../regex/" class="md-nav__link">
+        regex正则表达式基础
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Devices
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Devices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Devices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devices/pi4-alpine-linux-headless-installation/" class="md-nav__link">
+        pi4 alpine-linux headless installation
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        K8s
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="K8s" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          K8s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fluent-bit/" class="md-nav__link">
+        fluent-bit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          k8s cheaty way
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        k8s cheaty way
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#control-plane" class="md-nav__link">
+    control plane
+  </a>
+  
+    <nav class="md-nav" aria-label="control plane">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apiserver-lb" class="md-nav__link">
+    apiserver lb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pki" class="md-nav__link">
+    pki
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd" class="md-nav__link">
+    etcd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apiserver" class="md-nav__link">
+    apiserver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubeconfig" class="md-nav__link">
+    kubeconfig
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controller-manager" class="md-nav__link">
+    controller-manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduler" class="md-nav__link">
+    scheduler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mastern" class="md-nav__link">
+    masterN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cni" class="md-nav__link">
+    cni
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coredns" class="md-nav__link">
+    coredns
+  </a>
+  
+    <nav class="md-nav" aria-label="coredns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubeadm" class="md-nav__link">
+    kubeadm安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    手动安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node" class="md-nav__link">
+    node
+  </a>
+  
+    <nav class="md-nav" aria-label="node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubelet" class="md-nav__link">
+    kubelet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubeproxy" class="md-nav__link">
+    kubeproxy
+  </a>
+  
+    <nav class="md-nav" aria-label="kubeproxy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubeadm_1" class="md-nav__link">
+    kubeadm 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    手动本地安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prometheus/" class="md-nav__link">
+        prometheus
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      <label class="md-nav__link" for="__nav_5_4">
+        AAAA
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AAAA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          AAAA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/admissioncontroller/" class="md-nav__link">
+        admission controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/api.list/" class="md-nav__link">
+        api list
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/api/" class="md-nav__link">
+        api
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/arch/" class="md-nav__link">
+        arch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/authentication/" class="md-nav__link">
+        authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/etcd/" class="md-nav__link">
+        etcd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/kubeconfig/" class="md-nav__link">
+        kubeconfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/object/" class="md-nav__link">
+        ojbect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/rbac/" class="md-nav__link">
+        rabc authorization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" >
+      
+      <label class="md-nav__link" for="__nav_5_5">
+        Kubeadm
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubeadm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubeadm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubeadm/cluster/" class="md-nav__link">
+        kubeadm k8s集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubeadm/howitworks/" class="md-nav__link">
+        how kubeadm works
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/ingress/" class="md-nav__link">
+        ingress
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/k8snetwork/" class="md-nav__link">
+        k8s network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/networkpolicy/" class="md-nav__link">
+        network policy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/service/" class="md-nav__link">
+        service
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Workloads
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workloads" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Workloads
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/01-containers/" class="md-nav__link">
+        containers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/02-pod/" class="md-nav__link">
+        pod
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/03-deploy/" class="md-nav__link">
+        deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/04-daemonset/" class="md-nav__link">
+        daemonset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/05-statefulset/" class="md-nav__link">
+        statefulset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/gc/" class="md-nav__link">
+        Garbage Collection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/job/" class="md-nav__link">
+        job
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/networking/nf-iprouting/" class="md-nav__link">
+        netfilter&ip-routing基本原理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/networking/wireguard/" class="md-nav__link">
+        wireguard route based site2site vpn
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#control-plane" class="md-nav__link">
+    control plane
+  </a>
+  
+    <nav class="md-nav" aria-label="control plane">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apiserver-lb" class="md-nav__link">
+    apiserver lb
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pki" class="md-nav__link">
+    pki
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#etcd" class="md-nav__link">
+    etcd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apiserver" class="md-nav__link">
+    apiserver
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubeconfig" class="md-nav__link">
+    kubeconfig
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#controller-manager" class="md-nav__link">
+    controller-manager
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scheduler" class="md-nav__link">
+    scheduler
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mastern" class="md-nav__link">
+    masterN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cni" class="md-nav__link">
+    cni
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coredns" class="md-nav__link">
+    coredns
+  </a>
+  
+    <nav class="md-nav" aria-label="coredns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubeadm" class="md-nav__link">
+    kubeadm安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    手动安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#node" class="md-nav__link">
+    node
+  </a>
+  
+    <nav class="md-nav" aria-label="node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubelet" class="md-nav__link">
+    kubelet
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubeproxy" class="md-nav__link">
+    kubeproxy
+  </a>
+  
+    <nav class="md-nav" aria-label="kubeproxy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubeadm_1" class="md-nav__link">
+    kubeadm 安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    手动本地安装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="k8s-cheaty-way">k8s cheaty way<a class="headerlink" href="#k8s-cheaty-way" title="Permanent link">&para;</a></h1>
+<h2 id="control-plane">control plane<a class="headerlink" href="#control-plane" title="Permanent link">&para;</a></h2>
+<h3 id="apiserver-lb">apiserver lb<a class="headerlink" href="#apiserver-lb" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>listen k8sapi
+    bind :8888
+    mode tcp
+    server master01 10.11.11.250:6443 check
+   #server masterN
+</code></pre></div>
+<h3 id="pki">pki<a class="headerlink" href="#pki" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>~~openssl genrsa -out ca.key~~
+~~openssl req -new -nodes -key ca.key -subj <span class="s2">&quot;/CN=kubernetes&quot;</span> -x509 -out ca.crt -days <span class="m">365</span>~~
+<span class="c1">#ahhhhhhhh!! fuck this shit! let&#39;s kubeadm</span>
+kubeadm init phase certs all --control-plane-endpoint <span class="m">10</span>.11.11.250:8888
+<span class="c1">#--apiserver-cert-extra-sans</span>
+</code></pre></div>
+<h3 id="etcd">etcd<a class="headerlink" href="#etcd" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#kubeadm init phase etcd local</span>
+mkdir /var/lib/etcd
+etcd --advertise-client-urls<span class="o">=</span>https://10.11.11.250:2379 <span class="se">\</span>
+--cert-file<span class="o">=</span>/etc/kubernetes/pki/etcd/server.crt <span class="se">\</span>
+--client-cert-auth<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+--data-dir<span class="o">=</span>/var/lib/etcd <span class="se">\</span>
+--initial-advertise-peer-urls<span class="o">=</span>https://10.11.11.250:2380 <span class="se">\</span>
+--initial-cluster<span class="o">=</span><span class="nv">ubuntu</span><span class="o">=</span>https://10.11.11.250:2380 <span class="se">\</span>
+--key-file<span class="o">=</span>/etc/kubernetes/pki/etcd/server.key <span class="se">\</span>
+--listen-client-urls<span class="o">=</span>https://127.0.0.1:2379,https://10.11.11.250:2379 <span class="se">\</span>
+--listen-metrics-urls<span class="o">=</span>http://127.0.0.1:2381 <span class="se">\</span>
+--listen-peer-urls<span class="o">=</span>https://10.11.11.250:2380 <span class="se">\</span>
+--name<span class="o">=</span>ubuntu <span class="se">\</span>
+--peer-cert-file<span class="o">=</span>/etc/kubernetes/pki/etcd/peer.crt <span class="se">\</span>
+--peer-client-cert-auth<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+--peer-key-file<span class="o">=</span>/etc/kubernetes/pki/etcd/peer.key <span class="se">\</span>
+--peer-trusted-ca-file<span class="o">=</span>/etc/kubernetes/pki/etcd/ca.crt <span class="se">\</span>
+--snapshot-count<span class="o">=</span><span class="m">10000</span> <span class="se">\</span>
+--trusted-ca-file<span class="o">=</span>/etc/kubernetes/pki/etcd/ca.crt
+</code></pre></div>
+<h3 id="apiserver">apiserver<a class="headerlink" href="#apiserver" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#kubeadm init phase control-plane apiserver</span>
+kube-apiserver <span class="se">\</span>
+--advertise-address<span class="o">=</span><span class="m">10</span>.11.11.250 <span class="se">\</span>
+--allow-privileged<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+--authorization-mode<span class="o">=</span>Node,RBAC <span class="se">\</span>
+--client-ca-file<span class="o">=</span>/etc/kubernetes/pki/ca.crt <span class="se">\</span>
+--enable-admission-plugins<span class="o">=</span>NodeRestriction <span class="se">\</span>
+--enable-bootstrap-token-auth<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+--etcd-cafile<span class="o">=</span>/etc/kubernetes/pki/etcd/ca.crt <span class="se">\</span>
+--etcd-certfile<span class="o">=</span>/etc/kubernetes/pki/apiserver-etcd-client.crt <span class="se">\</span>
+--etcd-keyfile<span class="o">=</span>/etc/kubernetes/pki/apiserver-etcd-client.key <span class="se">\</span>
+--etcd-servers<span class="o">=</span>https://10.11.11.250:2379 <span class="se">\</span>
+--insecure-port<span class="o">=</span><span class="m">0</span> <span class="se">\</span>
+--kubelet-client-certificate<span class="o">=</span>/etc/kubernetes/pki/apiserver-kubelet-client.crt <span class="se">\</span>
+--kubelet-client-key<span class="o">=</span>/etc/kubernetes/pki/apiserver-kubelet-client.key <span class="se">\</span>
+--kubelet-preferred-address-types<span class="o">=</span>InternalIP,ExternalIP,Hostname <span class="se">\</span>
+--proxy-client-cert-file<span class="o">=</span>/etc/kubernetes/pki/front-proxy-client.crt <span class="se">\</span>
+--proxy-client-key-file<span class="o">=</span>/etc/kubernetes/pki/front-proxy-client.key <span class="se">\</span>
+--requestheader-allowed-names<span class="o">=</span>front-proxy-client <span class="se">\</span>
+--requestheader-client-ca-file<span class="o">=</span>/etc/kubernetes/pki/front-proxy-ca.crt <span class="se">\</span>
+--requestheader-extra-headers-prefix<span class="o">=</span>X-Remote-Extra- <span class="se">\</span>
+--requestheader-group-headers<span class="o">=</span>X-Remote-Group <span class="se">\</span>
+--requestheader-username-headers<span class="o">=</span>X-Remote-User <span class="se">\</span>
+--secure-port<span class="o">=</span><span class="m">6443</span> <span class="se">\</span>
+--service-account-key-file<span class="o">=</span>/etc/kubernetes/pki/sa.pub <span class="se">\</span>
+--service-cluster-ip-range<span class="o">=</span><span class="m">10</span>.96.0.0/12 <span class="se">\</span>
+--tls-cert-file<span class="o">=</span>/etc/kubernetes/pki/apiserver.crt <span class="se">\</span>
+--tls-private-key-file<span class="o">=</span>/etc/kubernetes/pki/apiserver.key <span class="se">\</span>
+--etcd-prefix<span class="o">=</span>/cluster01
+</code></pre></div>
+<h3 id="kubeconfig">kubeconfig<a class="headerlink" href="#kubeconfig" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>kubeadm init phase kubeconfig all --control-plane-endpoint <span class="m">10</span>.11.11.250:8888
+</code></pre></div>
+<h3 id="controller-manager">controller-manager<a class="headerlink" href="#controller-manager" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#kubeadm init phase control-plane controller-manager</span>
+kube-controller-manager <span class="se">\</span>
+--allocate-node-cidrs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+--authentication-kubeconfig<span class="o">=</span>/etc/kubernetes/controller-manager.conf <span class="se">\</span>
+--authorization-kubeconfig<span class="o">=</span>/etc/kubernetes/controller-manager.conf <span class="se">\</span>
+--bind-address<span class="o">=</span><span class="m">127</span>.0.0.1 <span class="se">\</span>
+--client-ca-file<span class="o">=</span>/etc/kubernetes/pki/ca.crt <span class="se">\</span>
+--cluster-cidr<span class="o">=</span><span class="m">10</span>.244.0.0/16 <span class="se">\</span>
+--cluster-name<span class="o">=</span>kubernetes <span class="se">\</span>
+--cluster-signing-cert-file<span class="o">=</span>/etc/kubernetes/pki/ca.crt <span class="se">\</span>
+--cluster-signing-key-file<span class="o">=</span>/etc/kubernetes/pki/ca.key <span class="se">\</span>
+--controllers<span class="o">=</span>*,bootstrapsigner,tokencleaner <span class="se">\</span>
+--kubeconfig<span class="o">=</span>/etc/kubernetes/controller-manager.conf <span class="se">\</span>
+--leader-elect<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+--node-cidr-mask-size<span class="o">=</span><span class="m">24</span> <span class="se">\</span>
+--requestheader-client-ca-file<span class="o">=</span>/etc/kubernetes/pki/front-proxy-ca.crt <span class="se">\</span>
+--root-ca-file<span class="o">=</span>/etc/kubernetes/pki/ca.crt <span class="se">\</span>
+--service-account-private-key-file<span class="o">=</span>/etc/kubernetes/pki/sa.key <span class="se">\</span>
+--service-cluster-ip-range<span class="o">=</span><span class="m">10</span>.96.0.0/12 <span class="se">\</span>
+--use-service-account-credentials<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<h3 id="scheduler">scheduler<a class="headerlink" href="#scheduler" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#kubeadm init phase control-plane scheduler</span>
+kube-scheduler <span class="se">\</span>
+--authentication-kubeconfig<span class="o">=</span>/etc/kubernetes/scheduler.conf <span class="se">\</span>
+--authorization-kubeconfig<span class="o">=</span>/etc/kubernetes/scheduler.conf <span class="se">\</span>
+--bind-address<span class="o">=</span><span class="m">127</span>.0.0.1 <span class="se">\</span>
+--kubeconfig<span class="o">=</span>/etc/kubernetes/scheduler.conf <span class="se">\</span>
+--leader-elect<span class="o">=</span><span class="nb">true</span>
+</code></pre></div>
+<h3 id="mastern">masterN<a class="headerlink" href="#mastern" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">#copy: ca.* sa.* front-proxy-ca.* /etcd/ca.*</span>
+kubeadm init phase certs apiserver --control-plane-endpoint <span class="m">10</span>.11.11.250:8888
+kubeadm init phase certs apiserver-kubelet-client
+kubeadm init phase certs apiserver-etcd-client
+kubeadm init phase certs etcd-healthcheck-client
+kubeadm init phase certs front-proxy-client
+
+kubeadm init phase kubeconfig controller-manager --control-plane-endpoint <span class="m">10</span>.11.11.250:8888
+kubeadm init phase kubeconfig scheduler --control-plane-endpoint <span class="m">10</span>.11.11.250:8888
+</code></pre></div>
+<h2 id="cni">cni<a class="headerlink" href="#cni" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+</code></pre></div>
+<h2 id="coredns">coredns<a class="headerlink" href="#coredns" title="Permanent link">&para;</a></h2>
+<h3 id="kubeadm">kubeadm安装<a class="headerlink" href="#kubeadm" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>kubeadm init phase addon coredns
+</code></pre></div>
+<h3 id="_1">手动安装<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<details>
+
+<div class="highlight"><pre><span></span><code><span class="c1">#https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/coredns/coredns.yaml.sed</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">coredns</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-system</span>
+  <span class="nt">labels</span><span class="p">:</span>
+      <span class="nt">kubernetes.io/cluster-service</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
+      <span class="nt">addonmanager.kubernetes.io/mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Reconcile</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">labels</span><span class="p">:</span>
+    <span class="nt">kubernetes.io/bootstrapping</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac-defaults</span>
+    <span class="nt">addonmanager.kubernetes.io/mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Reconcile</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:coredns</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">apiGroups</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">resources</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">endpoints</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">services</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">pods</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">namespaces</span>
+  <span class="nt">verbs</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">list</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">watch</span>
+<span class="p p-Indicator">-</span> <span class="nt">apiGroups</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">resources</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">nodes</span>
+  <span class="nt">verbs</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">get</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">annotations</span><span class="p">:</span>
+    <span class="nt">rbac.authorization.kubernetes.io/autoupdate</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
+  <span class="nt">labels</span><span class="p">:</span>
+    <span class="nt">kubernetes.io/bootstrapping</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac-defaults</span>
+    <span class="nt">addonmanager.kubernetes.io/mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EnsureExists</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:coredns</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:coredns</span>
+<span class="nt">subjects</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">coredns</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-system</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ConfigMap</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">coredns</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-system</span>
+  <span class="nt">labels</span><span class="p">:</span>
+      <span class="nt">addonmanager.kubernetes.io/mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EnsureExists</span>
+<span class="nt">data</span><span class="p">:</span>
+  <span class="c1">####!!!</span>
+  <span class="nt">Corefile</span><span class="p">:</span> <span class="p p-Indicator">|</span>
+    <span class="no">.:53 {</span>
+        <span class="no">errors</span>
+        <span class="no">health {</span>
+            <span class="no">lameduck 5s</span>
+        <span class="no">}</span>
+        <span class="no">ready</span>
+        <span class="no">kubernetes cluster.local in-addr.arpa ip6.arpa {</span>
+            <span class="no">pods insecure</span>
+            <span class="no">fallthrough in-addr.arpa ip6.arpa</span>
+            <span class="no">ttl 30</span>
+        <span class="no">}</span>
+        <span class="no">prometheus :9153</span>
+        <span class="no">forward . /etc/resolv.conf</span>
+        <span class="no">cache 30</span>
+        <span class="no">loop</span>
+        <span class="no">reload</span>
+        <span class="no">loadbalance</span>
+    <span class="no">}</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">coredns</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-system</span>
+  <span class="nt">labels</span><span class="p">:</span>
+    <span class="nt">k8s-app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-dns</span>
+    <span class="nt">kubernetes.io/cluster-service</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
+    <span class="nt">addonmanager.kubernetes.io/mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Reconcile</span>
+    <span class="nt">kubernetes.io/name</span><span class="p">:</span> <span class="s">&quot;CoreDNS&quot;</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="c1"># replicas: not specified here:</span>
+  <span class="c1"># 1. In order to make Addon Manager do not reconcile this replicas parameter.</span>
+  <span class="c1"># 2. Default is 1.</span>
+  <span class="c1"># 3. Will be tuned in real time if DNS horizontal auto-scaling is turned on.</span>
+  <span class="nt">strategy</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">RollingUpdate</span>
+    <span class="nt">rollingUpdate</span><span class="p">:</span>
+      <span class="nt">maxUnavailable</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+  <span class="nt">selector</span><span class="p">:</span>
+    <span class="nt">matchLabels</span><span class="p">:</span>
+      <span class="nt">k8s-app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-dns</span>
+  <span class="nt">template</span><span class="p">:</span>
+    <span class="nt">metadata</span><span class="p">:</span>
+      <span class="nt">labels</span><span class="p">:</span>
+        <span class="nt">k8s-app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-dns</span>
+      <span class="nt">annotations</span><span class="p">:</span>
+        <span class="nt">seccomp.security.alpha.kubernetes.io/pod</span><span class="p">:</span> <span class="s">&#39;runtime/default&#39;</span>
+    <span class="nt">spec</span><span class="p">:</span>
+      <span class="nt">priorityClassName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system-cluster-critical</span>
+      <span class="nt">serviceAccountName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">coredns</span>
+      <span class="nt">tolerations</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="s">&quot;CriticalAddonsOnly&quot;</span>
+          <span class="nt">operator</span><span class="p">:</span> <span class="s">&quot;Exists&quot;</span>
+      <span class="nt">nodeSelector</span><span class="p">:</span>
+        <span class="nt">kubernetes.io/os</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">linux</span>
+      <span class="nt">containers</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">coredns</span>
+        <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">k8s.gcr.io/coredns:1.6.7</span>
+        <span class="nt">imagePullPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+        <span class="nt">resources</span><span class="p">:</span>
+          <span class="nt">limits</span><span class="p">:</span>
+            <span class="c1">####!!!</span>
+            <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">170Mi</span>
+          <span class="nt">requests</span><span class="p">:</span>
+            <span class="nt">cpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100m</span>
+            <span class="nt">memory</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">70Mi</span>
+        <span class="nt">args</span><span class="p">:</span> <span class="p p-Indicator">[</span> <span class="s">&quot;-conf&quot;</span><span class="p p-Indicator">,</span> <span class="s">&quot;/etc/coredns/Corefile&quot;</span> <span class="p p-Indicator">]</span>
+        <span class="nt">volumeMounts</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">config-volume</span>
+          <span class="nt">mountPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/coredns</span>
+          <span class="nt">readOnly</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="nt">ports</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">containerPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">53</span>
+          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dns</span>
+          <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">UDP</span>
+        <span class="p p-Indicator">-</span> <span class="nt">containerPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">53</span>
+          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dns-tcp</span>
+          <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+        <span class="p p-Indicator">-</span> <span class="nt">containerPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">9153</span>
+          <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">metrics</span>
+          <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+        <span class="nt">livenessProbe</span><span class="p">:</span>
+          <span class="nt">httpGet</span><span class="p">:</span>
+            <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/health</span>
+            <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8080</span>
+            <span class="nt">scheme</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">HTTP</span>
+          <span class="nt">initialDelaySeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60</span>
+          <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+          <span class="nt">successThreshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+          <span class="nt">failureThreshold</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+        <span class="nt">readinessProbe</span><span class="p">:</span>
+          <span class="nt">httpGet</span><span class="p">:</span>
+            <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/ready</span>
+            <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8181</span>
+            <span class="nt">scheme</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">HTTP</span>
+        <span class="nt">securityContext</span><span class="p">:</span>
+          <span class="nt">allowPrivilegeEscalation</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+          <span class="nt">capabilities</span><span class="p">:</span>
+            <span class="nt">add</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">NET_BIND_SERVICE</span>
+            <span class="nt">drop</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">all</span>
+          <span class="nt">readOnlyRootFilesystem</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">dnsPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Default</span>
+      <span class="nt">volumes</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">config-volume</span>
+          <span class="nt">configMap</span><span class="p">:</span>
+            <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">coredns</span>
+            <span class="nt">items</span><span class="p">:</span>
+            <span class="p p-Indicator">-</span> <span class="nt">key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Corefile</span>
+              <span class="nt">path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Corefile</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Service</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-dns</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-system</span>
+  <span class="nt">annotations</span><span class="p">:</span>
+    <span class="nt">prometheus.io/port</span><span class="p">:</span> <span class="s">&quot;9153&quot;</span>
+    <span class="nt">prometheus.io/scrape</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
+  <span class="nt">labels</span><span class="p">:</span>
+    <span class="nt">k8s-app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-dns</span>
+    <span class="nt">kubernetes.io/cluster-service</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
+    <span class="nt">addonmanager.kubernetes.io/mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Reconcile</span>
+    <span class="nt">kubernetes.io/name</span><span class="p">:</span> <span class="s">&quot;CoreDNS&quot;</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">selector</span><span class="p">:</span>
+    <span class="nt">k8s-app</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-dns</span>
+  <span class="c1">####!!!</span>
+  <span class="nt">clusterIP</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10.96.0.10</span>
+  <span class="nt">ports</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dns</span>
+    <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">53</span>
+    <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">UDP</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dns-tcp</span>
+    <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">53</span>
+    <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">metrics</span>
+    <span class="nt">port</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">9153</span>
+    <span class="nt">protocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TCP</span>
+</code></pre></div>
+
+</details>
+
+<h2 id="node">node<a class="headerlink" href="#node" title="Permanent link">&para;</a></h2>
+<h3 id="kubelet">kubelet<a class="headerlink" href="#kubelet" title="Permanent link">&para;</a></h3>
+<ul>
+<li>bootstrap rbac</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubelet-bootstrap</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:node-bootstrapper</span>
+<span class="nt">subjects</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Group</span>
+    <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:bootstrappers:kubeadm:default-node-token</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubelet-bootstrap-autoapprove</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:certificates.k8s.io:certificatesigningrequests:nodeclient</span>
+<span class="nt">subjects</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Group</span>
+    <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:bootstrappers:kubeadm:default-node-token</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubelet-clientcert-autorenew</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:certificates.k8s.io:certificatesigningrequests:selfnodeclient</span>
+<span class="nt">subjects</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Group</span>
+    <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:nodes</span>
+</code></pre></div>
+<ul>
+<li>bootstrap token</li>
+</ul>
+<div class="highlight"><pre><span></span><code>kubeadm token create
+<span class="c1">#1sa76r.hvkj1prq8ushc3pp</span>
+</code></pre></div>
+<ul>
+<li>bootstrap-kubelet.conf</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">clusters</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">cluster</span><span class="p">:</span>
+    <span class="nt">certificate-authority</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/kubernetes/pki/ca.crt</span>
+    <span class="nt">server</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://10.11.11.250:8888</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubernetes</span>
+<span class="nt">contexts</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">context</span><span class="p">:</span>
+    <span class="nt">cluster</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubernetes</span>
+    <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:node:ubuntu</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:node:ubuntu@kubernetes</span>
+<span class="nt">current-context</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:node:ubuntu@kubernetes</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Config</span>
+<span class="nt">preferences</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
+<span class="nt">users</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:node:ubuntu</span>
+  <span class="nt">user</span><span class="p">:</span>
+    <span class="nt">token</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1sa76r.hvkj1prq8ushc3pp</span>
+</code></pre></div>
+<ul>
+<li>kubeletconfig.yaml</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">#kubeadm config print init-defaults --component-configs KubeletConfiguration</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubelet.config.k8s.io/v1beta1</span>
+<span class="nt">authentication</span><span class="p">:</span>
+  <span class="nt">anonymous</span><span class="p">:</span>
+    <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="nt">webhook</span><span class="p">:</span>
+    <span class="nt">cacheTTL</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+    <span class="nt">enabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="nt">x509</span><span class="p">:</span>
+    <span class="nt">clientCAFile</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/kubernetes/pki/ca.crt</span>
+<span class="nt">authorization</span><span class="p">:</span>
+  <span class="nt">mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Webhook</span>
+  <span class="nt">webhook</span><span class="p">:</span>
+    <span class="nt">cacheAuthorizedTTL</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+    <span class="nt">cacheUnauthorizedTTL</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">clusterDNS</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">10.96.0.10</span>
+<span class="nt">clusterDomain</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cluster.local</span>
+<span class="nt">cpuManagerReconcilePeriod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">evictionPressureTransitionPeriod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">fileCheckFrequency</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">healthzBindAddress</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">127.0.0.1</span>
+<span class="nt">healthzPort</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10248</span>
+<span class="nt">httpCheckFrequency</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">imageMinimumGCAge</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">KubeletConfiguration</span>
+<span class="nt">nodeStatusReportFrequency</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">nodeStatusUpdateFrequency</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">rotateCertificates</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="nt">runtimeRequestTimeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">streamingConnectionIdleTimeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">syncFrequency</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">volumeStatsAggPeriod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">cgroupDriver</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">systemd</span>
+<span class="nt">resolvConf</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/resolv.conf</span>
+</code></pre></div>
+<ul>
+<li>start</li>
+</ul>
+<div class="highlight"><pre><span></span><code>rm /etc/kubernetes/kubelet.conf
+kubelet <span class="se">\</span>
+--bootstrap-kubeconfig<span class="o">=</span>/etc/kubernetes/bootstrap-kubelet.conf <span class="se">\</span>
+--kubeconfig<span class="o">=</span>/etc/kubernetes/kubelet.conf <span class="se">\</span>
+--config<span class="o">=</span>/etc/kubernetes/kubeletconfig.yaml <span class="se">\</span>
+--container-runtime<span class="o">=</span>remote <span class="se">\</span>
+--container-runtime-endpoint<span class="o">=</span>unix:///run/containerd/containerd.sock
+<span class="c1">#检查 /var/lib/kubelet/pki/ 中证书是否生成</span>
+<span class="c1">#没问题的话重启一下kubelet就行了</span>
+</code></pre></div>
+<h3 id="kubeproxy">kubeproxy<a class="headerlink" href="#kubeproxy" title="Permanent link">&para;</a></h3>
+<h4 id="kubeadm_1">kubeadm 安装<a class="headerlink" href="#kubeadm_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>kubeadm init phase addon kube-proxy --control-plane-endpoint<span class="o">=</span><span class="m">10</span>.11.11.250:8888 --pod-network-cidr<span class="o">=</span><span class="m">10</span>.244.0.0/16
+</code></pre></div>
+<h4 id="_2">手动本地安装<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<details>
+
+- rabc
+
+<div class="highlight"><pre><span></span><code><span class="c1">#https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/kube-proxy/kube-proxy-rbac.yaml</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-proxy</span>
+  <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-system</span>
+  <span class="nt">labels</span><span class="p">:</span>
+    <span class="nt">addonmanager.kubernetes.io/mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Reconcile</span>
+<span class="nn">---</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRoleBinding</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:kube-proxy</span>
+  <span class="nt">labels</span><span class="p">:</span>
+    <span class="nt">addonmanager.kubernetes.io/mode</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Reconcile</span>
+<span class="nt">subjects</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
+    <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-proxy</span>
+    <span class="nt">namespace</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kube-system</span>
+<span class="nt">roleRef</span><span class="p">:</span>
+  <span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">system:node-proxier</span>
+  <span class="nt">apiGroup</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io</span>
+</code></pre></div>
+
+- kubeproxy.conf
+
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">clusters</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">cluster</span><span class="p">:</span>
+    <span class="nt">certificate-authority</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/etc/kubernetes/pki/ca.crt</span>
+    <span class="nt">server</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://10.11.11.250:8888</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubernetes</span>
+<span class="nt">contexts</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">context</span><span class="p">:</span>
+    <span class="nt">cluster</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubernetes</span>
+    <span class="nt">user</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubeproxy</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubeproxy</span>
+<span class="nt">current-context</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubeproxy</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Config</span>
+<span class="nt">preferences</span><span class="p">:</span> <span class="p p-Indicator">{}</span>
+<span class="nt">users</span><span class="p">:</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubeproxy</span>
+  <span class="nt">user</span><span class="p">:</span>
+    <span class="nt">token</span><span class="p">:</span> <span class="c1">#从上面的sa中得到token</span>
+</code></pre></div>
+
+- kubeproxyconfig.yaml
+
+<div class="highlight"><pre><span></span><code><span class="c1">#二选一</span>
+<span class="c1">#kubeadm config print init-defaults --component-configs KubeProxyConfiguration</span>
+<span class="c1">#kube-proxy --write-config-to kubeproxyconfig.yaml</span>
+<span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">kubeproxy.config.k8s.io/v1alpha1</span>
+<span class="nt">bindAddress</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0.0.0</span>
+<span class="nt">clientConnection</span><span class="p">:</span>
+  <span class="nt">acceptContentTypes</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">burst</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+  <span class="nt">contentType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">application/vnd.kubernetes.protobuf</span>
+  <span class="nt">kubeconfig</span><span class="p">:</span> <span class="s">&quot;/etc/kubernetes/kubeproxy.conf&quot;</span>
+  <span class="nt">qps</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="nt">clusterCIDR</span><span class="p">:</span> <span class="s">&quot;10.244.0.0/16&quot;</span>
+<span class="nt">configSyncPeriod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">15m0s</span>
+<span class="nt">conntrack</span><span class="p">:</span>
+  <span class="nt">maxPerCore</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">32768</span>
+  <span class="nt">min</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">131072</span>
+  <span class="nt">tcpCloseWaitTimeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1h0m0s</span>
+  <span class="nt">tcpEstablishedTimeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">24h0m0s</span>
+<span class="nt">detectLocalMode</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="nt">enableProfiling</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="nt">healthzBindAddress</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0.0.0:10256</span>
+<span class="nt">hostnameOverride</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="nt">iptables</span><span class="p">:</span>
+  <span class="nt">masqueradeAll</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="nt">masqueradeBit</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14</span>
+  <span class="nt">minSyncPeriod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+  <span class="nt">syncPeriod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">30s</span>
+<span class="nt">ipvs</span><span class="p">:</span>
+  <span class="nt">excludeCIDRs</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+  <span class="nt">minSyncPeriod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+  <span class="nt">scheduler</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">strictARP</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="nt">syncPeriod</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">30s</span>
+  <span class="nt">tcpFinTimeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+  <span class="nt">tcpTimeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+  <span class="nt">udpTimeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0s</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">KubeProxyConfiguration</span>
+<span class="nt">metricsBindAddress</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">127.0.0.1:10249</span>
+<span class="nt">mode</span><span class="p">:</span> <span class="s">&quot;ipvs&quot;</span>
+<span class="nt">nodePortAddresses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+<span class="nt">oomScoreAdj</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">-999</span>
+<span class="nt">portRange</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="nt">showHiddenMetricsForVersion</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="nt">udpIdleTimeout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">250ms</span>
+<span class="nt">winkernel</span><span class="p">:</span>
+  <span class="nt">enableDSR</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="nt">networkName</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+  <span class="nt">sourceVip</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+</code></pre></div>
+
+- start
+
+<div class="highlight"><pre><span></span><code>kube-proxy --config kubeproxyconfig.yaml
+</code></pre></div>
+
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../fluent-bit/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              fluent-bit
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../prometheus/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              prometheus
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>

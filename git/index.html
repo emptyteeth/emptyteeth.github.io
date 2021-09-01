@@ -1,0 +1,1729 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="my notes">
+      
+      
+      
+      
+        <link rel="canonical" href="https://emptyteeth.github.io/git/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>git基本原理和操作 - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              git基本原理和操作
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Empty
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          git基本原理和操作
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        git基本原理和操作
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    references
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_1" class="md-nav__link">
+    .git目录
+  </a>
+  
+    <nav class="md-nav" aria-label=".git目录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objects" class="md-nav__link">
+    objects目录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refs" class="md-nav__link">
+    refs目录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#head" class="md-nav__link">
+    HEAD文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index" class="md-nav__link">
+    index文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-add" class="md-nav__link">
+    git add
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-commit" class="md-nav__link">
+    git commit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#squash-commits" class="md-nav__link">
+    squash commits
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-remote" class="md-nav__link">
+    git remote
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-fetch" class="md-nav__link">
+    git fetch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-clonepull" class="md-nav__link">
+    git clone/pull
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-push" class="md-nav__link">
+    git push
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-branch" class="md-nav__link">
+    git branch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-checkout" class="md-nav__link">
+    git checkout
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-config" class="md-nav__link">
+    git config
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-reset" class="md-nav__link">
+    git reset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-restore" class="md-nav__link">
+    git restore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-rm" class="md-nav__link">
+    git rm
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-tag" class="md-nav__link">
+    git tag
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一些快捷方式和缩略用法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github" class="md-nav__link">
+    github
+  </a>
+  
+    <nav class="md-nav" aria-label="github">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fork" class="md-nav__link">
+    手动更新fork
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pr" class="md-nav__link">
+    关注PR
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../regex/" class="md-nav__link">
+        regex正则表达式基础
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Devices
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Devices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Devices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../devices/pi4-alpine-linux-headless-installation/" class="md-nav__link">
+        pi4 alpine-linux headless installation
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      <label class="md-nav__link" for="__nav_5">
+        K8s
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="K8s" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          K8s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/fluent-bit/" class="md-nav__link">
+        fluent-bit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/k8s-cheaty-way/" class="md-nav__link">
+        k8s cheaty way
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/prometheus/" class="md-nav__link">
+        prometheus
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      <label class="md-nav__link" for="__nav_5_4">
+        AAAA
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AAAA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          AAAA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/AAAA/admissioncontroller/" class="md-nav__link">
+        admission controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/AAAA/api.list/" class="md-nav__link">
+        api list
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/AAAA/api/" class="md-nav__link">
+        api
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/AAAA/arch/" class="md-nav__link">
+        arch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/AAAA/authentication/" class="md-nav__link">
+        authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/AAAA/etcd/" class="md-nav__link">
+        etcd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/AAAA/kubeconfig/" class="md-nav__link">
+        kubeconfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/AAAA/object/" class="md-nav__link">
+        ojbect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/AAAA/rbac/" class="md-nav__link">
+        rabc authorization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" >
+      
+      <label class="md-nav__link" for="__nav_5_5">
+        Kubeadm
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubeadm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubeadm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/kubeadm/cluster/" class="md-nav__link">
+        kubeadm k8s集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/kubeadm/howitworks/" class="md-nav__link">
+        how kubeadm works
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/networking/ingress/" class="md-nav__link">
+        ingress
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/networking/k8snetwork/" class="md-nav__link">
+        k8s network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/networking/networkpolicy/" class="md-nav__link">
+        network policy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/networking/service/" class="md-nav__link">
+        service
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Workloads
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workloads" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Workloads
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/workloads/01-containers/" class="md-nav__link">
+        containers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/workloads/02-pod/" class="md-nav__link">
+        pod
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/workloads/03-deploy/" class="md-nav__link">
+        deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/workloads/04-daemonset/" class="md-nav__link">
+        daemonset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/workloads/05-statefulset/" class="md-nav__link">
+        statefulset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/workloads/gc/" class="md-nav__link">
+        Garbage Collection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s/workloads/job/" class="md-nav__link">
+        job
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux/networking/nf-iprouting/" class="md-nav__link">
+        netfilter&ip-routing基本原理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linux/networking/wireguard/" class="md-nav__link">
+        wireguard route based site2site vpn
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    references
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git_1" class="md-nav__link">
+    .git目录
+  </a>
+  
+    <nav class="md-nav" aria-label=".git目录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#objects" class="md-nav__link">
+    objects目录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refs" class="md-nav__link">
+    refs目录
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#head" class="md-nav__link">
+    HEAD文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#index" class="md-nav__link">
+    index文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-add" class="md-nav__link">
+    git add
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-commit" class="md-nav__link">
+    git commit
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#squash-commits" class="md-nav__link">
+    squash commits
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-remote" class="md-nav__link">
+    git remote
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-fetch" class="md-nav__link">
+    git fetch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-clonepull" class="md-nav__link">
+    git clone/pull
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-push" class="md-nav__link">
+    git push
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-branch" class="md-nav__link">
+    git branch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-checkout" class="md-nav__link">
+    git checkout
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-config" class="md-nav__link">
+    git config
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-reset" class="md-nav__link">
+    git reset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-restore" class="md-nav__link">
+    git restore
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-rm" class="md-nav__link">
+    git rm
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#git-tag" class="md-nav__link">
+    git tag
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    一些快捷方式和缩略用法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#github" class="md-nav__link">
+    github
+  </a>
+  
+    <nav class="md-nav" aria-label="github">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fork" class="md-nav__link">
+    手动更新fork
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pr" class="md-nav__link">
+    关注PR
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="git">git基本原理和操作<a class="headerlink" href="#git" title="Permanent link">&para;</a></h1>
+<h2 id="references">references<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.ruanyifeng.com/blog/2018/10/git-internals.html">https://www.ruanyifeng.com/blog/2018/10/git-internals.html</a></li>
+<li><a href="https://shalithasuranga.medium.com/how-does-git-work-internally-7c36dcb1f2cf">https://shalithasuranga.medium.com/how-does-git-work-internally-7c36dcb1f2cf</a></li>
+<li><a href="https://git-scm.com/book/zh/v2">https://git-scm.com/book/zh/v2</a></li>
+</ul>
+<h2 id="git_1">.git目录<a class="headerlink" href="#git_1" title="Permanent link">&para;</a></h2>
+<h3 id="objects">objects目录<a class="headerlink" href="#objects" title="Permanent link">&para;</a></h3>
+<ul>
+<li>object type: blob, tree, commit, tag</li>
+<li>blob 是添加到object database中的文件</li>
+<li>tree 代表目录，每个tree对象记录了本级目录所包含object的文件权限，type, hash, 文件名</li>
+<li>commit 指向一个root tree对象，并记录parent_commit, author, committer, commit_content</li>
+<li>tag(annotated) 指向一个commit,及额外的tag信息。(普通tag是纯粹的指针不包含其它信息，所以不会生成object，只在refs/tags中记录)</li>
+<li>git是一个内容寻址文件系统，所有的内容都存储在objects目录(object database)</li>
+<li>git为每个object生成一个40位的hash值,相当于一个唯一地址<blockquote>
+<p>sha1sum (object_type + 1_space + object_byte_count + 1_null_byte)</p>
+</blockquote>
+</li>
+<li>之后调用zlib对object进行压缩</li>
+<li>在一个git项目中，git最开始会以松散（loose）形式存储object,压缩后的object文件存储路径为<blockquote>
+<p>obj_hash[0,2] / obj_hash[2,38]</p>
+</blockquote>
+</li>
+<li>在松散形式中git不会对文件进行差异存储，也就是说保留所有版本的完整内容</li>
+<li>当自动（例如git push时）或手动执行git gc操作时，git会对松散存储中的文件进行pack/repack，index</li>
+<li>在pack目录中生成pack文件和对应的idx文件</li>
+<li>pack文件为差异存储后的包文件</li>
+<li>idx为包文件的索引，记录包文件中object的hash,type,size,offset,diff pointer</li>
+<li>git不会对悬空（dangling）的object打包,比如staged但没有commit的文件</li>
+<li>info/packs文件中记录了所有的pack文件</li>
+</ul>
+<div class="highlight"><pre><span></span><code>git verify-pack -v .git/objects/pack/pack-xxx.idx
+</code></pre></div>
+<h3 id="refs">refs目录<a class="headerlink" href="#refs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ref类似于快捷方式或者dns,用来指向object</li>
+<li><code>refs/heads</code>目录中记录所有的分支所指向的commit</li>
+<li><code>refs/tags</code>目录中记录所有的tag所指向的commit</li>
+<li><code>refs/remotes</code>目录中同步了远程repo中的HEAD和refs/heads</li>
+<li>实际上除了commit,ref也可以指向其它任何类型的object</li>
+<li>这个目录中的文件可以被打包成<code>.git/packed-refs</code>一个文件<ul>
+<li>通过<code>git gc</code>或<code>git pack-refs</code>触发</li>
+</ul>
+</li>
+</ul>
+<h3 id="head">HEAD文件<a class="headerlink" href="#head" title="Permanent link">&para;</a></h3>
+<p>HEAD文件指向一个ref,表示当前checkout的分支</p>
+<blockquote>
+<p>ref: refs/heads/main</p>
+</blockquote>
+<h3 id="index">index文件<a class="headerlink" href="#index" title="Permanent link">&para;</a></h3>
+<ul>
+<li>index文件记录新生成的tree对象,也就是stage的状态</li>
+</ul>
+<h2 id="git-add">git add<a class="headerlink" href="#git-add" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git init
+touch test.txt
+
+git hash-objects test.txt
+e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+<span class="c1"># 计算文件哈希值</span>
+
+git hash-objects -w test.txt
+e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+<span class="c1"># 计算文件哈希值，二进制压缩后写入object database</span>
+<span class="c1"># 默认类型为blob，存储路径为：</span>
+<span class="c1"># .git/objects/e6/9de29bb2d1d6434b8b29ae775ad8c2e48c5391</span>
+
+<span class="c1"># 可以使用git cat-file命令解压查看</span>
+git cat-file e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 -p
+
+<span class="c1"># 此时test.txt被写入object database,但还没有添加到stage area</span>
+
+git update-index --add --cacheinfo <span class="m">100644</span> <span class="se">\</span>
+e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 test.txt
+<span class="c1"># 使用git update-index 将文件名，哈希值，文件系统权限写入stage area</span>
+<span class="c1"># 实际上是在.git/index文件中生成了记录test.txt信息的tree对象</span>
+
+<span class="c1"># 以上`hash-objects -w`和`update-index --add`两条命令相当于执行了git add text.txt的操作</span>
+<span class="c1"># 这两条命令也可以使用git update-index --add test.txt简化替代</span>
+
+<span class="c1"># 此时test.txt被写入object database,并添加到stage area</span>
+
+<span class="nb">echo</span> <span class="s1">&#39;hello world&#39;</span> &gt; test.txt
+<span class="c1"># 修改文件</span>
+
+git hash-object -w test.txt
+3b18e512dba79e4c8300dd08aeb37f8e728b8dad
+<span class="c1"># 执行写入object database，因为文件改变，哈希值也改变了，生成的二进制文件路径为：</span>
+<span class="c1"># .git/objects/3b/18e512dba79e4c8300dd08aeb37f8e728b8dad</span>
+
+git update-index --add --cacheinfo <span class="m">100644</span> <span class="se">\</span>
+3b18e512dba79e4c8300dd08aeb37f8e728b8dad test.txt
+<span class="c1"># 使用git update-index 将更新后的信息写入stage area</span>
+<span class="c1"># 在.git/index文件中记录test.txt信息的tree对象被更新</span>
+
+<span class="c1"># 上两条命令相当于在文件修改之后又执行了一次git add test.txt的操作</span>
+
+git ls-files --stage
+<span class="c1"># 查看stage area中的记录</span>
+
+mkdir docs
+<span class="nb">echo</span> <span class="m">1</span> &gt;docs/help.txt
+git add docs/help.txt
+<span class="c1"># 再添加一个文件</span>
+
+git ls-files --stage
+<span class="m">100644</span> d00491fd7e5bb6fa28c517a0bb32b8b506539d4d <span class="m">0</span>       docs/help.txt
+<span class="m">100644</span> 3b18e512dba79e4c8300dd08aeb37f8e728b8dad <span class="m">0</span>       test.txt
+<span class="c1"># 此时stage area中的信息</span>
+</code></pre></div>
+<h2 id="git-commit">git commit<a class="headerlink" href="#git-commit" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git write-tree
+9763b20c60edd9f2f6349969fca1e516a0ee39ca
+<span class="c1"># 把.git/index文件中的tree对象写入object database</span>
+
+git cat-file 9763b20c60edd9f2f6349969fca1e516a0ee39ca -p
+<span class="m">040000</span> tree dbe2d41cad560c499f1a2ffe7247a30bdf2b6607    docs
+<span class="m">100644</span> blob 3b18e512dba79e4c8300dd08aeb37f8e728b8dad    test.txt
+<span class="c1"># 这个是根目录tree对象，记录本级目录包括的内容</span>
+
+git cat-file -p dbe2d41cad560c499f1a2ffe7247a30bdf2b6607
+<span class="m">100644</span> blob d00491fd7e5bb6fa28c517a0bb32b8b506539d4d    help.txt
+<span class="c1"># 还有docs子目录tree对象，记录本级目录包括的内容</span>
+
+<span class="nb">echo</span> <span class="m">2</span> &gt;docs/help2.txt
+git add docs/help2.txt
+<span class="c1"># 在子目录再添加一个文件</span>
+<span class="c1"># .git/index文件中生成新的tree对象</span>
+
+git write-tree
+388c24f2e453aa0e2a42b9ad85bcf87a644a5556
+<span class="c1"># 把.git/index文件中的tree对象写入object database</span>
+
+git cat-file -p 388c24f2e453aa0e2a42b9ad85bcf87a644a5556
+<span class="m">040000</span> tree abc1e5c27008b89f5288c31b5710a2666931f8d3    docs
+<span class="m">100644</span> blob 3b18e512dba79e4c8300dd08aeb37f8e728b8dad    test.txt
+
+git cat-file -p abc1e5c27008b89f5288c31b5710a2666931f8d3
+<span class="m">100644</span> blob d00491fd7e5bb6fa28c517a0bb32b8b506539d4d    help.txt
+<span class="m">100644</span> blob 0cfbf08886fca9a91cb753ec8734c84fcbe52c9f    help2.txt
+<span class="c1"># 由于子目录增加了文件，导致子目录和根目录哈希值发生变化</span>
+
+<span class="c1"># 由此看出，根目录的哈希值可以推导出整个目录的结构和文件信息，可以代表一次快照或commit</span>
+<span class="c1"># 现在一次commit所需的信息都准备好了，就差临门一脚</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;first commit&quot;</span> <span class="p">|</span> git commit-tree 388c24f2e453aa0e2a42b9ad85bcf87a644a5556
+e395e5df5ecf013c8ef97ba2e47f6e3c4fa8388d
+<span class="c1"># 生成commit对象</span>
+
+git cat-file -p e395e5df5ecf013c8ef97ba2e47f6e3c4fa8388d
+tree 388c24f2e453aa0e2a42b9ad85bcf87a644a5556
+author emptyteeth &lt;<span class="m">76892982</span>+emptyteeth@users.noreply.github.com&gt; <span class="m">15</span> +0800
+committer emptyteeth &lt;<span class="m">76892982</span>+emptyteeth@users.noreply.github.com&gt; <span class="m">15</span> +0800
+first commit
+<span class="c1"># commit对象包含了对root tree的引用，对parent commit的引用和commit信息</span>
+<span class="c1"># 相当于给tree加了个外包装，由于这里是第一次提交，所以并没有引用parent commit</span>
+<span class="c1"># 一般情况下commit对象和root tree对象总是成对出现的，可以理解为一套班子两块牌子</span>
+<span class="c1"># commit对象负责操作记录和历史关系，root tree则负责文件的组织工作</span>
+
+<span class="c1"># 此时commit已经完成，其实只是生成了一个指向的tree的commit对象</span>
+<span class="c1"># 但是git status看不出有任何变化，因为branch的HEAD还是空的，需要把它指向这个commit对象</span>
+
+<span class="nb">echo</span> e395e5df5ecf013c8ef97ba2e47f6e3c4fa8388d &gt;.git/refs/heads/main
+<span class="c1"># 完成最后一步</span>
+
+<span class="c1"># 以上相当于git commit -m &quot;first commit&quot;的操作</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;hello world again&quot;</span> &gt; test.txt
+<span class="c1"># 修改文件</span>
+
+git hash-object -w test.txt
+c90c5155ccd6661aed956510f5bd57828eec9ddb
+<span class="c1"># 写入object database</span>
+
+git update-index test.txt
+<span class="c1"># 更新.git/index tree记录</span>
+
+git write-tree
+72b46a2df8b175f0d7c58d8064d680011a20817d
+<span class="c1"># 生成新的tree对象，写入object database</span>
+
+<span class="nb">echo</span> <span class="s2">&quot;second commit&quot;</span> <span class="p">|</span> git commit-tree 72b46a2df8b175f0d7c58d8064d680011a20817d -p e395e5df5ecf013c8ef97ba2e47f6e3c4fa8388d
+4446e393a4927a7dbcadc143f500a1a48541edf7
+<span class="c1"># 生成新的commit对象，这次多了一个-p参数指定父级commit对象</span>
+<span class="c1"># 指定父级commit关系就是git log回溯变更的信息来源</span>
+<span class="c1"># 如果不指定父级commit，并且移动了HEAD，那么git log就只有当前这一条commit</span>
+
+git cat-file 4446e393a4927a7dbcadc143f500a1a48541edf7 -p
+tree 72b46a2df8b175f0d7c58d8064d680011a20817d
+parent e395e5df5ecf013c8ef97ba2e47f6e3c4fa8388d
+author emptyteeth &lt;<span class="m">76892982</span>+emptyteeth@users.noreply.github.com&gt; <span class="m">1619017629</span> +0800
+committer emptyteeth &lt;<span class="m">76892982</span>+emptyteeth@users.noreply.github.com&gt; <span class="m">1619017629</span> +0800
+second commit
+<span class="c1"># 查看新的commit对象</span>
+
+<span class="nb">echo</span> 4446e393a4927a7dbcadc143f500a1a48541edf7 &gt; .git/refs/heads/main
+<span class="c1"># 移动main branch的HEAD到最新的commit</span>
+
+<span class="c1"># 以上相当于git add test.txt &amp;&amp; git commit -m &quot;second commit&quot;</span>
+</code></pre></div>
+<h2 id="squash-commits">squash commits<a class="headerlink" href="#squash-commits" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># let&#39;s say we need to squash last 3 commits</span>
+git rebase -i HEAD~3
+
+<span class="c1"># pick 5555555 5th commit</span>
+<span class="c1"># squash 4444444 4th commit</span>
+<span class="c1"># squash 3333333 3rd commit</span>
+</code></pre></div>
+<h2 id="git-remote">git remote<a class="headerlink" href="#git-remote" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git remote -v
+<span class="c1"># show remote name and url</span>
+
+git remote show name
+<span class="c1"># show details of remote</span>
+
+git ls-remote
+<span class="c1"># show remote HEAD/heads/tags</span>
+
+git remote add nameit https://remote.url/repo
+<span class="c1"># 添加一个远程repo,并设置同步所有远程ref</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">#.git/config</span>
+<span class="k">[remote &quot;nameit&quot;]</span>
+        <span class="na">url</span> <span class="o">=</span> <span class="s">https://remote.url/repo</span>
+        <span class="na">fetch</span> <span class="o">=</span> <span class="s">+refs/heads/*:refs/remotes/nameit/*</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>git remote add nameit2 https://remote.url/repo2 -t b1 -t b2
+<span class="c1"># 添加一个远程repo,设置只同步远程的b1,b2</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1">#.git/config</span>
+<span class="k">[remote &quot;nameit2&quot;]</span>
+        <span class="na">url</span> <span class="o">=</span> <span class="s">https://remote.url/repo2</span>
+        <span class="na">fetch</span> <span class="o">=</span> <span class="s">+refs/heads/b1:refs/remotes/nameit2/b1</span>
+        <span class="na">fetch</span> <span class="o">=</span> <span class="s">+refs/heads/b2:refs/remotes/nameit2/b2</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>[+] &lt;src&gt;:&lt;dst&gt;
+src代表远程的ref位置
+dst代表远程ref同步到本地的标示位置
+加号代表即使不能fast-forward,也强制同步远程ref
+</code></pre></div>
+<h2 id="git-fetch">git fetch<a class="headerlink" href="#git-fetch" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git fetch nameit
+<span class="c1"># 将远程repo nameit中的关注的ref，和这些ref所引用的object同步到本地</span>
+<span class="c1"># objects直接写入object database,ref写入refs/remotes/nameit</span>
+
+git fetch nameit2 <span class="o">[</span>refs/heads/<span class="o">]</span>b1:refs/remotes/nameit2/b1
+<span class="c1"># 只同步远程repo nameit2的b1及其引用的objects到本地</span>
+</code></pre></div>
+<h2 id="git-clonepull">git clone/pull<a class="headerlink" href="#git-clonepull" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git clone https://remote.url/reponame <span class="o">[</span>-o nameit<span class="o">]</span> <span class="o">[</span>dirname<span class="o">]</span>
+<span class="c1"># -o选项设置remote name,默认为origin</span>
+<span class="c1"># dirname设置要创建的本地目录名，默认为reponame</span>
+<span class="c1"># 这条命令相当于执行了以下命令,假设远程HEAD当前为main</span>
+mkdir dirname <span class="o">&amp;&amp;</span> <span class="nb">cd</span> dirname
+git init
+git remote add nameit https://remote.url/reponame
+git fetch nameit
+cp .git/refs/remotes/nameit/main .git/refs/heads/main
+git branch -u nameit/main main
+<span class="c1"># 设置本地分支从远程同步时的对应关系</span>
+<span class="c1"># 执行git pull时就会把远程的refs/heads/main merge到本地的refs/heads/main</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">[branch &quot;main&quot;]</span>
+    <span class="na">remote</span> <span class="o">=</span> <span class="s">nameit</span>
+    <span class="na">merge</span> <span class="o">=</span> <span class="s">refs/heads/main</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>git pull
+<span class="c1"># 相当于执行了以下命令</span>
+git fetch nameit
+git merge refs/remotes/nameit/main
+<span class="c1">#or</span>
+git merge FETCH_HEAD
+</code></pre></div>
+<h2 id="git-push">git push<a class="headerlink" href="#git-push" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git push <span class="o">[</span>-u<span class="o">]</span> nameit main:main
+<span class="c1"># 将本地main推送到nameit上的main</span>
+<span class="c1"># 加上-u参数则为两个分支建立跟踪关系</span>
+<span class="c1"># 之后在本地main分支只需执行git push命令即可自动推送到nameit上的main</span>
+
+git push origin --delete branchname
+<span class="c1"># 删除远程ref</span>
+</code></pre></div>
+<h2 id="git-branch">git branch<a class="headerlink" href="#git-branch" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git branch abc
+<span class="c1"># 新建abc分支</span>
+
+git branch -d abc
+<span class="c1"># 删除abc分支</span>
+
+git branch -u origin/abc abc
+<span class="c1"># 建立跟踪关系</span>
+
+git branch -vv
+<span class="c1"># 查看所有本地分支详情</span>
+</code></pre></div>
+<h2 id="git-checkout">git checkout<a class="headerlink" href="#git-checkout" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git checkout abc
+<span class="c1"># 切换到分支</span>
+
+git checkut -b abc
+<span class="c1"># 新建并切换到分支</span>
+
+git checkout -b b2 origin/b2
+<span class="c1"># 相当于以下命令,拉取远程b2,建立本地b2指向它，然后建立跟踪关系</span>
+git fetch origin b2:refs/remotes/origin/b2
+git checkout refs/remotes/origin/b2
+git branch b2
+git checkout b2
+git branch -u origin/b2 b2
+
+git checkout --track origin/b2
+<span class="c1"># 效果同上</span>
+
+git checkout b2
+<span class="c1"># 如果本地不存在b2，且远程存在b2，效果同上</span>
+</code></pre></div>
+<h2 id="git-config">git config<a class="headerlink" href="#git-config" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git config --global init.defaultBranch branch_name
+git config push.default origin
+<span class="c1"># 存在多个remote时，设置默认push目标</span>
+git config <span class="s2">&quot;branch.branch_name.remote&quot;</span> origin
+git config <span class="s2">&quot;branch.branch_name.merge&quot;</span> <span class="s2">&quot;refs/heads/branch_name&quot;</span>
+<span class="c1"># 设置跟踪关系</span>
+git config remote.origin.push refs/heads/main:refs/heads/main
+git config remote.origin.push refs/heads/main:refs/heads/qa/main
+<span class="c1"># 设置推动到指定的remote branch</span>
+git config --global https.proxy http://127.0.0.1:1080
+git config --global https.proxy https://127.0.0.1:1080
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+git config user.email <span class="s2">&quot;a@b.c&quot;</span>
+git config user.name <span class="s2">&quot;abc&quot;</span>
+git config --global core.editor <span class="s2">&quot;nano -w&quot;</span>
+</code></pre></div>
+<h2 id="git-reset">git reset<a class="headerlink" href="#git-reset" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git reset <span class="o">[</span>default:--mixed<span class="o">]</span> <span class="o">[</span>default:HEAD<span class="o">]</span>
+<span class="c1">#discard the stage area</span>
+<span class="c1">#keep the working tree</span>
+
+git reset --soft
+<span class="c1">#keep the stage area</span>
+<span class="c1">#keep the working tree</span>
+<span class="c1">#means doing nothing</span>
+
+<span class="c1">#this is how you cancel commit</span>
+git reset HEAD~N
+<span class="c1">#move HEAD N steps back</span>
+<span class="c1">#discard the stage area</span>
+<span class="c1">#keep the working tree</span>
+
+git reset HEAD~N --soft
+<span class="c1">#move HEAD N steps back</span>
+<span class="c1">#keep the stage area</span>
+<span class="c1">#keep the working tree</span>
+
+git reset HEAD~N --hard
+<span class="c1">#move HEAD N steps back</span>
+<span class="c1">#discard the stage area</span>
+<span class="c1">#discard the working tree</span>
+
+hard  - lose changes between W, I and R
+mixed - lose changes between W and I
+soft  - lose nothing
+</code></pre></div>
+<h2 id="git-restore">git restore<a class="headerlink" href="#git-restore" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git restore --source/-s <span class="o">[</span>default:HEAD<span class="o">]</span>
+git restore <span class="o">[</span>.<span class="p">|</span>file<span class="o">]</span> <span class="o">[</span>default:--worktree/-W<span class="o">]</span>
+<span class="c1"># restore the working tree from the stage area</span>
+<span class="c1">#if the file isn&#39;t in the stage area, then restore from HEAD</span>
+
+git restore file --staged/-S
+<span class="c1"># restore the stage area from the HEAD, i.e. empty the stage area</span>
+<span class="c1"># keep the working tree</span>
+<span class="c1"># equals to git reset file</span>
+
+git restore file -S -W
+<span class="c1"># restore the stage area from the HEAD, i.e. empty the stage area</span>
+<span class="c1"># restore the working tree from the stage area</span>
+<span class="c1"># equals to</span>
+git restore file -S <span class="o">&amp;&amp;</span> git restore file
+git reset file --hard
+</code></pre></div>
+<h2 id="git-rm">git rm<a class="headerlink" href="#git-rm" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git rm file
+<span class="c1"># delete the file from working tree</span>
+<span class="c1"># stage a delete mark of the file</span>
+
+git rm file --cached
+<span class="c1"># stage a delete mark of the file</span>
+<span class="c1"># keep the file in the working tree</span>
+</code></pre></div>
+<h2 id="git-tag">git tag<a class="headerlink" href="#git-tag" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>git tag v1 <span class="o">[</span>default:HEAD<span class="o">]</span>
+<span class="c1"># add a tag to a ref/hash</span>
+
+git tag <span class="o">[</span>-l<span class="o">]</span>
+<span class="c1"># list tags</span>
+
+git tag -n
+<span class="c1"># list tags and anotation</span>
+
+git tag -d v1
+<span class="c1"># delete a tag</span>
+
+git push origin refs/tags/v1:refs/tags/v1
+<span class="c1"># push a tag to origin, equals to</span>
+git push origin v1
+
+git push origin :refs/tags/v1
+<span class="c1"># delete a tag from origin, equals to</span>
+git push --delete origin v1
+
+git push --tags
+<span class="c1"># sync all tags to remote</span>
+
+git push --follow-tags
+<span class="c1"># push commits and their tags</span>
+</code></pre></div>
+<h2 id="_1">一些快捷方式和缩略用法<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>HEAD HEAD~1(HEAD^) HEAD~2 HEAD~3(HEAD~~~) HEAD~N
+@{u} 代表当前分支跟踪的目标分支
+
+ref^{tree} 表示ref所指向的commit所指向的tree对象
+
+master...dev
+
+refs/remotes/origin/abc
+remotes/origin/abc
+origin/abc
+后两种写法是第一种的缩略用法
+</code></pre></div>
+<h2 id="github">github<a class="headerlink" href="#github" title="Permanent link">&para;</a></h2>
+<h3 id="fork">手动更新fork<a class="headerlink" href="#fork" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 方法1</span>
+git checkout master
+git pull https://github.com/progit/progit2.git
+git push origin master
+<span class="c1"># 方法2</span>
+git remote add progit https://github.com/progit/progit2.git
+git branch --set-upstream-to<span class="o">=</span>progit/master master
+git config --local remote.pushDefault origin
+git checkout master
+git pull
+git push
+</code></pre></div>
+<h3 id="pr">关注PR<a class="headerlink" href="#pr" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="na">fetch</span> <span class="o">=</span> <span class="s">+refs/pull/*/head:refs/remotes/origin/pr/*</span>
+</code></pre></div>
+<p>stash</p>
+<div class="highlight"><pre><span></span><code>Host github.com-abc
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa_github
+
+<span class="c1">##bfg</span>
+https://rtyley.github.io/bfg-repo-cleaner/
+
+git clone --depth <span class="m">1</span> -b branch1 url
+git fetch --depth <span class="m">1</span> origin branch2:branch2
+
+git checkout --orphan empty-branch
+git rm -rf .
+
+
+git commit --allow-empty -m <span class="s2">&quot;[ci run] test&quot;</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href=".." class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              Empty
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../regex/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              regex正则表达式基础
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>

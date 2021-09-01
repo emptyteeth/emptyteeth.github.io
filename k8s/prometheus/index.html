@@ -1,0 +1,1804 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="my notes">
+      
+      
+      
+      
+        <link rel="canonical" href="https://emptyteeth.github.io/k8s/prometheus/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.4">
+    
+    
+      
+        <title>prometheus - My Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.bde7dde4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ef6f36e2.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#000000">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  
+
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="green">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#prometheus" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="My Notes" class="md-header__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            My Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              prometheus
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="My Notes" class="md-nav__button md-logo" aria-label="My Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    My Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Empty
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../git/" class="md-nav__link">
+        git基本原理和操作
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../regex/" class="md-nav__link">
+        regex正则表达式基础
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Devices
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Devices" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Devices
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devices/pi4-alpine-linux-headless-installation/" class="md-nav__link">
+        pi4 alpine-linux headless installation
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      <label class="md-nav__link" for="__nav_5">
+        K8s
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="K8s" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          K8s
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fluent-bit/" class="md-nav__link">
+        fluent-bit
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../k8s-cheaty-way/" class="md-nav__link">
+        k8s cheaty way
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          prometheus
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        prometheus
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#terms" class="md-nav__link">
+    terms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-behavior" class="md-nav__link">
+    default behavior
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-type" class="md-nav__link">
+    metric type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scrape_config" class="md-nav__link">
+    scrape_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static_config" class="md-nav__link">
+    static_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls_config" class="md-nav__link">
+    tls_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes_sd_config" class="md-nav__link">
+    kubernetes_sd_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#targetrelabel_configs" class="md-nav__link">
+    (target)relabel_configs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metric_relabel_configs" class="md-nav__link">
+    metric_relabel_configs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arch" class="md-nav__link">
+    arch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#promql" class="md-nav__link">
+    promQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alerting" class="md-nav__link">
+    alerting
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_4" type="checkbox" id="__nav_5_4" >
+      
+      <label class="md-nav__link" for="__nav_5_4">
+        AAAA
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="AAAA" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          AAAA
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/admissioncontroller/" class="md-nav__link">
+        admission controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/api.list/" class="md-nav__link">
+        api list
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/api/" class="md-nav__link">
+        api
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/arch/" class="md-nav__link">
+        arch
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/authentication/" class="md-nav__link">
+        authentication
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/etcd/" class="md-nav__link">
+        etcd
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/kubeconfig/" class="md-nav__link">
+        kubeconfig
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/object/" class="md-nav__link">
+        ojbect
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AAAA/rbac/" class="md-nav__link">
+        rabc authorization
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_5" type="checkbox" id="__nav_5_5" >
+      
+      <label class="md-nav__link" for="__nav_5_5">
+        Kubeadm
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Kubeadm" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_5">
+          <span class="md-nav__icon md-icon"></span>
+          Kubeadm
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubeadm/cluster/" class="md-nav__link">
+        kubeadm k8s集群
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubeadm/howitworks/" class="md-nav__link">
+        how kubeadm works
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_6" type="checkbox" id="__nav_5_6" >
+      
+      <label class="md-nav__link" for="__nav_5_6">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_6">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/ingress/" class="md-nav__link">
+        ingress
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/k8snetwork/" class="md-nav__link">
+        k8s network
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/networkpolicy/" class="md-nav__link">
+        network policy
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../networking/service/" class="md-nav__link">
+        service
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5_7" type="checkbox" id="__nav_5_7" >
+      
+      <label class="md-nav__link" for="__nav_5_7">
+        Workloads
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Workloads" data-md-level="2">
+        <label class="md-nav__title" for="__nav_5_7">
+          <span class="md-nav__icon md-icon"></span>
+          Workloads
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/01-containers/" class="md-nav__link">
+        containers
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/02-pod/" class="md-nav__link">
+        pod
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/03-deploy/" class="md-nav__link">
+        deployment
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/04-daemonset/" class="md-nav__link">
+        daemonset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/05-statefulset/" class="md-nav__link">
+        statefulset
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/gc/" class="md-nav__link">
+        Garbage Collection
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workloads/job/" class="md-nav__link">
+        job
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      <label class="md-nav__link" for="__nav_6">
+        Linux
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Linux" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Linux
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6_1" type="checkbox" id="__nav_6_1" >
+      
+      <label class="md-nav__link" for="__nav_6_1">
+        Networking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Networking" data-md-level="2">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          Networking
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/networking/nf-iprouting/" class="md-nav__link">
+        netfilter&ip-routing基本原理
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../linux/networking/wireguard/" class="md-nav__link">
+        wireguard route based site2site vpn
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#terms" class="md-nav__link">
+    terms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-behavior" class="md-nav__link">
+    default behavior
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metric-type" class="md-nav__link">
+    metric type
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    configuration
+  </a>
+  
+    <nav class="md-nav" aria-label="configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scrape_config" class="md-nav__link">
+    scrape_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#static_config" class="md-nav__link">
+    static_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tls_config" class="md-nav__link">
+    tls_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubernetes_sd_config" class="md-nav__link">
+    kubernetes_sd_config
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#targetrelabel_configs" class="md-nav__link">
+    (target)relabel_configs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metric_relabel_configs" class="md-nav__link">
+    metric_relabel_configs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arch" class="md-nav__link">
+    arch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#promql" class="md-nav__link">
+    promQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alerting" class="md-nav__link">
+    alerting
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="prometheus">prometheus<a class="headerlink" href="#prometheus" title="Permanent link">&para;</a></h1>
+<h2 id="terms">terms<a class="headerlink" href="#terms" title="Permanent link">&para;</a></h2>
+<ul>
+<li>target对应一个被scrape的目标进程</li>
+<li>job是对一组相同类型/用途(一般是同一个应用的多个副本)的target的定义,包括如何发现/定义target,如何操作标签,target的连接和验证方式等</li>
+<li>instance和target的概念差不多...吧,同时也是在job中唯一标识一个target的标签,默认取值自endpoint中的host:port</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">scrape_configs</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">job_name</span><span class="p">:</span> <span class="s">&#39;prometheus&#39;</span>
+    <span class="nt">static_configs</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">targets</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;10.1.1.1:9090&#39;</span><span class="p p-Indicator">]</span>
+      <span class="p p-Indicator">-</span> <span class="nt">targets</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="s">&#39;10.1.1.2:9090&#39;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+<ul>
+<li>endpoint是访问target metric的http url地址,由3部分组合而成,scheme+<strong>address</strong>+metrics_path,如果__address__不包含端口信息(port-free),则使用scheme默认端口</li>
+<li>metric name是从target中scrape出的各种指标的名称,是由client library预先定义的,被作为__name__标签的值使用</li>
+</ul>
+<div class="highlight"><pre><span></span><code>##这两种表达方式的意义是相同的
+&lt;metric name&gt;{&lt;label name&gt;=&lt;label value&gt;, ...}
+{__name__=&lt;metric name&gt;, &lt;label name&gt;=&lt;label value&gt;, ...}
+</code></pre></div>
+<ul>
+<li>label<ul>
+<li>server-side label,系统自动为target添加的label</li>
+<li>meta label,不同的SD方法会为target生成相应的meta label</li>
+<li>target relabel,使用relabel方法根据前两种label确定最终的target label</li>
+<li>原始label,scrape来的原始数据中存在的label,由client library生成<blockquote>
+<p>node_network_up{device="eth0"}</p>
+</blockquote>
+</li>
+<li>metric relabel,对已经包含target label和原始label的ts进行入库前的最终处理</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>timeseries是系统存储数据的形式,系统会自动为ts添加__name__, job, instance标签,也就是说每一个ts对应一组特定的label组合,说人话就是一个target中有几个metric,就有几个ts.另外系统会为查询生成临时ts</li>
+</ul>
+<div class="highlight"><pre><span></span><code>#一个target中存在两个metric,对应两个ts
+#__name__标签值来自metric name
+#job标签值来自job_name
+#instance标签值来自endpoint中的host:port
+[ * * * * * * * * * * * * ] {__name__=&quot;m1&quot;, job=&quot;j1&quot;, instance=&quot;10.11.1.1:9000&quot;}
+[* * * * * * * * * * * * *] {__name__=&quot;m2&quot;, job=&quot;j1&quot;, instance=&quot;10.11.1.1:9000&quot;}
+
+[ * * * * * * * * * * * * ] {__name__=&quot;m1&quot;, job=&quot;j1&quot;, instance=&quot;10.11.1.2:9000&quot;}
+[* * * * * * * * * * * * *] {__name__=&quot;m2&quot;, job=&quot;j1&quot;, instance=&quot;10.11.1.2:9000&quot;}
+&lt;---------samples---------&gt; &lt;---------------------labels-----------------------&gt;
+</code></pre></div>
+<ul>
+<li>sample是ts中某一时刻的数据,由一个float64的数值和一个毫秒级的时间戳组成</li>
+</ul>
+<ul>
+<li>service-discovery就是在一个job中,通过第三方来动态发现和维护一组可用的target,不同的SD方法会自动为target生成相应的meta label</li>
+</ul>
+<h2 id="default-behavior">default behavior<a class="headerlink" href="#default-behavior" title="Permanent link">&para;</a></h2>
+<ul>
+<li>以双下划线__开头的label为系统保留label名称</li>
+<li>label value为空表示该label不存在</li>
+<li>系统会基于job状态生成一些ts</li>
+</ul>
+<div class="highlight"><pre><span></span><code>up{job=&quot;&lt;job-name&gt;&quot;, instance=&quot;&lt;instance-id&gt;&quot;}
+值为1则表示正常,0表示target不可用
+
+scrape_duration_seconds{job=&quot;&lt;job-name&gt;&quot;, instance=&quot;&lt;instance-id&gt;&quot;}
+scrape耗时
+
+scrape_samples_post_metric_relabeling{job=&quot;&lt;job-name&gt;&quot;, instance=&quot;&lt;instance-id&gt;&quot;}
+the number of samples remaining after metric relabeling was applied.
+
+scrape_samples_scraped{job=&quot;&lt;job-name&gt;&quot;, instance=&quot;&lt;instance-id&gt;&quot;}
+target的sample数量
+
+scrape_series_added{job=&quot;&lt;job-name&gt;&quot;, instance=&quot;&lt;instance-id&gt;&quot;}
+target在当前scrape周期中新增ts数量
+</code></pre></div>
+<h2 id="metric-type">metric type<a class="headerlink" href="#metric-type" title="Permanent link">&para;</a></h2>
+<p>prometheus server并不关心metric type,这个概念只是为了区别metrics的表述形式</p>
+<ul>
+<li>counter类型为记数型,从target的角度来看该数据只增不减,target本身被reset,该数据也会被reset为0,比如linux uptime</li>
+<li>gauge类型为测量型,这种类型的数量会上下浮动,比如内存使用或温度</li>
+<li>Histogram 统计一些数据分布的情况，用于计算在一定范围内的分布情况，同时还提供了度量指标值的总和</li>
+<li>Summary 计算在一定时间窗口范围内度量指标对象的总数以及所有对量指标值的总和</li>
+</ul>
+<h2 id="configuration">configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<ul>
+<li>使用flag配置本地存储和api相关设置</li>
+<li>使用yaml格式配置文件配置scrape相关设置</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">#全局设置及全局scrape默认值</span>
+<span class="nt">global</span><span class="p">:</span>
+  <span class="c1"># How frequently to scrape targets by default.</span>
+  <span class="p p-Indicator">[</span> <span class="nv">scrape_interval</span><span class="p p-Indicator">:</span> <span class="nv">&lt;duration&gt; | default = 1m</span> <span class="p p-Indicator">]</span>
+
+  <span class="c1"># How long until a scrape request times out.</span>
+  <span class="p p-Indicator">[</span> <span class="nv">scrape_timeout</span><span class="p p-Indicator">:</span> <span class="nv">&lt;duration&gt; | default = 10s</span> <span class="p p-Indicator">]</span>
+
+  <span class="c1"># How frequently to evaluate rules.</span>
+  <span class="p p-Indicator">[</span> <span class="nv">evaluation_interval</span><span class="p p-Indicator">:</span> <span class="nv">&lt;duration&gt; | default = 1m</span> <span class="p p-Indicator">]</span>
+
+  <span class="c1"># The labels to add to any time series or alerts when communicating with</span>
+  <span class="c1"># external systems (federation, remote storage, Alertmanager).</span>
+  <span class="nt">external_labels</span><span class="p">:</span>
+    <span class="p p-Indicator">[</span> <span class="nv">&lt;labelname&gt;</span><span class="p p-Indicator">:</span> <span class="nv">&lt;labelvalue&gt; ...</span> <span class="p p-Indicator">]</span>
+
+  <span class="c1"># File to which PromQL queries are logged.</span>
+  <span class="c1"># Reloading the configuration will reopen the file.</span>
+  <span class="p p-Indicator">[</span> <span class="nv">query_log_file</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Rule files specifies a list of globs. Rules and alerts are read from</span>
+<span class="c1"># all matching files.</span>
+<span class="nt">rule_files</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &lt;filepath_glob&gt; ...</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># A list of scrape configurations.</span>
+<span class="nt">scrape_configs</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &lt;scrape_config&gt; ...</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Alerting specifies settings related to the Alertmanager.</span>
+<span class="nt">alerting</span><span class="p">:</span>
+  <span class="nt">alert_relabel_configs</span><span class="p">:</span>
+    <span class="p p-Indicator">[</span> <span class="nv">- &lt;relabel_config&gt; ...</span> <span class="p p-Indicator">]</span>
+  <span class="nt">alertmanagers</span><span class="p">:</span>
+    <span class="p p-Indicator">[</span> <span class="nv">- &lt;alertmanager_config&gt; ...</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Settings related to the remote write feature.</span>
+<span class="nt">remote_write</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &lt;remote_write&gt; ...</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Settings related to the remote read feature.</span>
+<span class="nt">remote_read</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &lt;remote_read&gt; ...</span> <span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="scrape_config">scrape_config<a class="headerlink" href="#scrape_config" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 设置job name</span>
+<span class="nt">job_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;job_name&gt;</span>
+
+<span class="c1"># 覆盖全局设置</span>
+<span class="p p-Indicator">[</span> <span class="nv">scrape_interval</span><span class="p p-Indicator">:</span> <span class="nv">&lt;duration&gt; | default = &lt;global_config.scrape_interval&gt;</span> <span class="p p-Indicator">]</span>
+<span class="p p-Indicator">[</span> <span class="nv">scrape_timeout</span><span class="p p-Indicator">:</span> <span class="nv">&lt;duration&gt; | default = &lt;global_config.scrape_timeout&gt;</span> <span class="p p-Indicator">]</span>
+<span class="p p-Indicator">[</span> <span class="nv">metrics_path</span><span class="p p-Indicator">:</span> <span class="nv">&lt;path&gt; | default = /metrics</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># 当原始label与server-side label, SD label, relabel冲突时的处理策略</span>
+<span class="c1"># 默认为false,当冲突时原始label会被加上exported_前缀</span>
+<span class="c1"># 当为true时,则保留原始label,其它来源被忽略</span>
+<span class="p p-Indicator">[</span> <span class="nv">honor_labels</span><span class="p p-Indicator">:</span> <span class="nv">&lt;boolean&gt; | default = false</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># 是否使用原始数据中的时间戳,默认为true,false时则忽略,然后呢?</span>
+<span class="p p-Indicator">[</span> <span class="nv">honor_timestamps</span><span class="p p-Indicator">:</span> <span class="nv">&lt;boolean&gt; | default = true</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># 使用http/https协议</span>
+<span class="p p-Indicator">[</span> <span class="nv">scheme</span><span class="p p-Indicator">:</span> <span class="nv">&lt;scheme&gt; | default = http</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># 可选http url参数</span>
+<span class="nt">params</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">&lt;string&gt;</span><span class="p p-Indicator">:</span> <span class="p p-Indicator">[</span><span class="nv">&lt;string&gt;</span><span class="p p-Indicator">,</span> <span class="nv">...</span><span class="p p-Indicator">]</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># 使用basic auth验证,password和password_file二选一</span>
+<span class="nt">basic_auth</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">username</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+  <span class="p p-Indicator">[</span> <span class="nv">password</span><span class="p p-Indicator">:</span> <span class="nv">&lt;secret&gt;</span> <span class="p p-Indicator">]</span>
+  <span class="p p-Indicator">[</span> <span class="nv">password_file</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># 使用bearer token验证</span>
+<span class="p p-Indicator">[</span> <span class="nv">bearer_token</span><span class="p p-Indicator">:</span> <span class="nv">&lt;secret&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># 从文件读取bearer token,与上面的选项二选一</span>
+<span class="p p-Indicator">[</span> <span class="nv">bearer_token_file</span><span class="p p-Indicator">:</span> <span class="nv">&lt;filename&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># 使用代理</span>
+<span class="p p-Indicator">[</span> <span class="nv">proxy_url</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># 设置最终sample数限制,如果有metric relabel则是算apply之后的数</span>
+<span class="c1"># 超过限制数的话当前scrape为fail,数据被丢掉,设为0表示不限制</span>
+<span class="p p-Indicator">[</span> <span class="nv">sample_limit</span><span class="p p-Indicator">:</span> <span class="nv">&lt;int&gt; | default = 0</span> <span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="static_config">static_config<a class="headerlink" href="#static_config" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># 手动配置target</span>
+<span class="nt">targets</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">- &#39;10.1.1.1</span><span class="p p-Indicator">:</span><span class="nv">9000&#39;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># 手动为上面的target添加标签</span>
+<span class="nt">labels</span><span class="p">:</span>
+  <span class="p p-Indicator">[</span> <span class="nv">&lt;labelname&gt;</span><span class="p p-Indicator">:</span> <span class="nv">&lt;labelvalue&gt; ...</span> <span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="tls_config">tls_config<a class="headerlink" href="#tls_config" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># CA certificate to validate API server certificate with.</span>
+<span class="p p-Indicator">[</span> <span class="nv">ca_file</span><span class="p p-Indicator">:</span> <span class="nv">&lt;filename&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Certificate and key files for client cert authentication to the server.</span>
+<span class="p p-Indicator">[</span> <span class="nv">cert_file</span><span class="p p-Indicator">:</span> <span class="nv">&lt;filename&gt;</span> <span class="p p-Indicator">]</span>
+<span class="p p-Indicator">[</span> <span class="nv">key_file</span><span class="p p-Indicator">:</span> <span class="nv">&lt;filename&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># ServerName extension to indicate the name of the server.</span>
+<span class="p p-Indicator">[</span> <span class="nv">server_name</span><span class="p p-Indicator">:</span> <span class="nv">&lt;string&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># Disable validation of the server certificate.</span>
+<span class="p p-Indicator">[</span> <span class="nv">insecure_skip_verify</span><span class="p p-Indicator">:</span> <span class="nv">&lt;boolean&gt;</span> <span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="kubernetes_sd_config">kubernetes_sd_config<a class="headerlink" href="#kubernetes_sd_config" title="Permanent link">&para;</a></h3>
+<ul>
+<li>通过apiserver获取target信息</li>
+<li>
+<p>通过5种role发现target</p>
+<ul>
+<li>
+<p>node 将集群中每一个node做为一个target,__address__为NodeInternalIP/NodeExternalIP/NodeHostName中最先出现的地址加上kubelet的http端口,instance标签值为node name.</p>
+<div class="highlight"><pre><span></span><code>__meta_kubernetes_node_name: node name
+__meta_kubernetes_node_label_&lt;labelname&gt;: 所有的node label
+__meta_kubernetes_node_labelpresent_&lt;labelname&gt;: 存在的node label值为true
+__meta_kubernetes_node_annotation_&lt;annotationname&gt;: 所有的node annotation
+__meta_kubernetes_node_annotationpresent_&lt;annotationname&gt;: 存在的annotation值为true
+__meta_kubernetes_node_address_&lt;address_type&gt;: 如果地址存在,值为该地址类型中的首个地址
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>service 将每一个service中的每一个port做为一个target,__address__为service的dns name加上相应的端口</p>
+<div class="highlight"><pre><span></span><code>__meta_kubernetes_namespace: service所在的ns
+__meta_kubernetes_service_annotation_&lt;annotationname&gt;: 所有的service annotation
+__meta_kubernetes_service_annotationpresent_&lt;annotationname&gt;: 所有的service annotation, 值为true
+__meta_kubernetes_service_cluster_ip: service的clusterIP,不应用于ExternalName类型的service
+__meta_kubernetes_service_external_name: ExternalName类型service的dns名称,只应用于ExternalName类型的service
+__meta_kubernetes_service_label_&lt;labelname&gt;: 所有的service label
+__meta_kubernetes_service_labelpresent_&lt;labelname&gt;: 所有的service label,值为true
+__meta_kubernetes_service_name: service名称
+__meta_kubernetes_service_port_name: 端口名称
+__meta_kubernetes_service_port_protocol: 端口协议
+__meta_kubernetes_service_type: service类型
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>pod 将每个pod中每个container的每个声明的端口做为一个target,__address__为podIP加上相应的端口,如果container没有声明端口,那么container被当做一个port-free target,__address__中只有podIP</p>
+<div class="highlight"><pre><span></span><code>__meta_kubernetes_namespace: pod所在的ns
+__meta_kubernetes_pod_name: pod名称
+__meta_kubernetes_pod_ip: pod IP
+__meta_kubernetes_pod_label_&lt;labelname&gt;: 所有pod label
+__meta_kubernetes_pod_labelpresent_&lt;labelname&gt;: 所有pod label,值为true
+__meta_kubernetes_pod_annotation_&lt;annotationname&gt;: 所有pod annotation
+__meta_kubernetes_pod_annotationpresent_&lt;annotationname&gt;: 所有pod annotation,值为true
+__meta_kubernetes_pod_container_init: 如果是InitContainer值为true
+__meta_kubernetes_pod_container_name: container名称
+__meta_kubernetes_pod_container_port_name: 端口名称
+__meta_kubernetes_pod_container_port_number: 端口号
+__meta_kubernetes_pod_container_port_protocol: 端口协议
+__meta_kubernetes_pod_ready: Set to true or false for the pod&#39;s ready state.
+__meta_kubernetes_pod_phase: Set to Pending, Running, Succeeded, Failed or Unknown in the lifecycle.
+__meta_kubernetes_pod_node_name: 所在的node
+__meta_kubernetes_pod_host_ip: 所在node的ip
+__meta_kubernetes_pod_uid: The UID of the pod object.
+__meta_kubernetes_pod_controller_kind: Object kind of the pod controller.
+__meta_kubernetes_pod_controller_name: Name of the pod controller.
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>endpoint 将endpoint中每个地址对应的每个端口做为一个target(target数=地址数x端口数),同时对ep背后的pod做pod发现(排除ep中的端口),__address__为ep地址:ep端口</p>
+<div class="highlight"><pre><span></span><code>__meta_kubernetes_namespace: ep所在ns
+__meta_kubernetes_endpoints_name: ep名称
+# 对于直接由ep发现的target:
+    __meta_kubernetes_endpoint_hostname: Hostname of the endpoint.
+    __meta_kubernetes_endpoint_node_name: Name of the node hosting the endpoint.
+    __meta_kubernetes_endpoint_ready: Set to true or false for the endpoint&#39;s ready state.
+    __meta_kubernetes_endpoint_port_name: Name of the endpoint port.
+    __meta_kubernetes_endpoint_port_protocol: Protocol of the endpoint port.
+    __meta_kubernetes_endpoint_address_target_kind: Kind of the endpoint address target.
+    __meta_kubernetes_endpoint_address_target_name: Name of the endpoint address target.
+# 如果ep属于一个service,那么会附上service发现的meta label
+# 如果ep背后是一个pod,那么会附上pod发现的meta label
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>ingress 将ingress中每个path做为一个target,__address__为ingress中的host</p>
+<div class="highlight"><pre><span></span><code>__meta_kubernetes_namespace: The namespace of the ingress object.
+__meta_kubernetes_ingress_name: The name of the ingress object.
+__meta_kubernetes_ingress_label_&lt;labelname&gt;: Each label from the ingress object.
+__meta_kubernetes_ingress_labelpresent_&lt;labelname&gt;: true for each label from the ingress object.
+__meta_kubernetes_ingress_annotation_&lt;annotationname&gt;: Each annotation from the ingress object.
+__meta_kubernetes_ingress_annotationpresent_&lt;annotationname&gt;: true for each annotation from the ingress object.
+__meta_kubernetes_ingress_scheme: Protocol scheme of ingress, https if TLS config is set. Defaults to http.
+__meta_kubernetes_ingress_path: Path from ingress spec. Defaults to /.
+</code></pre></div>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># The API server addresses. If left empty, Prometheus is assumed to run inside</span>
+<span class="c1"># of the cluster and will discover API servers automatically and use the pod&#39;s</span>
+<span class="c1"># CA certificate and bearer token file at /var/run/secrets/kubernetes.io/serviceaccount/.</span>
+<span class="p p-Indicator">[</span> <span class="nv">api_server</span><span class="p p-Indicator">:</span> <span class="nv">&lt;host&gt;</span> <span class="p p-Indicator">]</span>
+
+<span class="c1"># The Kubernetes role of entities that should be discovered.</span>
+<span class="c1"># One of endpoints, service, pod, node, or ingress.</span>
+<span class="nt">role</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;string&gt;</span>
+
+<span class="c1"># Optional namespace discovery. If omitted, all namespaces are used.</span>
+<span class="nt">namespaces</span><span class="p">:</span>
+  <span class="nt">names</span><span class="p">:</span>
+    <span class="p p-Indicator">[</span> <span class="nv">- &lt;string&gt;</span> <span class="p p-Indicator">]</span>
+</code></pre></div>
+<h3 id="targetrelabel_configs">(target)relabel_configs<a class="headerlink" href="#targetrelabel_configs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>relabel主要目的是定义那些target是需要被scrape的,其它的则被忽略</li>
+<li>另一个主要目的是确定这些需要被scrape的target应该具有那些label</li>
+<li>在scrape之后,这些label会自动传播到target中包含的所有ts上的</li>
+<li>所以这里的操作和原始label是没有一毛钱关系的</li>
+<li>一个relabel配置中,可以有多个action,它们按顺序执行</li>
+<li>source_labels 在action中定义要操作的源标签列表</li>
+<li>target_label 在action中定义要操作的目标标签</li>
+<li>regex 正则表达式,默认为(.*),表示全部匹配并全部捕获.可使用多个表达多匹配对应的多个source_labels,以separator分隔</li>
+<li>separator 定义regex中多个表达式的分隔符,默认为;</li>
+<li>replacement 定义如何引用regex的捕获组,默认为$1,即直接引用regex中第一个捕获组,多个regex的捕获组序号向后累加,比如有两个regex各有两个捕获组,那么可以使用$1 $2 $3 $4来引用</li>
+<li>modulus hashmod系数</li>
+<li>action 默认为replace<ul>
+<li>replace 使用regex匹配source_labels的值,将匹配到的replacement写入target_label</li>
+<li>keep 丢弃regex不能匹配source_labels值的target</li>
+<li>drop 丢弃regex匹配source_labels值的target</li>
+<li>hashmod 根据modulus系数计算source_labels的hash值,写入target_label</li>
+<li>labelmap 使用regex匹配所有的label name,匹配到的label的值被复制到以replacement命名的label中</li>
+<li>labeldrop 使用regex匹配所有的label name,为target丢弃所有匹配到的label</li>
+<li>labelkeep 使用regex匹配所有的label name,为target丢弃所有不能匹配的label</li>
+</ul>
+</li>
+</ul>
+<h3 id="metric_relabel_configs">metric_relabel_configs<a class="headerlink" href="#metric_relabel_configs" title="Permanent link">&para;</a></h3>
+<ul>
+<li>系统在在scrape之后,入库之前,可以来一波metric relabel操作</li>
+<li>这里匹配和操作的都是待入库的ts,比如丢掉某些ts,或者去掉某些标签等.</li>
+<li>用法relabel一样</li>
+</ul>
+<h2 id="arch">arch<a class="headerlink" href="#arch" title="Permanent link">&para;</a></h2>
+<h2 id="promql">promQL<a class="headerlink" href="#promql" title="Permanent link">&para;</a></h2>
+<ul>
+<li>数据数型<ul>
+<li>瞬时向量 Instant vector 一组相同时间戳的ts的sample 可以用于图形化<ul>
+<li>比如班级所有学生(metrics)在一次考试中(timestamp)的成绩(sample)</li>
+</ul>
+</li>
+<li>区间向量 Range vector 一组ts,包含它们在相同的特定时间段内的所有sample 不能用于图形化<ul>
+<li>比如班级所有学生(metrics)在一个学期内(timestamp范围)的考试成绩(sample)</li>
+</ul>
+</li>
+<li>标量 一个浮点数值</li>
+<li>字符串 一个字符串,目前没有用</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>ts selector<ul>
+<li>瞬时向量selector,查询结果为瞬时向量的表达式</li>
+<li>区间向量selector,查询结果为区间向量的表达式<ul>
+<li>就是瞬时向量selector后面跟上时间范围 exp [5m] 可使用的单位为s m h d w y</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>表达式中的字符转义<ul>
+<li>在单引号和双引号内,使用反斜杠\作为转定字符</li>
+<li>在反引号``内,一切保持原样,不存在转义</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>条件查询逻辑符号<ul>
+<li>= 查询标签值与条件完全相等的ts,metric1{label1='value1'}</li>
+<li>!= 取反</li>
+<li>=~ 使用regex来匹配标签值,metric1{label1=~'value[0-9]{1,3}'}<blockquote>
+<p>不能将会匹配空值的regex做为唯一条件来查询</p>
+</blockquote>
+</li>
+<li>!~ 取反</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>offset 偏移时间<ul>
+<li>使用ts selector查询的结果默认是基于当前时间的</li>
+<li>在ts selector后跟上offset 5m 即可改变时间基准</li>
+<li>offset必须紧跟在ts selector后面,不能放在函数后</li>
+<li>可使用的单位为s m h d w y</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>关于查询结果的时间戳<ul>
+<li>原始数据中不同ts的时间戳并不总是对齐的</li>
+<li>查询和聚合时使用的是统一的基准时间</li>
+<li>系统会取基准时间前最新的值来做为结果</li>
+<li>所以查询结果与原始数据几乎总是有偏差的</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>消逝的电波???
+  先翻页吧,实在看不下去 !!reveiw<blockquote>
+<p><a href="https://prometheus.io/docs/prometheus/latest/querying/basics/#gotchas">https://prometheus.io/docs/prometheus/latest/querying/basics/#gotchas</a></p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>数学运算<ul>
+<li><code>+ - * / % ^</code> 加减乘除 取模 求余</li>
+<li>标量与瞬时向量运算相当于将运算应用到每个ts的值<ul>
+<li>node_memory_free_bytes_total / (1024 * 1024)</li>
+</ul>
+</li>
+<li>瞬时向量间的运算是以左侧每条ts的标签搜索右侧与它完全一至的ts,不匹配的数据被丢弃,结果不包含metric name<ul>
+<li>相当于两家公司合并,左公司有ABC部门,右公司有BCD部门,那么BC部门员工合并,AD部门员工layoff<blockquote>
+<p>node_disk_bytes_written + node_disk_bytes_read
+{device="sdb",instance="localhost:9100",job="node_exporter"}
+{device="sdc",instance="localhost:9100",job="node_exporter"}</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>布尔运算<ul>
+<li><code>== != &gt; &lt; &gt;= &lt;=</code> 过滤器</li>
+<li>标量与瞬时向量运算,将每个ts的值与标量进行运算,丢掉false的ts,然后输出结果<blockquote>
+<p>(node_memory_MemTotal_bytes /1024 /1024) &gt;2048</p>
+</blockquote>
+</li>
+<li>瞬时向量间的运算是以左侧每条ts的标签搜索右侧与它完全一至的ts,标签不匹配和运算结果false的数据被丢弃<ul>
+<li>首先像数学运算一样丢弃标签不匹配的ts</li>
+<li>然后进行布尔运算,保留为true的ts做为输出</li>
+<li>使用布尔修饰符不对ts进行过滤,将布尔运算结果作为ts的值输出<blockquote>
+<p>http_requests_total &gt; bool 1000</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>逻辑集合运算<ul>
+<li>and or unless 匹配的是两个瞬时向量的标签</li>
+<li>and 相当于过滤器,保留所有左侧中与右侧匹配的ts做为结果输出</li>
+<li>or 相当于匹配去重,保留所有左侧ts,及右侧中不与左侧匹配的ts</li>
+<li>unless 相当于and取反,保留左侧中不与右侧匹配的ts</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>操作符优先级<ol>
+<li>^</li>
+<li>*, /, %</li>
+<li>+, -</li>
+<li>==, !=, &lt;=, &lt;, &gt;=, &gt;</li>
+<li>and, unless</li>
+<li>or</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li>
+<p>匹配模式</p>
+<ul>
+<li>一对一 是指在匹配中,有且只有一次匹配的ts</li>
+<li>on 使用on(label list)来限定用来匹配的labels,其它label被忽略</li>
+<li>ignoring 使用ignoring(label list)来从匹配条件中排除某些label</li>
+<li>on 和ignoring放在运算符后面</li>
+<li>一对多/多对一 是指在一侧的ts中,有另一侧有多于一次匹配的ts<ul>
+<li>需要使用group_left或group_right来指定"多"的一侧</li>
+<li>group只用在数学运算和布尔运算中</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">#</span><span class="err">样本</span>
+<span class="n">method_code</span><span class="p">:</span><span class="n">http_errors</span><span class="p">:</span><span class="n">rate5m</span><span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;get&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="ss">&quot;500&quot;</span><span class="err">}</span>  <span class="mi">24</span>
+<span class="n">method_code</span><span class="p">:</span><span class="n">http_errors</span><span class="p">:</span><span class="n">rate5m</span><span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;get&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="ss">&quot;404&quot;</span><span class="err">}</span>  <span class="mi">30</span>
+<span class="n">method_code</span><span class="p">:</span><span class="n">http_errors</span><span class="p">:</span><span class="n">rate5m</span><span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;put&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="ss">&quot;501&quot;</span><span class="err">}</span>  <span class="mi">3</span>
+<span class="n">method_code</span><span class="p">:</span><span class="n">http_errors</span><span class="p">:</span><span class="n">rate5m</span><span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;post&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="ss">&quot;500&quot;</span><span class="err">}</span> <span class="mi">6</span>
+<span class="n">method_code</span><span class="p">:</span><span class="n">http_errors</span><span class="p">:</span><span class="n">rate5m</span><span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;post&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="ss">&quot;404&quot;</span><span class="err">}</span> <span class="mi">21</span>
+<span class="k">method</span><span class="p">:</span><span class="n">http_requests</span><span class="p">:</span><span class="n">rate5m</span><span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;get&quot;</span><span class="err">}</span>  <span class="mi">600</span>
+<span class="k">method</span><span class="p">:</span><span class="n">http_requests</span><span class="p">:</span><span class="n">rate5m</span><span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;del&quot;</span><span class="err">}</span>  <span class="mi">34</span>
+<span class="k">method</span><span class="p">:</span><span class="n">http_requests</span><span class="p">:</span><span class="n">rate5m</span><span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;post&quot;</span><span class="err">}</span> <span class="mi">120</span>
+
+<span class="o">#</span><span class="err">一对一查询</span>
+<span class="n">method_code</span><span class="p">:</span><span class="n">http_errors</span><span class="p">:</span><span class="n">rate5m</span><span class="err">{</span><span class="n">code</span><span class="o">=</span><span class="ss">&quot;500&quot;</span><span class="err">}</span> <span class="o">/</span> <span class="n">ignoring</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="k">method</span><span class="p">:</span><span class="n">http_requests</span><span class="p">:</span><span class="n">rate5m</span>
+<span class="o">#</span><span class="err">一对一查询结果</span>
+<span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;get&quot;</span><span class="err">}</span>  <span class="mi">0</span><span class="p">.</span><span class="mi">04</span>            <span class="o">//</span>  <span class="mi">24</span> <span class="o">/</span> <span class="mi">600</span>
+<span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;post&quot;</span><span class="err">}</span> <span class="mi">0</span><span class="p">.</span><span class="mi">05</span>            <span class="o">//</span>   <span class="mi">6</span> <span class="o">/</span> <span class="mi">120</span>
+
+<span class="o">#</span><span class="err">多对一查询</span>
+<span class="n">method_code</span><span class="p">:</span><span class="n">http_errors</span><span class="p">:</span><span class="n">rate5m</span> <span class="o">/</span> <span class="n">ignoring</span><span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="n">group_left</span> <span class="k">method</span><span class="p">:</span><span class="n">http_requests</span><span class="p">:</span><span class="n">rate5m</span>
+<span class="o">#</span><span class="err">多对一查询结果</span>
+<span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;get&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="ss">&quot;500&quot;</span><span class="err">}</span>  <span class="mi">0</span><span class="p">.</span><span class="mi">04</span>            <span class="o">//</span>  <span class="mi">24</span> <span class="o">/</span> <span class="mi">600</span>
+<span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;get&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="ss">&quot;404&quot;</span><span class="err">}</span>  <span class="mi">0</span><span class="p">.</span><span class="mi">05</span>            <span class="o">//</span>  <span class="mi">30</span> <span class="o">/</span> <span class="mi">600</span>
+<span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;post&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="ss">&quot;500&quot;</span><span class="err">}</span> <span class="mi">0</span><span class="p">.</span><span class="mi">05</span>            <span class="o">//</span>   <span class="mi">6</span> <span class="o">/</span> <span class="mi">120</span>
+<span class="err">{</span><span class="k">method</span><span class="o">=</span><span class="ss">&quot;post&quot;</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="ss">&quot;404&quot;</span><span class="err">}</span> <span class="mi">0</span><span class="p">.</span><span class="mi">175</span>           <span class="o">//</span>  <span class="mi">21</span> <span class="o">/</span> <span class="mi">120</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>
+<p>聚合操作符</p>
+<ul>
+<li>sum 求和</li>
+<li>min 选择最小值</li>
+<li>max 选择最大值</li>
+<li>avg 计算平均值</li>
+<li>group 将所有返回值置1,需要配合by,without使用,一般用于分组计数</li>
+<li>stddev 计算标准差 就是平均值与样本值的最大距离 比如170±10cm</li>
+<li>stdvar 计算方差 就是标准差的2次方</li>
+<li>count 计数</li>
+<li>count_values</li>
+<li>bottomk 最小值排行</li>
+<li>topk 最大值排行</li>
+<li>quantile 分位数计算</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">#</span><span class="err">忽略所有标签将所有</span><span class="n">ts求和</span><span class="p">,</span><span class="err">结果只有一个没有标签的</span><span class="n">ts</span>
+<span class="k">sum</span> <span class="p">(</span><span class="n">node_memory_MemTotal_bytes</span><span class="p">)</span>
+<span class="o">#</span><span class="err">按条件分组求和</span><span class="p">,</span><span class="err">条件标签有多少种不同的值</span><span class="p">,</span><span class="err">结果就有多少个</span><span class="n">ts</span><span class="p">,</span><span class="err">结果的标签只有条件标签</span>
+<span class="o">#</span><span class="err">相当于忽略其它所有标签</span>
+<span class="k">sum</span> <span class="k">by</span> <span class="p">(</span><span class="n">job</span><span class="p">)</span> <span class="p">(</span><span class="n">node_memory_MemTotal_bytes</span><span class="p">)</span>
+<span class="o">#</span><span class="err">可以使用多个条件来分组</span><span class="p">,</span><span class="n">ts数</span><span class="o">&lt;=</span><span class="err">条件数的</span><span class="mi">2</span><span class="err">次方</span>
+<span class="o">#</span><span class="err">根据不同</span><span class="n">node上的不同service来求和</span>
+<span class="k">sum</span> <span class="k">by</span> <span class="p">(</span><span class="n">service</span><span class="p">,</span><span class="n">kubernetes_node</span><span class="p">)</span> <span class="p">(</span><span class="n">traefik_service_requests_total</span><span class="p">)</span>
+<span class="o">#</span><span class="err">忽略条件标签求和</span><span class="p">,</span><span class="err">就是先从原数据去掉所有条件标签然后求和</span><span class="p">,</span><span class="err">结果包括除条件标签外的所有原始标签</span>
+<span class="o">#</span><span class="err">如果原数据有标签</span><span class="n">abcd</span><span class="p">,</span><span class="err">那么</span><span class="k">sum</span> <span class="k">by</span> <span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="err">和</span><span class="k">sum</span> <span class="k">without</span> <span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="k">c</span><span class="p">,</span><span class="n">d</span><span class="p">)</span><span class="err">的效果是一样的</span>
+<span class="k">sum</span> <span class="k">without</span> <span class="p">(</span><span class="n">code</span><span class="p">)</span> <span class="p">(</span><span class="n">traefik_service_requests_total</span><span class="p">)</span>
+<span class="o">#</span><span class="err">一样也可以多条件</span>
+<span class="k">sum</span> <span class="k">without</span> <span class="p">(</span><span class="n">code</span><span class="p">,</span><span class="k">method</span><span class="p">)</span> <span class="p">(</span><span class="n">traefik_service_requests_total</span><span class="p">)</span>
+
+<span class="o">#</span><span class="err">取</span><span class="n">ts中最大</span><span class="o">/</span><span class="err">最小的值</span><span class="p">,</span><span class="err">结果只有一个值</span><span class="p">,</span><span class="err">没有标签</span>
+<span class="o">#</span><span class="err">先按不同</span><span class="n">service求和</span><span class="p">,</span><span class="err">然后取最大</span><span class="o">/</span><span class="err">最小值</span>
+<span class="k">min</span> <span class="p">(</span><span class="k">sum</span> <span class="k">by</span> <span class="p">(</span><span class="n">service</span><span class="p">)</span> <span class="p">(</span><span class="n">traefik_service_requests_total</span><span class="p">))</span>
+<span class="k">min</span> <span class="p">(</span><span class="k">sum</span> <span class="k">by</span> <span class="p">(</span><span class="n">service</span><span class="p">)</span> <span class="p">(</span><span class="n">traefik_service_requests_total</span><span class="p">))</span>
+
+<span class="o">#</span><span class="err">取</span><span class="n">ts的平均值</span><span class="p">,</span><span class="err">结果只有一个值</span><span class="p">,</span><span class="err">没有标签</span>
+<span class="o">#</span><span class="err">先按不同</span><span class="n">service求和</span><span class="p">,</span><span class="err">然后取平均值</span>
+<span class="k">avg</span> <span class="p">(</span><span class="k">sum</span> <span class="k">by</span> <span class="p">(</span><span class="n">service</span><span class="p">)(</span><span class="n">traefik_service_requests_total</span><span class="p">))</span>
+
+<span class="o">#</span><span class="err">取</span><span class="n">ts值的标准差</span><span class="o">/</span><span class="err">方差</span><span class="p">,</span><span class="err">只有一个结果</span><span class="p">,</span><span class="err">没有标签</span>
+<span class="o">#</span><span class="err">先按</span><span class="n">entrypoint求和</span><span class="p">,</span><span class="err">然后取标准差</span><span class="o">/</span><span class="err">方差</span>
+<span class="n">stddev</span> <span class="p">(</span><span class="k">sum</span> <span class="k">by</span> <span class="p">(</span><span class="n">entrypoint</span><span class="p">)(</span><span class="n">traefik_entrypoint_open_connections</span><span class="p">))</span>
+<span class="n">stdvar</span> <span class="p">(</span><span class="k">sum</span> <span class="k">by</span> <span class="p">(</span><span class="n">entrypoint</span><span class="p">)(</span><span class="n">traefik_entrypoint_open_connections</span><span class="p">))</span>
+
+<span class="o">#</span><span class="err">计算</span><span class="n">ts数量</span><span class="p">,</span><span class="err">只有一个结果</span><span class="p">,</span><span class="err">没有标签</span>
+<span class="k">count</span> <span class="p">(</span><span class="n">kube_deployment_created</span><span class="p">)</span>
+
+<span class="o">#</span><span class="err">根据</span><span class="n">ts值</span><span class="p">,</span><span class="err">统计各个不同值的数量</span><span class="p">,</span><span class="err">使用一个自定义的字值串参数做为标签名</span>
+<span class="n">count_values</span> <span class="p">(</span><span class="ss">&quot;cores&quot;</span><span class="p">,</span><span class="n">kube_node_status_capacity_cpu_cores</span><span class="p">)</span>
+<span class="o">#</span><span class="err">从结果可以看出一共有</span><span class="mi">6</span><span class="err">个</span><span class="n">node</span><span class="p">,</span><span class="mi">2</span><span class="err">个</span><span class="mi">4</span><span class="err">核的</span><span class="p">,</span><span class="mi">4</span><span class="err">个</span><span class="mi">8</span><span class="err">核的</span>
+<span class="n">cores</span>    <span class="n">value</span>
+<span class="mi">4</span>           <span class="mi">2</span>
+<span class="mi">8</span>           <span class="mi">4</span>
+
+<span class="o">#</span><span class="err">根据</span><span class="n">ts的值</span><span class="p">,</span><span class="err">返回最大</span><span class="o">/</span><span class="err">最小排名</span><span class="p">,</span><span class="err">参数为自定义的整型排名数</span>
+<span class="o">#</span><span class="err">结果为按最大</span><span class="o">/</span><span class="err">最小排列的</span><span class="mi">3</span><span class="err">个</span><span class="n">ts</span><span class="p">,</span><span class="err">包含全部原标签</span>
+<span class="n">topk</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">etcd_object_counts</span><span class="p">)</span>
+<span class="n">bottomk</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="n">etcd_object_counts</span><span class="p">)</span>
+
+<span class="o">#</span><span class="err">计算</span><span class="n">ts值的分位数</span><span class="p">,</span><span class="err">参数为</span><span class="mi">0</span><span class="o">-</span><span class="mi">1</span><span class="err">之间的浮点数</span><span class="p">,</span><span class="err">结果只有一个值</span><span class="p">,</span><span class="err">没有标签</span>
+<span class="n">quantile</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">5</span><span class="p">,</span><span class="n">etcd_object_counts</span><span class="p">)</span>
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>函数<ul>
+<li>abc(instant) 将ts的值转换为绝对值</li>
+<li>absent(instant)</li>
+<li>absent_over_time(range)</li>
+<li>ceil(instant) 将ts的值向上取整</li>
+<li>floor(instant) 将ts的值向下取整</li>
+<li>round(instant,scaler) 四舍五入取整,参数默认为1,代表取整到该参数的倍数,可以是小数</li>
+<li>changes(range) 返回一个瞬时向量,标签保留,值为区间向量中值的变化次数</li>
+<li>clamp_max(instant,scalar) 将大于scalar的值替换为该值</li>
+<li>clamp_min(instant,scalar) 将小于scalar的值替换为该值</li>
+<li>minute(instant(time)) 返回0-59的分钟数</li>
+<li>hour(instant(time)) 返回0-23的小时数</li>
+<li>day_of_month(instant(time)) 返回1-31的日期</li>
+<li>day_of_week(instant(time)) 返回周几,值为0-6,0是周日</li>
+<li>days_in_month(instant(time)) 返回这个月有几天 28-31</li>
+<li>month(instant(time)) 返回1-12的月份数</li>
+<li>year(instant(time)) 返回年份数</li>
+<li>delta(range) 返回一个瞬时向量,取值为区间向量中第一个和最后一个值的差,用于测量型metric<blockquote>
+<p>delta(cpu_temp_celsius{host="zeus"}[2h])返回当前CPU温度与两小时前的差别</p>
+</blockquote>
+</li>
+<li>idelta(range) 与delta的区别是计算的是区间内最后两个值的差</li>
+<li>rate(range) 计算计数类型区间向量的平均每秒增长量,区间增长量/秒数</li>
+<li>irate(range) 与rate不同的是irate根据区间内最后两个值计算增长量</li>
+<li>increase(range) 与delta类似,计算的是计数型metric在区间内的增长量<blockquote>
+<p>increase(a[1m])/60 与 rate(a[1m]) 是一样的</p>
+</blockquote>
+</li>
+<li>deriv(range) 计算区间向量的导数</li>
+<li>exp(instant) 计算瞬时向量的自然指数</li>
+<li>histogram_quantile(scalar,instant) 计算bucket分位数</li>
+<li>holt_winters(range,scalar,scalar) 计算区间向量值的平滑度</li>
+<li>label_join(instant,dst_lable,separator,src_label+) 将多个目标标签的值组合成一个新标签<blockquote>
+<p>label_join(url{host='1.1.1.1',port='80'},joined,":","host","port")
+结果是url{host='1.1.1.1',port='80',joined='1.1.1.1:80'}</p>
+</blockquote>
+</li>
+<li>label_replace(instant,dst_label,replacement,src_label,regex)<blockquote>
+<p>用regex匹配目标标签的值,将捕捉组内容写入新建的目标标签中,如果regex不匹配则原样返回
+label_replace(node{instance="1.1.1.1:80"},port,"$1","instance",".<em>:(.</em>)")
+结果是node{instance="1.1.1.1:80",port="80"}</p>
+</blockquote>
+</li>
+<li>ln(instant) 计算所有值的自然对数</li>
+<li>log2(instant) 计算所有值的二进制自然对数</li>
+<li>log10(instant) 计算所有值的十进制自然对数</li>
+<li>predict_linear(range,scalar) 基于简单线性回归方式,预测指定秒数后的值<blockquote>
+<p>predict_linear(node_filesystem_free_bytes[12h],3600*24)</p>
+</blockquote>
+</li>
+<li>resets(range) 返回计数器类型metric在区间范围内的计算器重围次数</li>
+<li>scalar(instant) 将单个ts的瞬时向量转换为标量,ts数不为1时返回none</li>
+<li>sort(instant) 升序排序</li>
+<li>sort_desc(instant) 降序排序</li>
+<li>sqrt(instant) 计算平方根</li>
+<li>time() ???</li>
+<li>timestamp(instant) 返回原始时间戳</li>
+<li>vector(scalar) 将标量转换为向量</li>
+<li><code>aggregation</code>_over_time(range) 将区间内的值进行聚合,返回一个瞬时向量<ul>
+<li>avg_over_time(range) 取平均值</li>
+<li>min_over_time(range) 取最小值</li>
+<li>max_over_time(range) 取最大值</li>
+<li>sum_over_time(range) 求和</li>
+<li>count_over_time(range) 计数</li>
+<li>quantile_over_time(range,scalar) 取分位数</li>
+<li>stddev_over_time(range) 取标准差</li>
+<li>stdvar_over_time(range) 取方差</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="o">#</span><span class="err">查询所有名为</span><span class="n">http_requests_total的ts</span><span class="p">,</span><span class="err">也就是</span><span class="n">__name__标签值为http_requests_total的ts</span>
+<span class="n">http_requests_total</span>
+
+<span class="o">#</span><span class="err">查询所有名为</span><span class="n">http_requests_total</span><span class="p">,</span><span class="n">job为apiserver</span><span class="p">,</span><span class="n">handler为</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">comments的ts</span>
+<span class="n">http_requests_total</span><span class="err">{</span><span class="n">job</span><span class="o">=</span><span class="ss">&quot;apiserver&quot;</span><span class="p">,</span> <span class="k">handler</span><span class="o">=</span><span class="ss">&quot;/api/comments&quot;</span><span class="err">}</span>
+
+<span class="o">#</span><span class="err">查询出所有符合条件的</span><span class="n">ts在</span><span class="p">[</span><span class="mi">5</span><span class="n">m</span><span class="p">]</span><span class="err">时间范围内所有的</span><span class="n">sample</span>
+<span class="o">#</span><span class="err">属于</span><span class="n">range</span> <span class="n">vector</span><span class="p">,</span><span class="err">不能被直接图形化</span>
+<span class="n">http_requests_total</span><span class="err">{</span><span class="n">job</span><span class="o">=</span><span class="ss">&quot;apiserver&quot;</span><span class="p">,</span> <span class="k">handler</span><span class="o">=</span><span class="ss">&quot;/api/comments&quot;</span><span class="err">}</span><span class="p">[</span><span class="mi">5</span><span class="n">m</span><span class="p">]</span>
+
+<span class="o">#</span><span class="err">查询中可以使用正则表达式</span><span class="p">,</span><span class="err">查询值以</span><span class="n">server结尾的job</span>
+<span class="o">#</span><span class="err">方法是</span><span class="k">key</span><span class="o">=~</span><span class="ss">&quot;exp&quot;</span>
+<span class="n">http_requests_total</span><span class="err">{</span><span class="n">job</span><span class="o">=~</span><span class="ss">&quot;.*server&quot;</span><span class="err">}</span>
+
+<span class="o">#</span><span class="err">查询</span><span class="n">status的值不等于4xx</span><span class="p">,</span><span class="err">这里使用了</span><span class="o">!</span><span class="err">取反</span>
+<span class="n">http_requests_total</span><span class="err">{</span><span class="n">status</span><span class="o">!~</span><span class="ss">&quot;4..&quot;</span><span class="err">}</span>
+
+<span class="o">#</span><span class="err">子表达式</span>
+<span class="o">#</span><span class="err">以</span><span class="mi">1</span><span class="err">分钟为分辨率</span><span class="p">,</span><span class="err">返回</span><span class="mi">30</span><span class="err">分钟内的</span><span class="p">(</span><span class="n">http_requests_total在5分钟内的速率</span><span class="p">)</span>
+<span class="n">rate</span><span class="p">(</span><span class="n">http_requests_total</span><span class="p">[</span><span class="mi">5</span><span class="n">m</span><span class="p">])[</span><span class="mi">30</span><span class="n">m</span><span class="p">:</span><span class="mi">1</span><span class="n">m</span><span class="p">]</span>
+
+<span class="o">#</span><span class="err">暂时不明白</span>
+<span class="n">max_over_time</span><span class="p">(</span><span class="n">deriv</span><span class="p">(</span><span class="n">rate</span><span class="p">(</span><span class="n">distance_covered_total</span><span class="p">[</span><span class="mi">5</span><span class="n">s</span><span class="p">])[</span><span class="mi">30</span><span class="n">s</span><span class="p">:</span><span class="mi">5</span><span class="n">s</span><span class="p">])[</span><span class="mi">10</span><span class="n">m</span><span class="p">:])</span>
+
+<span class="o">#</span><span class="n">rate函数</span><span class="p">,</span><span class="err">计算每秒速率</span><span class="p">,</span><span class="err">目标需要是</span><span class="n">range</span> <span class="n">vector</span>
+<span class="n">rate</span><span class="p">(</span><span class="n">http_requests_total</span><span class="p">[</span><span class="mi">5</span><span class="n">m</span><span class="p">])</span>
+
+<span class="o">#</span><span class="n">sum函数</span><span class="p">,</span><span class="err">以指定的标签汇总</span>
+<span class="k">sum</span> <span class="k">by</span> <span class="p">(</span><span class="n">kubernetes_node</span><span class="p">)</span> <span class="p">(</span>
+  <span class="n">traefik_entrypoint_requests_total</span>
+<span class="p">)</span>
+<span class="err">返回</span><span class="p">:</span>
+<span class="err">{</span><span class="n">kubernetes_node</span><span class="o">=</span><span class="ss">&quot;master02&quot;</span><span class="err">}</span>  <span class="mi">1197</span>
+<span class="err">{</span><span class="n">kubernetes_node</span><span class="o">=</span><span class="ss">&quot;master03&quot;</span><span class="err">}</span>  <span class="mi">1253</span>
+
+<span class="o">#</span><span class="n">CPU使用率</span>
+<span class="mi">100</span> <span class="o">-</span> <span class="p">(</span><span class="k">avg</span><span class="p">(</span><span class="n">irate</span><span class="p">(</span><span class="n">node_cpu_seconds_total</span><span class="err">{</span><span class="k">mode</span><span class="o">=</span><span class="ss">&quot;idle&quot;</span><span class="err">}</span><span class="p">[</span><span class="mi">5</span><span class="n">m</span><span class="p">]))</span> <span class="k">by</span> <span class="p">(</span><span class="n">instance</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+<span class="o">#</span><span class="err">内存使用率</span>
+<span class="p">(</span><span class="n">node_memory_MemFree_bytes</span><span class="o">+</span><span class="n">node_memory_Cached_bytes</span><span class="o">+</span><span class="n">node_memory_Buffers_bytes</span><span class="p">)</span> <span class="o">/</span> <span class="n">node_memory_MemTotal_bytes</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="o">#</span><span class="err">空闲内存剩余率</span>
+<span class="mi">100</span> <span class="o">-</span> <span class="p">(</span><span class="n">node_memory_MemFree_bytes</span><span class="o">+</span><span class="n">node_memory_Cached_bytes</span><span class="o">+</span><span class="n">node_memory_Buffers_bytes</span><span class="p">)</span> <span class="o">/</span> <span class="n">node_memory_MemTotal_bytes</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="o">#</span><span class="err">磁盘使用率</span>
+<span class="mi">100</span> <span class="o">-</span> <span class="p">(</span><span class="n">node_filesystem_free_bytes</span><span class="err">{</span><span class="n">mountpoint</span><span class="o">=</span><span class="ss">&quot;/&quot;</span><span class="p">,</span><span class="n">fstype</span><span class="o">=~</span><span class="ss">&quot;ext4|xfs&quot;</span><span class="err">}</span> <span class="o">/</span> <span class="n">node_filesystem_size_bytes</span><span class="err">{</span><span class="n">mountpoint</span><span class="o">=</span><span class="ss">&quot;/&quot;</span><span class="p">,</span><span class="n">fstype</span><span class="o">=~</span><span class="ss">&quot;ext4|xfs&quot;</span><span class="err">}</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="k">sum</span><span class="p">(</span><span class="n">traefik_entrypoint_requests_total</span><span class="err">{</span><span class="n">entrypoint</span><span class="o">=</span><span class="ss">&quot;websecure&quot;</span><span class="err">}</span><span class="p">)</span> <span class="k">without</span> <span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="n">kubernetes_node</span><span class="p">)</span>
+<span class="k">sum</span><span class="p">(</span><span class="n">traefik_entrypoint_requests_total</span><span class="err">{</span><span class="n">entrypoint</span><span class="o">=</span><span class="ss">&quot;websecure&quot;</span><span class="err">}</span><span class="p">)</span> <span class="k">by</span> <span class="p">(</span><span class="n">code</span><span class="p">,</span><span class="k">method</span><span class="p">)</span>
+
+<span class="n">rate</span><span class="p">(</span>
+  <span class="n">traefik_entrypoint_requests_total</span><span class="err">{</span><span class="n">entrypoint</span><span class="o">=</span><span class="ss">&quot;websecure&quot;</span><span class="err">}</span>
+  <span class="p">[</span><span class="mi">5</span><span class="n">m</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="k">sum</span><span class="p">(</span>
+  <span class="n">traefik_entrypoint_requests_total</span><span class="err">{</span><span class="n">entrypoint</span><span class="o">=</span><span class="ss">&quot;websecure&quot;</span><span class="err">}</span>
+  <span class="p">)</span>
+  <span class="k">by</span> <span class="p">(</span><span class="n">code</span><span class="p">)</span>
+
+<span class="k">sum</span><span class="p">(</span>
+  <span class="n">rate</span><span class="p">(</span>
+    <span class="n">traefik_entrypoint_requests_total</span><span class="err">{</span><span class="n">entrypoint</span><span class="o">=</span><span class="ss">&quot;websecure&quot;</span><span class="err">}</span>
+    <span class="p">[</span><span class="mi">30</span><span class="n">m</span><span class="p">]</span>
+      <span class="p">)</span>
+  <span class="p">)</span>
+  <span class="k">by</span> <span class="p">(</span><span class="n">code</span><span class="p">,</span><span class="k">method</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="alerting">alerting<a class="headerlink" href="#alerting" title="Permanent link">&para;</a></h2>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" title="Back to top" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+          </a>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="../k8s-cheaty-way/" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              k8s cheaty way
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="../AAAA/admissioncontroller/" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              admission controller
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
+      
+    
+  </body>
+</html>
