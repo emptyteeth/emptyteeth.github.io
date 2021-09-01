@@ -118,16 +118,53 @@
 
 ## post-install
 
-```shell
-setup-interfaces
-setup-ntp
-setup-apkrepos
-setup-timezone
-```
+- /boot
+
+  ```shell
+  # 清空mmcblk0p1只保留txt文件
+  # 移动/boot内文件到mmcblk0p1
+  # 之后将mmcblk0p1挂载为/boot
+  mkdir -p /media/mmcblk0p1
+  mount /dev/mmcblk0p1 /media/mmcblk0p1
+  cp /media/mmcblk0p1/*.txt /boot/
+  rm -rf /media/mmcblk0p1/*
+  rm /boot/boot
+  mv /boot/* /media/mmcblk0p1/
+  echo -e '/dev/mmcblk0p1 /boot vfat defaults 0 0\n' >/etc/fstab
+  reboot
+  ```
+
+- 开局
+
+  ```shell
+  setup-interfaces
+  setup-ntp
+  setup-apkrepos
+  setup-timezone
+  ```
+
+- 疑似headless用不上的模块
+
+  ```ini
+  blacklist videodev
+  blacklist videobuf2_common
+  blacklist videobuf2_v4l2
+  blacklist v4l2_mem2mem
+  blacklist bcm2835_v4l2
+  blacklist bcm2835_isp
+  blacklist bcm2835_codec
+  blacklist videobuf2_vmalloc
+  blacklist videobuf2_dma_contig
+  blacklist videobuf2_memops
+  blacklist rpivid_mem
+  blacklist bcm2835_mmal_vchiq
+  blacklist mc
+  blacklist vc_sm_cma
+  ```
 
 ## backup/restore rootfs
 
 ```shell
-sudo tar --acls --xattrs -cpf root.tar -C /mntpoint .
-sudo tar --acls --xattrs -xpf root.tar -C /mntpoint/
+sudo tar --acls --xattrs --xattrs-include='*' -cpf root.tar -C /mntpoint . #<--there's a dot
+sudo tar --acls --xattrs --xattrs-include='*' -xpf root.tar -C /mntpoint/
 ```
